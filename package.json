@@ -1,6 +1,6 @@
 {
   "name": "modelskitdatabase",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "config": {
     "cli": "npm",
@@ -12,6 +12,7 @@
     "dev": "cross-env-shell 'concurrently -c green,yellow -t \"HH:mm:ss\" -p \"{name} {time} \"$npm_package_config_cli:dev-*\"' ",
     "dev-front": "cross-env-shell \"cd ./frontend && $npm_package_config_cli run dev\"",
     "dev-back": "cross-env-shell \"cd ./backend && $npm_package_config_cli run dev\"",
+    "release": "standard-version --no-verify",
     "postinstall": "cross-env-shell \"husky install && cd ./frontend && $npm_package_config_cli install && cd ../backend && $npm_package_config_cli install\""
   },
   "author": "G. Cregut",
