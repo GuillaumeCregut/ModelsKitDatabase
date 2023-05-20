@@ -68,7 +68,7 @@ Enjoy !
 
 **Note** : when first user is created (by you) you need to run `npm run setadmin` to make this user admin of the site.
 
-Docker Version
+Docker Version (not updated from 1.0)
 -
 
 There is a simple version for deploying on docker. As I'm not an expert with this, you should use the file to make your own version.
