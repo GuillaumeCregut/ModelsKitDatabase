@@ -1,0 +1,12 @@
+node_modules
+.env
+notes.txt
+routes.txt
+logs
+temp.*
+.~lock.*
+uploads
+db_password.txt
+.env_docker
+assets
+temp

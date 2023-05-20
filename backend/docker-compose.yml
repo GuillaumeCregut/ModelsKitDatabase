@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  modelsback:
+    build: .
+    ports: 
+      - "8000:8000"
+    env_file:
+      - ./.env_docker
+    volumes:
+      - ../testbc:/usr/src/app/assets # named volume Sourcehote:dossierDocker not god here
+      - /usr/src/app/node_modules # anonymous volume for node_modules only
+  modelsfront:
+    image: modelsfront
+    ports: 
+      - "8001:8001"
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    volumes: 
+      - "../test/:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_password
+
+    ports:
+      - "3307:3306"
+    secrets:
+      - db_password
+secrets:
+  db_password:
+    file: ./db_password.txt
+
+
+
+
+
