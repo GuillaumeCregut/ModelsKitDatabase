@@ -1,0 +1,15 @@
+.await-loading{
+    position: absolute;
+    top :25%;
+    left :50%;
+    transform: translateY(-50%);
+    transform: translateX(-50%);
+    z-index: 2;
+    background-color: black;
+    .await-gif{
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+}
+

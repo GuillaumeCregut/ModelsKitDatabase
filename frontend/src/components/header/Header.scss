@@ -1,0 +1,33 @@
+.header-page{
+     background: url("../../assets/pictures/fond.png") no-repeat center/cover;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+
+    .header-title{
+        padding-top: 20px;
+        font-family: var(--title-font);
+        color: var(--title-color);
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 30px;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .header-logo{
+        height: 90px;
+    }
+
+    @media screen and (max-width:768px){
+        height : 70px;
+        
+        .header-title{
+            font-size: 20px;
+        }
+
+        .header-logo{
+            height: 60px;
+        }
+    }
+}

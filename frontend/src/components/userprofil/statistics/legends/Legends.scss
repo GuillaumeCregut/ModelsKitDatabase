@@ -1,0 +1,13 @@
+.legend-coontainer {
+    display : flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: space-around;
+
+    .legend-color {
+        width: 20px;
+        height: 1em;
+        display: inline-block;
+        margin-right: 3px;
+    }
+}

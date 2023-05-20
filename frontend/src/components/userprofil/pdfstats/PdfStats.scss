@@ -1,0 +1,29 @@
+.pdf-container {
+    
+    .pdf-title{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .pdf-object-container{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .pdf-object {
+        width: 800px;
+         height: 800px;
+    }
+
+    @media screen and (max-width: 768px) {
+        margin-top: -150px;
+        
+        .pdf-object {
+            width: 450px;
+        }
+    }
+}

@@ -1,0 +1,32 @@
+rsuite pour l'UI
+npm install rsuite
+
+Home page : 
+copies d'écrans des fonctionnalité en dessus de la hero section
+
+
+
+Mettre des drapeaux dans les pays ? des images dans toutes les simples cards ?
+Refactorer les formulaires qui n'ont plus besoin de useState, utiliser useRef à la place
+Revoir les positions des menus de params en responsive. Trop bas.
+Filter les commandes par fournisseur, date, etc...
+Augmenter la taille du panneau d'affiche des modèles
+Mettre les infos de la commande dans le localstorage en cas de besoin
+Mettre les infos complètes sur les favoris (risque de devoir toucher le back et la BDD)
+Au logOut, vider les différents éléments du localStorage qui ne concernent pas le login
+
+Reste à envoyer la commande au backend
+
+Ajouter, depuis la page paramètre, des modèles dans son stock (même si le modèle existe déjà)
+Dans mes kits :
+    -Kits en stock
+    -Kit en commande
+    -Kit en like
+    -Kits en cours
+    -Kits terminés
+Quand le sign up est fait, rediriger vers login
+Voir pour mettre les kits de l'utilisateur en store
+
+V 1.0 Officielle : 18/05/2023
+
+Rajouter une date pour la finition du kit

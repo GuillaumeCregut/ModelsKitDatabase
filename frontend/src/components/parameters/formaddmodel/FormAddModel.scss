@@ -1,0 +1,124 @@
+.form-add-model-container {
+
+  .form-add-model {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .form-add-model-inputs-container {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+  }
+
+  .form-add-model-inputs-container label {
+    margin: 10px;
+  }
+
+  .form-add-model-bottom {
+    width: 60%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .add-model-form-input {
+    margin-left: 5px;
+    line-height: 1.2rem;
+    padding: 2px;
+    font-size: 1.1rem;
+  }
+
+  .drop-zone-file {
+    border: 1px solid black;
+    width: 350px;
+    color: black;
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .file-drop {
+    /* relatively position the container bc the contents are absolute */
+    position: relative;
+    height: 100px;
+    width: 100%;
+  }
+
+  .file-drop>.file-drop-target {
+    /* basic styles */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+
+    /* horizontally and vertically center all content */
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+
+    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+
+    align-items: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+
+    justify-content: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+
+    align-content: center;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+
+    text-align: center;
+  }
+
+  .file-drop>.file-drop-target.file-drop-dragging-over-frame {
+    /* overlay a black mask when dragging over the frame */
+    border: none;
+    background-color: rgba(0, 0, 0, 0.65);
+    box-shadow: none;
+    z-index: 50;
+    opacity: 1;
+
+    /* typography */
+    color: white;
+  }
+
+  .file-drop>.file-drop-target.file-drop-dragging-over-target {
+    /* turn stuff orange when we are dragging over the target */
+    color: #ff6e40;
+    box-shadow: 0 0 13px 3px #ff6e40;
+  }
+
+  .form-add-model-img {
+    width: 150px;
+  }
+
+  .form-add-model-btn{
+    margin: 5px;
+    padding: 7px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .form-add-model {
+      flex-direction: column;
+      width: 90%
+    }
+
+    .form-add-model-inputs-container label {
+      margin: 5px;
+    }
+  }
+}

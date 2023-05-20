@@ -1,0 +1,53 @@
+.update-user-info-container {
+
+    .update-user-info-title {
+        text-align: center;
+    }
+
+    .update-user-info-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .signup-err{
+        width: 80%;
+        margin: 10px auto;
+        padding: 10px;
+        background-color: rgb(243, 103, 103);
+        border: 1px solid black;
+    }
+    
+    .signup-hide {
+        display: none;
+    }
+
+    .signup-invalid {
+        display: inline-block;
+        color: red;
+    }
+
+    .signup-valid {
+        color: green;
+        margin-left: 3px;
+    }
+
+    .signup-instruction {
+        border: 1px solid black;
+        display: inline-block;
+        width: 90%;
+        font-size: 0.8rem;
+        padding: 5px;
+        margin-left: 25px;
+        background-color: lightblue;
+    }
+
+    .signup-err-off{
+        display: none;
+    }
+
+    .update-user-data-btn{
+        width: 170px;
+        margin: 5px;
+        padding: 2px;
+    }
+}

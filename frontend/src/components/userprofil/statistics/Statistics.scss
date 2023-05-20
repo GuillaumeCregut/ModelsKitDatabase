@@ -1,0 +1,20 @@
+.stat-container{
+    .stat-title{
+        text-align: center;
+    }
+
+    .pies-container{
+        display: flex;
+        flex-wrap: wrap;
+        gap : 10px;
+    }
+
+    @media screen and (max-width: 768px) {
+        margin-top : -200px;
+
+        .pies-container{
+            margin: 0 auto;
+            width: 80vw;
+        }
+    }
+}

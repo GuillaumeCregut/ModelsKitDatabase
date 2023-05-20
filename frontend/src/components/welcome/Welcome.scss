@@ -1,0 +1,37 @@
+.welcome{
+    height : 100%;
+    position : absolute;
+    top :-10px;
+    right: 5px;
+
+    .welcome-unlock,.welcome-lock{
+        width: 50px;
+        height: 50px;
+    }
+
+    .welcome-name{
+        text-transform: capitalize;
+        vertical-align: text-top;
+    }
+    
+    .welcome-unlock{
+       color: green;
+    }
+
+    .welcome-lock{
+       color: red;
+    }
+    @media screen and (max-width: 768px) {
+        top :-30px;
+        right: 40px;
+
+        .welcome-name{
+            display: none;
+        }
+
+        .welcome-unlock,.welcome-lock{
+            width: 30px;
+            height: 30px;
+        }
+    }
+}

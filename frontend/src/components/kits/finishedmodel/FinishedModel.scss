@@ -1,0 +1,28 @@
+.finished-models{
+
+    h2{
+        text-align: center;
+    }
+
+    .list-finished-model-container{
+        padding: 5px;
+        width: 200px;
+        border: 1px solid black;
+        max-height: 350px;
+        overflow-y: auto;
+    }
+
+    .list-finished-model{
+        width: 100%;
+    }
+
+    .list-finished-item{
+        cursor: pointer;
+        padding: 5px;
+        margin: 3px 0;
+    }
+
+    .list-finished-item:hover{
+        background-color: blue;
+    }
+}

@@ -1,0 +1,46 @@
+.inner-management-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap : 20px;
+    width: 100%;
+    justify-content: flex-start;
+
+    .drop-container{
+        padding: 5px;
+        margin: 5px;
+        width : 300px;
+        border :1px solid black;
+        overflow-y: scroll;
+        height : 400px;
+    }
+
+    .dropzone{
+        width: 100%;
+        margin: 0 auto;
+        min-height: 50px;
+        padding : 5px;
+        
+    }
+
+    .dropOK{
+        background-color: green;
+    }
+
+    .line{
+        margin: 10px auto;
+        padding: 3px;
+    }
+    
+    .moving{
+        background-color: aqua;
+    }
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+
+        .drop-container{
+            margin: 5px auto;
+            width: 90%;
+        }
+    }
+}

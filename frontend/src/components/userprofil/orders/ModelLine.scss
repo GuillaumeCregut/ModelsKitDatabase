@@ -1,0 +1,33 @@
+.line-model-order {
+    font-size:  1.3rem;
+
+    .line-icon {
+        height: 27px;
+        width: 27px;
+        margin: 0 5px;
+        vertical-align: bottom;
+        cursor: pointer;
+    }
+
+    .remove-qtty {
+        color: red;
+    }
+
+    .add-qtty {
+        color: green;
+    }
+
+    .cell-model-order{
+        padding: 0 5px;
+        text-align: center;
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size:  0.8rem;
+
+        .line-icon {
+            height: 15px;
+            width: 15px;
+        }
+    }
+}

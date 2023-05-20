@@ -1,0 +1,48 @@
+.filter-models {
+    padding: 5px;
+    margin: 10px;
+
+    .filters-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .filter-element-container {
+        width: 45%;
+        display: flex;
+    }
+
+    .model-filter-label {
+        display: flex;
+        margin: 5px;
+        flex-wrap: wrap;
+    }
+
+    .filter-nbame-input{
+        margin-left: 5px;
+    }
+
+    .btn-filter{
+        display: block;
+        padding: 8px;
+        font-size: 1rem;
+        width: 80px;
+        margin: 10px auto;
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 0.8rem;
+
+        .filters-list {
+            flex-direction: column;
+        }
+
+        .filter-element-container{
+            width: 100%;
+        }
+
+        .filter-selector {
+            font-size: 0.6rem;
+        }
+    }
+}

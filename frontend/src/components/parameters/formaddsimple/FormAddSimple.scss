@@ -1,0 +1,25 @@
+.form-add-simple-container {
+    width: 500px;
+    margin: 20px auto;
+    padding: 10px;
+
+    .from-add-simple-input{
+        margin: 10px;
+        padding-left: 5px;
+        max-width: 150px;
+    }
+
+    .form-add-simple-btn{
+        max-width: 120px;
+        margin: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 300px;
+        .form-add-simple {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}

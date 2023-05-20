@@ -1,0 +1,24 @@
+.container-Card{
+    margin : 20px;
+    border: 1px solid black;
+    min-height: 200px;
+    min-width: 200px;
+    box-shadow:  0 4px 8px rgba(0,0,0,0.2);
+    -webkit-box-shadow:  0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+
+    .card-title{
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .btn-container{
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 10px;
+        margin: 10px 0;
+    }
+}

@@ -1,0 +1,28 @@
+.form-update-card-container{
+    position: relative;
+    padding : 5px;
+    
+    .input-name{
+        width: 70%;
+    }
+
+    .form-update-card{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-name{
+        margin: 10px 0;
+    }
+
+    .close-btn{
+        position : absolute;
+        border :0;
+        top : 0;
+        right: 0;
+        background-size: cover;
+        width: 20px;
+        height: 20px;
+        transform:  translatex(-50%) translateY(100%) rotatez(45deg);
+    }
+}

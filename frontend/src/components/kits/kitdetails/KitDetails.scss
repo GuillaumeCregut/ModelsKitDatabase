@@ -1,0 +1,54 @@
+.detail-container{
+   
+    .details-zone-flex{
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .detail-img{
+        width: 250px;
+        height: auto;
+    }
+
+    .picture-container{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        border: 1px solid black;
+        padding : 10px;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .img-model{
+        width: 200px;
+        height: auto;
+    }
+
+    .btn-delete-picture{
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+    }
+
+    .trash-delete-icon{
+        width: 20px;
+        height: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+        position: relative;
+        top: -150px;
+
+        .details-zone-flex{
+            flex-direction: column;
+        }
+
+        .picture-container{
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
