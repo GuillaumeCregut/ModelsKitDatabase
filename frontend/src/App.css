@@ -53,7 +53,7 @@ body {
     top: 200px;
     left: 50%;
     width: 680px;
-    height: 340px;
+    height: 440px;
     padding: 10px;
     transform: translateX(-50%);
     background-color: var(--menu-color);

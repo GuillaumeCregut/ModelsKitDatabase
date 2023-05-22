@@ -55,7 +55,7 @@ const BuilderFrame = ({ builder }) => {
         <div className='builderElement'>
             <ToastContainer />
             <h3> {builder.name}</h3>
-            <p>{builder.countryName}</p>
+            <p className='builder-country'>{builder.countryName}</p>
             {displayModifier
                 ? <BuilderModifier
                     id={builder.id}
