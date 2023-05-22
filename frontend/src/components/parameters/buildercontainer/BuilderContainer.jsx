@@ -78,7 +78,7 @@ const BuilderContainer = () => {
     }
 
     return (
-        <section className='builders-container-page'>
+        <section className=' right-page builders-container-page'>
             <ToastContainer />
             <h2 className='builders-container-title'>Constructeurs</h2>
             <label htmlFor="find-builder" className='builder-search-label'>Rechercher un constructeur :

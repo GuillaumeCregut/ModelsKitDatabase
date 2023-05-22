@@ -110,7 +110,7 @@ const ModelsContainer = () => {
     }, [filter, fullList]);
 
     return (
-        <section className='model-component'>
+        <section className='right-page model-component'>
             <ToastContainer />
             <h2 className="model-title">Les modèles</h2>
             <div className="main-model-container">
