@@ -38,12 +38,22 @@ body {
 
 }
 
+.right-page {
+    grid-area: 1 / 2 / 2 / 3;
+
+    @media screen and (max-width: 768px) {
+        grid-area: 2 / 1 / 3 / 2;
+        margin-top : -100px;
+    }
+
+}
+
 .model-modal {
     position: absolute;
     top: 200px;
     left: 50%;
     width: 680px;
-    height: 340px;
+    height: 440px;
     padding: 10px;
     transform: translateX(-50%);
     background-color: var(--menu-color);
