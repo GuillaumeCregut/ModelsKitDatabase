@@ -23,3 +23,4 @@ src/tests/
 *.njsproj
 *.sln
 *.sw?
+src/components/tests/*
