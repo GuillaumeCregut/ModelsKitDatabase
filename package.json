@@ -2,19 +2,33 @@
   "name": "modelskitdatabase",
   "version": "1.1.0",
   "description": "",
-  "config":{
-    "cli":"npm"
+  "config": {
+    "cli": "npm",
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "scripts": {
     "dev": "cross-env-shell 'concurrently -c green,yellow -t \"HH:mm:ss\" -p \"{name} {time} \"$npm_package_config_cli:dev-*\"' ",
     "dev-front": "cross-env-shell \"cd ./frontend && $npm_package_config_cli run dev\"",
     "dev-back": "cross-env-shell \"cd ./backend && $npm_package_config_cli run dev\"",
+    "release": "standard-version --no-verify",
     "postinstall": "cross-env-shell \"husky install && cd ./frontend && $npm_package_config_cli install && cd ../backend && $npm_package_config_cli install\""
   },
   "author": "G. Cregut",
   "license": "MIT",
   "devDependencies": {
+    "commitizen": "^4.3.0",
     "concurrently": "^8.0.1",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "inquirer": "^9.2.5",
+    "standard-version": "^9.5.0"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.1",
+    "@mui/material": "^5.13.2"
   }
 }

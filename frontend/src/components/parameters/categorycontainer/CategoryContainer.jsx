@@ -8,7 +8,6 @@ import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
 import { ToastContainer, toast } from 'react-toastify';
 
-import './CategoryContainer.scss';
 
 const CategoryContainer = () => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -54,10 +53,10 @@ const CategoryContainer = () => {
 
 
     return (
-        <section className="category-component">
+        <section className="right-page">
             <ToastContainer />
-            <h2 className='category-title'>Les pays</h2>
-            <div className='category-container'>
+            <h2 className='solo-title'>Les catégories</h2>
+            <div className='solo-container'>
                 {isLoaded ? categoriesData.map(item => (
                     <SimpleCardContainer
                         key={item.id}

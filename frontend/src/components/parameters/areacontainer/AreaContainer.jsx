@@ -7,9 +7,9 @@ import { addPeriod, setPeriod, updatePeriod, deletePeriod } from '../../../featu
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
 import { ToastContainer, toast } from 'react-toastify';
-import './AreaContainer.scss';
 
-const AreaContainer = (props) => {
+
+const AreaContainer = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const dispatch = useDispatch();
     const periodsData = useSelector((state) => state.periods.period);
@@ -52,10 +52,10 @@ const AreaContainer = (props) => {
 
 
     return (
-        <section className="period-component">
+        <section className="right-page">
             <ToastContainer />
-            <h2 className='period-title'>Les pays</h2>
-            <div className='period-container'>
+            <h2 className='solo-title'>Les périodes</h2>
+            <div className='solo-container'>
                 {isLoaded ? periodsData.map(item => (
                     <SimpleCardContainer
                         key={item.id}

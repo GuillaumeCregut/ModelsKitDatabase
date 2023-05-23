@@ -8,7 +8,7 @@ import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
 import { ToastContainer, toast } from 'react-toastify';
 
-import './BrandContainer.scss';
+
 
 const BrandContainer = () => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -52,10 +52,10 @@ const BrandContainer = () => {
     }, []);
 
     return (
-        <section className="brand-component">
+        <section className="right-page">
             <ToastContainer />
-        <h2 className='brand-title'>Les marques</h2>
-        <div className='brand-container'>
+        <h2 className='solo-title'>Les marques</h2>
+        <div className='solo-container'>
             {isLoaded ? brandsData.map(item => (
                 <SimpleCardContainer
                     key={item.id}

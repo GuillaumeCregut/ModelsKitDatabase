@@ -8,7 +8,6 @@ import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
 import { ToastContainer, toast } from 'react-toastify';
 
-import './CountryContainer.scss';
 
 const CountryContainer = () => {
     const dispatch = useDispatch();
@@ -55,10 +54,10 @@ const CountryContainer = () => {
     }
 
     return (
-        <section className="country-component">
+        <section className="right-page">
             <ToastContainer />
-            <h2 className='country-title'>Les pays</h2>
-            <div className='country-container'>
+            <h2 className='solo-title'>Les pays</h2>
+            <div className='solo-container'>
                 {isLoaded ? countriesData.map(item => (
                     <SimpleCardContainer
                         key={item.id}
