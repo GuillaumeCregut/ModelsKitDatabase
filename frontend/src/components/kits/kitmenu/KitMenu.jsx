@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import './KitMenu.scss';
+
 const KitMenu = () => {
     return (
-        <div className='kit-menu'>
-            <ul className="kit-links-container">
+        <div className='left-menu'>
+            <ul className="left-links-container">
                 <li className="link-param-item">
                     <NavLink to="gestion" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Gestion du stock</NavLink>
                 </li>

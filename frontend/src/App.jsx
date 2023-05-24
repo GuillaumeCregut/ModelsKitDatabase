@@ -42,12 +42,15 @@ import KitDetails from './components/kits/kitdetails/KitDetails';
 import KitInStock from './components/kits/kitinstock/KitInStock';
 import Statistics from './components/userprofil/statistics/Statistics';
 import PdfStats from './components/userprofil/pdfstats/PdfStats';
-
-import './App.css';
-import "react-toastify/dist/ReactToastify.css";
+//Admiin Menu
 import Logs from './components/admin/logs/Logs';
 import UserMgmt from './components/admin/usersmgmt/UserMgmt';
 import { ToastContainer, toast } from 'react-toastify';
+
+import './App.css';
+import './LeftMenu.scss';
+import "react-toastify/dist/ReactToastify.css";
+
 //Version of front end 
 const LocalVersion="1.0";
 
