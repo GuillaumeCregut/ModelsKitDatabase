@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-// import './KitMenu.scss';
+
 const KitMenu = () => {
     return (
         <div className='left-menu'>
