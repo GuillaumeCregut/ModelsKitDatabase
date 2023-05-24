@@ -3,6 +3,10 @@ import {useState} from 'react';
 import ranks from '../../../feature/ranks';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { ToastContainer, toast } from 'react-toastify';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const UserLine = ({user}) => {
     const idFirstUser=1;
@@ -34,9 +38,10 @@ const UserLine = ({user}) => {
     return (
         <tr>   
             
-            <td>{user.firstname}<ToastContainer /> </td>
-            <td>{user.lastname}</td>
-            <td>{user.id===idFirstUser
+            <td className='row-user'>{user.firstname}<ToastContainer /> </td>
+            <td className='row-user'>{user.lastname}</td>
+            <td className='row-user'>
+                {/* {user.id===idFirstUser
                 ?'administrateur'
                 :(<select value={userRank} onChange={(e)=>handleChange(e)}>
                 {Object.keys(ranks).map((key, index)=> {
@@ -44,7 +49,23 @@ const UserLine = ({user}) => {
                 })}
 
             </select>)
-            }
+            } */} {user.id===idFirstUser
+                ?'administrateur'
+                :
+ <FormControl >
+                <InputLabel id="demo-select-small-label">Rang</InputLabel>
+                <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={userRank}
+                label="Rang"
+                onChange={handleChange}
+                className='select-rank'>
+                    {Object.keys(ranks).map((key)=> {
+               return <MenuItem key={ranks[key]} value={ranks[key]}>{key}</MenuItem>
+            })}
+                </Select>
+                </FormControl>}
                </td>
         </tr>
     )
