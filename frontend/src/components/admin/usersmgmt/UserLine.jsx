@@ -7,6 +7,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
 
 const UserLine = ({user}) => {
     const idFirstUser=1;
@@ -36,11 +38,11 @@ const UserLine = ({user}) => {
         }
     }
     return (
-        <tr>   
+        <TableRow>   
             
-            <td className='row-user'>{user.firstname}<ToastContainer /> </td>
-            <td className='row-user'>{user.lastname}</td>
-            <td className='row-user'>
+            <TableCell className='row-user'>{user.firstname}<ToastContainer /> </TableCell>
+            <TableCell className='row-user'>{user.lastname}</TableCell>
+            <TableCell className='row-user'>
                 {/* {user.id===idFirstUser
                 ?'administrateur'
                 :(<select value={userRank} onChange={(e)=>handleChange(e)}>
@@ -66,8 +68,8 @@ const UserLine = ({user}) => {
             })}
                 </Select>
                 </FormControl>}
-               </td>
-        </tr>
+               </TableCell>
+        </TableRow>
     )
 }
 

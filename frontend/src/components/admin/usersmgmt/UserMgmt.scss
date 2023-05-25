@@ -1,5 +1,9 @@
 .admin-user{
 
+    .table-user{
+        width: 50vw;
+    }
+
     .admin-user-title{
         text-align: center;
     }
@@ -7,6 +11,7 @@
     .userArray-head{
         width: 150px;
         text-align: center;
+        font-weight: bold;
     }
     .select-rank{
         width: 150px;
@@ -14,5 +19,6 @@
     }
     .row-user{
         padding:0.7rem;
+        text-align: center;
     }
 }
