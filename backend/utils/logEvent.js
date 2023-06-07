@@ -11,7 +11,7 @@ const devMode = process.env.DEBUG_MODE==='ON'?true:false;
 const logFile = async (message, file) => {
     if (!devMode) {  
         const newDate = `${format(new Date(), 'yyyy/MM/dd\tHH:mm:ss')}`;
-        const logItem = `${newDate}\t${message}\n`;
+        const logItem = `${newDate} : \t${message}\n`;
         try {
             if (!fs.existsSync(path.join(__dirname, '..','assets' , 'logs'))) {
                 await fsPromises.mkdir(path.join(__dirname, '..','assets' ,'logs'));
