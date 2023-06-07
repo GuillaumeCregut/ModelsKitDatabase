@@ -7,7 +7,6 @@ const router = require('./routes/index.routes');
 const cookieParser = require('cookie-parser');
 const headerConfig = require('./config/headerConfig');
 const { logInfo, Emitter } =require('./utils/logEvent');
-const {loggerDebug}=require('./middlewares/loggerMiddleware');
 const {errorHandler} = require('./middlewares/errorHandler');
 //Initialise 
 const myEmitter=new Emitter();
