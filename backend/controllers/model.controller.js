@@ -56,7 +56,8 @@ const validateStock = (data) => {
 }
 
 const getAll = async (req, res) => {
-    const result = await modelModel.findAll();
+    const {user_id}=req.user;
+    const result = await modelModel.findAll(user_id);
     if (result && result !== -1) {
         return res.json(result)
     }

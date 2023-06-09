@@ -18,6 +18,7 @@ class Model{
     brandName;
     countryId;
     countryName;
+    isLiked;
 
 /**
  * 
@@ -70,6 +71,9 @@ class Model{
     }
     setCountryName(name){
         this.countryName=name;
+    }
+    setIsLiked(liked){
+        this.isLiked=liked;
     }
 }
 
