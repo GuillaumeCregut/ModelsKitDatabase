@@ -8,8 +8,6 @@ const getidFromToken = (req, res, next) => {
         try {
             const token = authHeader.split(' ')[1];
             const isOK = verifyToken(token, 'access');
-            if (!isOK)
-                return res.sendStatus(403);
             req.user = isOK;
         }
         catch (err) {
