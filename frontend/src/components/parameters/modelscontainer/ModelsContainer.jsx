@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setModel } from '../../../feature/Model.slice';
@@ -34,24 +34,12 @@ const ModelsContainer = () => {
     let rankUser = auth?.rank;
     if (!rankUser)
         rankUser = 0;
-
-    useEffect(()=>{
-        if(isFavoriteLoaded&&isLoaded){
-            const newArray=modelData.map((model)=>{
-                const index=favoriteModels.findIndex((item)=>item.modelId===model.id)
-                if(index!==-1)
-                    return {...model,like:true}
-                else
-                    return {...model,like:false}
-            })
-            setFullList([...newArray]);
-            setFullListLoaded(true);
-        }
-    },[isFavoriteLoaded,isLoaded]);
+  
 
     useEffect(() => {
         const getModels = async () => {
-            await axios
+            console.log('refresh, token ', auth?.token)
+            await axiosPrivate
                 .get(url)
                 .then((resp) => {
                     dispatch(setModel(resp.data));
@@ -62,32 +50,14 @@ const ModelsContainer = () => {
                     toast.error('Une erreur est survenue');
                 })
         }
-        if (!modelData) {
+        if (!modelData||auth.token) {
             getModels();
         }
         else
             setModelsFiltered([...modelData]);
         setIsLoaded(true);
-    }, [reload]);
+    }, [reload,auth]);
     
-    useEffect(()=>{
-        const getFavorites=()=>{
-            const url = `${import.meta.env.VITE_APP_API_URL}model/favorite/${idUser}`;
-            axiosPrivate
-                .get(url)
-                .then((resp)=>{
-                    setFavoriteModels(resp.data)
-                    setIsFavoriteLoaded(true);
-
-                })
-                .catch((err)=>{
-                    toast.error('Une erreur est survenue');
-                })
-        }
-        if(idUser!==0)
-            getFavorites();
-
-    },[idUser]);
 
     useEffect(() => {
         if (fullListLoaded) {

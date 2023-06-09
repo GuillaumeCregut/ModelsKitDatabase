@@ -36,18 +36,20 @@ const ModelBlock = ({ model, setReload }) => {
     const [newName, setNewName] = useState(model.name);
     const [newRef, setNewRef] = useState(model.reference);
     const [newLink, setNewLink] = useState(model.link ? model.link : '');
-    const [isLiked,setIsLiked]=useState(false)
-    ////
+    const [isLiked,setIsLiked]=useState(model.isLiked);
+
     const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
     const axiosMulti=useAxiosPrivateMulti();
     const dispatch = useDispatch();
+
     let rankUser = auth?.rank;
     if (!rankUser)
         rankUser = 0;
     let idUser=auth.id;
     if(!idUser)
         idUser=0;
+
     useEffect(() => {
         if (fileUpload) {
             const img = URL.createObjectURL(fileUpload)
@@ -56,10 +58,6 @@ const ModelBlock = ({ model, setReload }) => {
 
     }, [fileUpload])
 
-    useEffect(()=>{
-        setIsLiked(model.like)
-    },[model.like])
-
     const turnCard = () => {
         setDisplayBack(!displayBack);
     }
@@ -67,6 +65,10 @@ const ModelBlock = ({ model, setReload }) => {
     const handleModalUpdate = () => {
         setShowModal(true);
     }
+
+    useEffect(()=>{
+        setIsLiked(model.isLiked);
+    },[model.isLiked])
 
     const closeModal = () => {
         setShowModal(false);
@@ -120,6 +122,9 @@ const ModelBlock = ({ model, setReload }) => {
     }
     Modal.setAppElement('#root');
 
+if(model.id===27)
+    console.log(model.isLiked,isLiked);
+
     const handleClick=()=>{
         const  data={
             modelId:model.id,
@@ -151,7 +156,6 @@ const ModelBlock = ({ model, setReload }) => {
 
         }
     }
-
     return (
         <article className='model-block'>
             <ToastContainer />
