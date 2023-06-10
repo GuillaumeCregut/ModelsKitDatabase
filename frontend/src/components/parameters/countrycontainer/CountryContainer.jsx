@@ -2,7 +2,6 @@ import axios from 'axios';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SimpleCardContainer } from '../simplecardcontainer/SimpleCardContainer';
 import { setCountry, deleteCountry, addCountry, updateCountry } from '../../../feature/Country.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
