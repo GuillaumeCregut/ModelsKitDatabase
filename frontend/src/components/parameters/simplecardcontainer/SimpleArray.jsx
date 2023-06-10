@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 
 const SimpleArray = ({ item, wrapper }) => {
     const axiosPrivate = useAxiosPrivate();
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const { deleteAction, updateAction, kind, url } = wrapper;
     const { auth } = useAuth();
     let rankUser = auth?.rank;
@@ -34,17 +34,35 @@ const SimpleArray = ({ item, wrapper }) => {
     ]
 
     const handleDelete = (id) => {
-        alert(`Voulez vous supprimer ${id} ?`)
+        if (window.confirm('Voulez vous supprimer ?')) {
+            const urlApi = `${url}/${id}`;
+            axiosPrivate
+                .delete(urlApi)
+                .then(() => {
+                    dispatch(deleteAction(id))
+                })
+                .catch((err) => {
+                    if (err.response.status === 404) {
+                        toast.warn("L'élément n'existe pas")
+                    }
+                    if (err.response.status < 404) {
+                        toast.warn("Vous n'êtes pas autoriser à supprimer")
+                    }
+                    if (err.response.status === 500) {
+                        toast.error("Une erreur serveur est survenue")
+                    }
+                })
+        }
     }
 
-    const updateData=async(newRow,old)=>{
+    const updateData = async (newRow, old) => {
         const newItem = { name: newRow.name };
         const urlApi = `${url}/${newRow.id}`;
-       return axiosPrivate
+        return axiosPrivate
             .put(urlApi, newItem)
             .then(() => {
                 dispatch(updateAction([newItem, newRow.id]))
-                return({...newRow, isNew: false })
+                return ({ ...newRow, isNew: false })
             })
             .catch((err) => {
                 switch (err?.response?.status) {
@@ -60,10 +78,10 @@ const SimpleArray = ({ item, wrapper }) => {
                         break;
                     default: toast.error(`action impossible : ${err?.response?.status}`);
                 }
-                newRow.name=old;
-                return {...newRow, isNew: false };   
+                newRow.name = old;
+                return { ...newRow, isNew: false };
             })
-            
+
     }
 
     const handleStartEdit = useCallback((params) => {
@@ -74,9 +92,9 @@ const SimpleArray = ({ item, wrapper }) => {
         async (newRow) => {
             const updatedRow = { ...newRow, isNew: false };
             if (window.confirm(`Voulez vous modifier ${newRow.id} avec ${newRow.name}?`)) {
-             return  await updateData(updatedRow,oldName);
+                return await updateData(updatedRow, oldName);
             }
-            else {           
+            else {
                 updatedRow.name = oldName;
                 return updatedRow;
             }
