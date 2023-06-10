@@ -1,6 +1,6 @@
 const router=require('express').Router();
 const modelController=require('../controllers/model.controller');
-const {userCheck,idChecker,checkLevel}=require('../middlewares/UserValidation');
+const {userCheck,idChecker,checkLevel,getidFromToken}=require('../middlewares/UserValidation');
 const multer = require('multer');
 const {createSubUpload}=require('../utils/fs');
 const fs = require('fs');
@@ -61,7 +61,7 @@ const uploadPictureUser=multer({storage:storageUserPictures});
 
 const uploadPicture=multer({storage:storagePicture});
 
-router.get('/',modelController.getAll);
+router.get('/',getidFromToken,modelController.getAll);
 router.get('/user/:id',userCheck,modelController.getStock); //Controler l'utilisateur
 router.get('/favorite/:id',userCheck,modelController.getFavorite); //Controler l'utilisateur
 router.get('/info/:id/user/:iduser',userCheck,modelController.getAllInfoKit);
