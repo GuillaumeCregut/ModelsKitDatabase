@@ -17,7 +17,7 @@ import AdminPage from './pages/adminpage/AdminPage';
 /*Composants de la page paramètres */
 import ParamsHome from './components/parameters/paramshome/ParamsHome'; 
 import AreaContainer from './components/parameters/areacontainer/AreaContainer';
-import BuilderContainer from './components/parameters/buildercontainer/BuilderContainer';
+import BuilderContainer2 from './components/parameters/buildercontainer/BuilderContainer2';
 import BrandContainer from './components/parameters/brandcontainer/BrandContainer';
 import CategoryContainer from './components/parameters/categorycontainer/CategoryContainer';
 import ScaleContainer from './components/parameters/scalecontainer/ScaleContainer';
@@ -121,7 +121,7 @@ function App() {
           <Route path='params' element={<Params />}>
             <Route index element={<ParamsHome />} />
             <Route path='periodes' element={<AreaContainer />} />
-            <Route path='constructeurs' element={<BuilderContainer />} />
+            <Route path='constructeurs' element={<BuilderContainer2 />} />
             <Route path='marques' element={<BrandContainer />} />
             <Route path='categorie' element={<CategoryContainer />} />
             <Route path='echelles' element={<ScaleContainer />} />
