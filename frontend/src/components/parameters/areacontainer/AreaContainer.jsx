@@ -2,11 +2,12 @@ import axios from 'axios';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SimpleCardContainer } from '../simplecardcontainer/SimpleCardContainer';
+
 import { addPeriod, setPeriod, updatePeriod, deletePeriod } from '../../../feature/Period.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
 import { ToastContainer, toast } from 'react-toastify';
+import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
 const AreaContainer = () => {
@@ -56,13 +57,8 @@ const AreaContainer = () => {
             <ToastContainer />
             <h2 className='solo-title'>Les périodes</h2>
             <div className='solo-container'>
-                {isLoaded ? periodsData.map(item => (
-                    <SimpleCardContainer
-                        key={item.id}
-                        item={item}
-                        wrapper={wrapper}
-                    />
-                ))
+                {isLoaded
+                    ? <SimpleArray item={periodsData} wrapper={wrapper} />
                     : <AwaitLoad />
                 }
             </div>

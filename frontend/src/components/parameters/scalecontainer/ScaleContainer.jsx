@@ -2,11 +2,11 @@ import axios from 'axios';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SimpleCardContainer } from '../simplecardcontainer/SimpleCardContainer';
 import { addScale, setScale, updateScale, deleteScale } from '../../../feature/Scale.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
 import { ToastContainer, toast } from 'react-toastify';
+import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
 const ScaleContainer = () => {
@@ -55,13 +55,8 @@ const ScaleContainer = () => {
             <ToastContainer />
             <h2 className='solo-title'>Les échelles</h2>
             <div className='solo-container'>
-                {isLoaded ? scalesData.map(item => (
-                    <SimpleCardContainer
-                        key={item.id}
-                        item={item}
-                        wrapper={wrapper}
-                    />
-                ))
+                {isLoaded
+                    ? <SimpleArray item={scalesData} wrapper={wrapper} />
                     : <AwaitLoad />
                 }
             </div>

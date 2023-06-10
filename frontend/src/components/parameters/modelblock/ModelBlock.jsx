@@ -122,9 +122,6 @@ const ModelBlock = ({ model, setReload }) => {
     }
     Modal.setAppElement('#root');
 
-if(model.id===27)
-    console.log(model.isLiked,isLiked);
-
     const handleClick=()=>{
         const  data={
             modelId:model.id,
