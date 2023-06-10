@@ -1,5 +1,5 @@
-import { DataGrid } from '@mui/x-data-grid';
-import { useCallback, useEffect, useState } from 'react';
+import { DataGrid, useGridApiRef } from '@mui/x-data-grid';
+import { useCallback } from 'react';
 import ranks from '../../../feature/ranks';
 import useAuth from '../../../hooks/useAuth';
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,8 +14,8 @@ const SimpleArray = ({ item, wrapper }) => {
     let rankUser = auth?.rank;
     if (!rankUser)
         rankUser = 0;
-    let oldName = '';
 
+    const apiRef = useGridApiRef();
     const columns = [
         {
             field: 'name',
@@ -84,12 +84,10 @@ const SimpleArray = ({ item, wrapper }) => {
 
     }
 
-    const handleStartEdit = useCallback((params) => {
-        oldName = params.value;
-    });
-
     const handleProcess = useCallback(
         async (newRow) => {
+            const id = newRow.id;
+            const oldName = apiRef.current.getCellValue(id, 'name');
             const updatedRow = { ...newRow, isNew: false };
             if (window.confirm(`Voulez vous modifier ${newRow.id} avec ${newRow.name}?`)) {
                 return await updateData(updatedRow, oldName);
@@ -108,12 +106,11 @@ const SimpleArray = ({ item, wrapper }) => {
         <>
             <ToastContainer />
             <DataGrid
-                //  onCellDoubleClick={handleEvent}
                 isRowSelectable={() => false}
-                onCellEditStart={handleStartEdit}
                 processRowUpdate={handleProcess}
                 onProcessRowUpdateError={handleProcessRowUpdateError}
                 rows={item}
+                apiRef={apiRef}
                 columns={columns}
                 initialState={{
                     pagination: {

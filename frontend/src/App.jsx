@@ -33,7 +33,6 @@ import kitState from './feature/kitState';
 /*User profil components */
 import UserData from './components/userprofil/userdata/UserData';
 import UserSupplier from './components/userprofil/usersupplier/UserSupplier';
-
 import Orders from './components/userprofil/orders/Orders';
 import KitsHome from './components/kits/home/KitsHome';
 import KitManagement from './components/kits/kitmgmt/KitManagement';

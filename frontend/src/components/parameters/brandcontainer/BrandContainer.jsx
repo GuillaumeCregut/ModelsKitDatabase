@@ -3,10 +3,11 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SimpleCardContainer } from '../simplecardcontainer/SimpleCardContainer';
-import { addBrand,setBrand,updateBrand,deleteBrand } from '../../../feature/Brand.slice';
+import { addBrand, setBrand, updateBrand, deleteBrand } from '../../../feature/Brand.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
 import { ToastContainer, toast } from 'react-toastify';
+import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
 
@@ -15,17 +16,17 @@ const BrandContainer = () => {
     const dispatch = useDispatch();
     const brandsData = useSelector((state) => state.brands.brand);
     const url = `${import.meta.env.VITE_APP_API_URL}brand`;
-    const axiosPrivate=useAxiosPrivate();
+    const axiosPrivate = useAxiosPrivate();
 
-    const addAction=(newData)=>{
-        if(window.confirm("Voulez vous ajouter l'élément ?")){
+    const addAction = (newData) => {
+        if (window.confirm("Voulez vous ajouter l'élément ?")) {
             axiosPrivate
-                .post(url,newData)
-                .then((resp)=>{
-                    const newBrand=resp.data;
+                .post(url, newData)
+                .then((resp) => {
+                    const newBrand = resp.data;
                     dispatch(addBrand(newBrand));
                 })
-                .catch((err)=>{
+                .catch((err) => {
                     toast.error("Vous n'êtes pas autorisé à ajouter un élément.");
                 })
         }
@@ -39,12 +40,12 @@ const BrandContainer = () => {
             });
     }
 
-     //Bundling datas for card
-     const wrapper={
+    //Bundling datas for card
+    const wrapper = {
         deleteAction: deleteBrand,
         updateAction: updateBrand,
         kind: "la marque",
-        url:url
+        url: url
     }
 
     useEffect(() => {
@@ -54,22 +55,17 @@ const BrandContainer = () => {
     return (
         <section className="right-page">
             <ToastContainer />
-        <h2 className='solo-title'>Les marques</h2>
-        <div className='solo-container'>
-            {isLoaded ? brandsData.map(item => (
-                <SimpleCardContainer
-                    key={item.id}
-                    item={item}
-                    wrapper={wrapper}
-                />
-            ))
-                : <AwaitLoad />
-            }
-        </div>
-        <FormAddSimple
-        action={addAction}
-         />
-    </section>
+            <h2 className='solo-title'>Les marques</h2>
+            <div className='solo-container'>
+                {isLoaded
+                    ? <SimpleArray item={brandsData} wrapper={wrapper} />
+                    : <AwaitLoad />
+                }
+            </div>
+            <FormAddSimple
+                action={addAction}
+            />
+        </section>
     )
 }
 

@@ -2,11 +2,11 @@ import axios from 'axios';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SimpleCardContainer } from '../simplecardcontainer/SimpleCardContainer';
 import { addCategory, setCategory, updateCategory, deleteCategory } from '../../../feature/Category.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
 import { ToastContainer, toast } from 'react-toastify';
+import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
 const CategoryContainer = () => {
@@ -57,13 +57,10 @@ const CategoryContainer = () => {
             <ToastContainer />
             <h2 className='solo-title'>Les catégories</h2>
             <div className='solo-container'>
-                {isLoaded ? categoriesData.map(item => (
-                    <SimpleCardContainer
-                        key={item.id}
-                        item={item}
-                        wrapper={wrapper}
-                    />
-                ))
+                {isLoaded ?
+                    <SimpleArray item={categoriesData}
+                    wrapper={wrapper}/>
+                
                     : <AwaitLoad />
                 }
             </div>

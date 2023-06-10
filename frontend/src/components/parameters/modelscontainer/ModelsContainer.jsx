@@ -38,7 +38,6 @@ const ModelsContainer = () => {
 
     useEffect(() => {
         const getModels = async () => {
-            console.log('refresh, token ', auth?.token)
             await axiosPrivate
                 .get(url)
                 .then((resp) => {
