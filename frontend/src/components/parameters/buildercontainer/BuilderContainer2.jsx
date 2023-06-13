@@ -4,7 +4,6 @@ import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import { useDispatch, useSelector } from 'react-redux';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { addBuilder,  setBuilder } from '../../../feature/Builder.slice';
-import BuilderFrame from '../builderframe/BuilderFrame';
 import useAuth from '../../../hooks/useAuth';
 import ranks from '../../../feature/ranks';
 import CountrySelector from '../../selectors/countryselector/CountrySelector';
