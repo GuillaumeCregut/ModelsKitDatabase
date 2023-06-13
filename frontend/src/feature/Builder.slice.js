@@ -17,9 +17,9 @@ export const builderSlice=createSlice({
             state.builder=state.builder.map((item)=>{
                 if(item.id===payload[1]){
                     const name=payload[0].name;
-                    const country=payload[0].country;
+                    const countryId=payload[0].countryId;
                     const countryName=payload[0].countryName;
-                    return {...item,name,country, countryName}
+                    return {...item,name,countryId, countryName}
                 }else
                     return item;
             })
