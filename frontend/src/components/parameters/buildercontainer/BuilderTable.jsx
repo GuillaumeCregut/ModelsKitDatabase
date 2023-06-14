@@ -87,11 +87,11 @@ const BuilderTable = ({ builder }) => {
     const handleDelete = (rowData) => {
         if (!window.confirm(`Voulez-vous supprimer ${rowData.row.name} ?`))
             return -1
-        const url = `${import.meta.env.VITE_APP_API_URL}builder/${id}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}builder/${rowData.id}`;
         axiosPrivate
             .delete(url)
             .then((resp) => {
-                dispatch(deleteBuilder(id));
+                dispatch(deleteBuilder(rowData.id));
             })
             .catch((err) => {
                 toast.error("Vous n'êtes pas autorisé à ajouter un élément.");
