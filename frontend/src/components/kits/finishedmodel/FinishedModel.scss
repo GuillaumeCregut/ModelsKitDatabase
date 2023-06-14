@@ -24,5 +24,10 @@
 
     .list-finished-item:hover{
         background-color: blue;
+        
+    }
+
+    .list-finished-item:hover>a{
+        color: white;
     }
 }
