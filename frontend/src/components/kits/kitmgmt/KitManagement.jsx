@@ -23,7 +23,7 @@ const KitManagement = () => {
         userId = 0;
 
     useEffect(() => {
-        const getModelsUSer = () => {
+        const getModelsUser = () => {
             const url = `${import.meta.env.VITE_APP_API_URL}model/user/${userId}`;
             axiosPrivate
                 .get(url)
@@ -36,12 +36,7 @@ const KitManagement = () => {
                     toast.error('Une erreur est survenue');
                 })
         }
-        if (!StocksData)
-            getModelsUSer();
-        else {
-            setKits(StocksData);
-            setIsLoaded(true);
-        }
+        getModelsUser();
     }, []);
 
     return (
