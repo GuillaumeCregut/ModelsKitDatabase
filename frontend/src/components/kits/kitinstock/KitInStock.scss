@@ -1,8 +1,17 @@
 .kit-instock{
 
     .list-kit-in-stock{
+        margin-top: 30px;
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .list-kit-in-stock{
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
     }
 }

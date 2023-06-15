@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import './KitInStock.scss';
 
 const KitInStock = ({keySearch,title}) => {
-   
+    const [refresh, setRefresh]=useState(false);
     const [kits, setKits] = useState([]);
     const [search, setSearch]=useState('');
     const [filteredKits,setFilteredKits]=useState([]);
@@ -24,7 +24,6 @@ const KitInStock = ({keySearch,title}) => {
         userId = 0;
 
     useEffect(() => {
-        
         const getModelsUser = () => {
             const url = `${import.meta.env.VITE_APP_API_URL}model/user/${userId}`;
             axiosPrivate
@@ -44,7 +43,7 @@ const KitInStock = ({keySearch,title}) => {
             setIsLoaded(true);
             setKits(StocksData.filter(item => item.state === keySearch));
         }
-    }, [keySearch]);
+    }, [keySearch,refresh]);
 
     useEffect(()=>{
         setFilteredKits(kits.filter((kit)=>kit.modelName.toLowerCase().includes(search.toLowerCase())))
@@ -64,7 +63,7 @@ const KitInStock = ({keySearch,title}) => {
             { isLoaded
                 ? filteredKits.map((kit)=>(
                     <li key={kit.id}>
-                        <KitCard kitDetails={kit} displayImage={true} />
+                        <KitCard kitDetails={kit} displayImage={true} refresh={refresh} setRefresh={setRefresh}/>
                     </li>
                 ))
                 : <AwaitLoad />

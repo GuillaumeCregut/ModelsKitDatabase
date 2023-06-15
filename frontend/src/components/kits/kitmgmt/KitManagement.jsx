@@ -13,7 +13,7 @@ import './KitManagement.scss';
 const KitManagement = () => {
     const [kits, setKits] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [displayPicture, setDisplayPicture]=useState(false);
+    const [displayPicture, setDisplayPicture] = useState(false);
     const { auth } = useAuth();
     const dispatch = useDispatch();
     const StocksData = useSelector((state) => state.stockUsers.stockUser);
@@ -38,11 +38,10 @@ const KitManagement = () => {
         }
         if (!StocksData)
             getModelsUSer();
-        else{
+        else {
             setKits(StocksData);
             setIsLoaded(true);
         }
-            
     }, []);
 
     return (
@@ -50,7 +49,7 @@ const KitManagement = () => {
             <ToastContainer />
             <h2>Gestion de mes kits</h2>
             <label htmlFor="display">
-                <input type="checkbox" id="display" checked={displayPicture}  onChange={(e)=>setDisplayPicture(!displayPicture)} className="display-image"/>
+                <input type="checkbox" id="display" checked={displayPicture} onChange={(e) => setDisplayPicture(!displayPicture)} className="display-image" />
                 Afficher les images</label>
             {isLoaded
                 ? <InnerMgmt
