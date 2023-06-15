@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import './InnerMgmt.scss';
 
-const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels, stockModels,displayImage }) => {
+const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels, stockModels,displayImage,refresh, setRefresh }) => {
     const axiosPrivate = useAxiosPrivate();
     const { auth } = useAuth();
     const dispatcher=useDispatch();
@@ -25,7 +25,6 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
         finished: finishedModels,
         stocked: stockModels,
     });
-
     const sendData = async (data) => {
         const url = `${import.meta.env.VITE_APP_API_URL}model/stock/`;
         const result = await axiosPrivate
@@ -89,12 +88,13 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
                             return (
                                 <ul {...provided.droppableProps} ref={provided.innerRef} className={snapshot.isDraggingOver ? 'dropzone dropOK' : 'dropzone'}>
                                     {state.liked.map((item, index) => {
+                                        
                                         return (
                                             <Draggable key={item.id} draggableId={item.id.toString()} index={index} >
                                                 {(provided, snapshot) => { //snapshot should be use for style
                                                     return (
                                                         <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={snapshot.isDragging ? 'line moving' : 'line'}>
-                                                            <KitCard kitDetails={item} displayImage={displayImage} />
+                                                            <KitCard kitDetails={item} displayImage={displayImage} inMgmt={true} />
                                                         </li>
                                                     )
                                                 }}
@@ -114,12 +114,13 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
                             return (
                                 <ul {...provided.droppableProps} ref={provided.innerRef} className={snapshot.isDraggingOver ? 'dropzone dropOK' : 'dropzone'}>
                                     {state.ordered.map((item, index) => {
+                                        //console.log('map',item)
                                         return (
                                             <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                 {(provided, snapshot) => { //snapshot should be use for style
                                                     return (
                                                         <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={snapshot.isDragging ? 'line moving' : 'line'}>
-                                                            <KitCard kitDetails={item}  displayImage={displayImage} />
+                                                            <KitCard kitDetails={item}  displayImage={displayImage} inMgmt={true} />
                                                         </li>
                                                     )
                                                 }}
@@ -144,7 +145,7 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
                                                 {(provided, snapshot) => { //snapshot should be use for style
                                                     return (
                                                         <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={snapshot.isDragging ? 'line moving' : 'line'}>
-                                                            <KitCard kitDetails={item}  displayImage={displayImage}/>
+                                                            <KitCard kitDetails={item}  displayImage={displayImage} inMgmt={true}/>
                                                         </li>
                                                     )
                                                 }}
@@ -169,7 +170,7 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
                                                 {(provided, snapshot) => { //snapshot should be use for style
                                                     return (
                                                         <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={snapshot.isDragging ? 'line moving' : 'line'}>
-                                                            <KitCard kitDetails={item}  displayImage={displayImage}/>
+                                                            <KitCard kitDetails={item}  displayImage={displayImage} inMgmt={true}/>
                                                         </li>
                                                     )
                                                 }}
@@ -194,7 +195,7 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
                                                 {(provided, snapshot) => { //snapshot should be use for style
                                                     return (
                                                         <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={snapshot.isDragging ? 'line moving' : 'line'}>
-                                                            <KitCard kitDetails={item}  displayImage={displayImage}/>
+                                                            <KitCard kitDetails={item}  displayImage={displayImage} inMgmt={true} />
                                                         </li>
                                                     )
                                                 }}

@@ -153,6 +153,22 @@ const addModelInStock=async(user,model)=>{
 
 }
 
+const getModelStockById=async(id,idUser)=>{
+    const dbResult=await dbquery('get','SELECT * FROM model_user WHERE owner=? AND id=?',[idUser,id]);
+    if (dbResult && dbResult != -1) {
+        return dbResult;
+    }
+    else {
+        //A Améliorer avec le retour des états MySql
+        return [];
+    }
+}
+
+const deleteModelStock=async(id)=>{
+    const dbResult=await dbquery('delete','DELETE FROM model_user WHERE id=?',[id]);
+    return dbResult;
+}
+
 module.exports={
     addUser,
     findAll,
@@ -165,5 +181,7 @@ module.exports={
     findUserByToken,
     findCredentialsByUser,
     addModelInStock,
-    updateRank
+    updateRank,
+    getModelStockById,
+    deleteModelStock,
 }
