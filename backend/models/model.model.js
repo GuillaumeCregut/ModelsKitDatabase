@@ -190,6 +190,16 @@ const getStatModelBrand=async(id)=>{
     return dbResult;
 }
 
+const getLikedElementByIdKit=async(id)=>{
+    const dbResult=await dbquery('get','SELECT model from model_user WHERE id=?',[id]);
+    return dbResult[0];
+}
+
+const getCountLikedIdUser=async(id, owner)=>{
+    const dbResult=await dbquery('get', 'SELECT count(*) as count FROM  model_user WHERE model=? AND owner=? AND state=4',[id,owner]);
+    return dbResult[0];
+}
+
 module.exports = {
     findAll,
     findOne,
@@ -209,5 +219,7 @@ module.exports = {
     getStatModelProvider,
     getStatModelScale,
     getStatModelPrice,
-    getStatModelBrand
+    getStatModelBrand,
+    getLikedElementByIdKit,
+    getCountLikedIdUser,
 }

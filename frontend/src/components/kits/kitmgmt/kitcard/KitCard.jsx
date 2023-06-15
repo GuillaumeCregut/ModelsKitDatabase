@@ -1,7 +1,7 @@
 
 import useAxiosPrivate from '../../../../hooks/useAxiosPrivate';
 import { FaRegTrashAlt } from "react-icons/fa";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { deleteStock } from "../../../../feature/stockUser.slice";
 
@@ -31,7 +31,6 @@ const KitCard = ({ kitDetails, refresh=false, setRefresh=null, displayImage = fa
 
     return (
         <div className='kit-card'>
-            <ToastContainer />
             <h4>{kitDetails.modelName} - {kitDetails.builderName}</h4>
             {displayImage && <img src={`${url}${kitDetails.boxPicture}`} alt={kitDetails.modelName} />}
             <p>{kitDetails.brandName} - {kitDetails.scaleName} </p>
