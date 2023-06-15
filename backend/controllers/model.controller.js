@@ -51,7 +51,7 @@ const validateStock = (data) => {
     return Joi.object({
         id: Joi.number().min(1).presence('required'),
         owner: Joi.number().min(1).presence('required'),
-        newState: Joi.number().min(1).presence('required'),
+        newState: Joi.number().min(1).presence('required')
     }).validate(data, { abortEarly: false }).error;
 }
 
@@ -260,6 +260,14 @@ const updateStock = async (req, res) => {
         return res.status(422).send(error);
     }
     const { owner, id, newState } = req.body;
+    //Before changing, see if it is a favorite
+    if(newState===4){
+        const resultIdKit=await modelModel.getLikedElementByIdKit(id);
+        const isLiked=await modelModel.getCountLikedIdUser(resultIdKit.model,owner);
+        if (isLiked.count>=1){
+            return res.sendStatus(409);
+        }
+    }
     const result = await modelModel.updateStock(id, owner, newState);
     if (result && result !== -1) {
         return res.sendStatus(204);
