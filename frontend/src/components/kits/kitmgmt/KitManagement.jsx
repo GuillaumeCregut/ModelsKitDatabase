@@ -6,7 +6,7 @@ import InnerMgmt from "./innermgmt/InnerMgmt";
 import { setStock } from "../../../feature/stockUser.slice";
 import { useDispatch, useSelector } from "react-redux";
 import kitState from "../../../feature/kitState";
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 
 import './KitManagement.scss';
 
@@ -41,7 +41,6 @@ const KitManagement = () => {
 
     return (
         <section className='kits-management-page'>
-            <ToastContainer />
             <h2>Gestion de mes kits</h2>
             <label htmlFor="display">
                 <input type="checkbox" id="display" checked={displayPicture} onChange={(e) => setDisplayPicture(!displayPicture)} className="display-image" />

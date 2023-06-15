@@ -7,7 +7,7 @@ import useAxiosPrivate from '../../../../hooks/useAxiosPrivate';
 import {updateStock} from '../../../../feature/stockUser.slice';
 import { useDispatch } from 'react-redux';
 import kitState from '../../../../feature/kitState'
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 
 import './InnerMgmt.scss';
 
@@ -25,7 +25,7 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
         finished: finishedModels,
         stocked: stockModels,
     });
-    const sendData = async (data) => {
+    const sendData = useCallback(async (data) => {
         const url = `${import.meta.env.VITE_APP_API_URL}model/stock/`;
         const result = await axiosPrivate
             .put(url, data)
@@ -34,11 +34,18 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
                 return true;
             })
             .catch((err) => {
-                toast.error('Une erreur est survenue');
+                if(err?.response?.status===409)
+                    toast.error('Le modèle est déjà dans la liste',{
+                        toastId: 'success1',
+                    });
+                else
+                    toast.error('Une erreur est survenue',{
+                        toastId: 'success1',
+                    });
                 return false;
             })
         return result
-    }
+    },[]);
 
     const handleDragEnd = useCallback(async (result) => {
         if (result.reason === 'DROP') {
@@ -79,7 +86,6 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
 
     return (
         <div className='inner-management-container'>
-            <ToastContainer />
             <DragDropContext onDragEnd={handleDragEnd} >
                 <div className='drop-container'>
                     <p className='dopzone-title'>Modèles likés</p>
