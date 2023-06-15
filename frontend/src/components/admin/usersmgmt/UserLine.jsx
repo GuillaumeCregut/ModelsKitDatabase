@@ -43,15 +43,7 @@ const UserLine = ({user}) => {
             <TableCell className='row-user'>{user.firstname}<ToastContainer /> </TableCell>
             <TableCell className='row-user'>{user.lastname}</TableCell>
             <TableCell className='row-user'>
-                {/* {user.id===idFirstUser
-                ?'administrateur'
-                :(<select value={userRank} onChange={(e)=>handleChange(e)}>
-                {Object.keys(ranks).map((key, index)=> {
-                    return (<option key={ranks[key]} value={ranks[key]}>{key}</option>)
-                })}
-
-            </select>)
-            } */} {user.id===idFirstUser
+                {user.id===idFirstUser
                 ?'administrateur'
                 :
  <FormControl >
