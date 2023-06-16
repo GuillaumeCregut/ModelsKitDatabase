@@ -1,17 +1,22 @@
 .orders-container{
-    
-    .item-list-order{
-        margin : 0 5px;
-    }
 
     .list-order {
         height : 0px;
         transition: 0.3s ease-in-out;
         overflow-y: scroll;
+        width: 80vw;
     }
 
     .list-order-deployed{
         height : 200px;
+    }
+
+    .new-order-container{
+        margin: 40px auto 20px auto;
+    }
+
+    .new-order-form-title{
+        text-align: center;
     }
 
     .form-header-inputs{
@@ -31,6 +36,7 @@
         margin: 20px 0;
         border-spacing: 0 20px;
         font-size:  1.3rem;
+        width: 50vw;
     }
 
     .order-head-cells{
