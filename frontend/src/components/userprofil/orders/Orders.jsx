@@ -7,18 +7,24 @@ import OrderModel from '../ordermodel/OrderModel';
 import ModelLine from './ModelLine';
 import OrderDetails from './orderdetails/OrderDetails';
 import { ToastContainer, toast } from 'react-toastify';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 import './Orders.scss';
 
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
-    const [isRefresh,setIsRefresh]=useState(false);
+    const [isRefresh, setIsRefresh] = useState(false);
     const [listModel, setListModel] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const [provider, setProvider] = useState(0);
     const [deployed, setDeployed] = useState(false);
-    const [closeModel,setCloseModel]=useState(false);
+    const [closeModel, setCloseModel] = useState(false);
     const axiosPrivate = useAxiosPrivate();
     const orderRefRef = useRef();
     const { auth } = useAuth();
@@ -60,7 +66,7 @@ const Orders = () => {
     }, [refresh]);
 
     useEffect(() => {
-        if (listModel.length > 0 || provider !== 0|| isRefresh) {
+        if (listModel.length > 0 || provider !== 0 || isRefresh) {
             const orderStore = {
                 provider: parseInt(provider),
                 reference: orderRefRef?.current.value,
@@ -75,10 +81,8 @@ const Orders = () => {
         setListModel([]);
         orderRefRef.current.value = '';
         window.localStorage.removeItem("myOrder")
-        //Empty list
-        //clear ref
-
     }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (orderRefRef.current.value === '') {
@@ -164,26 +168,37 @@ const Orders = () => {
         ? (<section className='orders-container'>
             Mes commandes : <button onClick={() => setDeployed(!deployed)}>{deployed ? 'cacher' : 'Afficher'}</button>
             {orders.length > 0
-                ? <ul className={deployed ? "list-order list-order-deployed" : "list-order"}>
-                    {orders.map((order) => (
-                        <li key={order.reference}>
-                            Ref : <span className="item-list-order">{order.reference}</span> - Fournisseur : <span className="item-list-order">{order.providerName}</span>
-                            <Popup trigger={<button> Détails</button>} position="right center" modal className='popup'>
-                                <OrderDetails details={order} />
-                            </Popup>
-                        </li>
-                    ))}
-                </ul>
+                ? <TableContainer className={deployed ? "list-order list-order-deployed" : "list-order"}>
+                    <Table aria-label="simple table"  >
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className='ref-column'>Référence</TableCell>
+                                <TableCell className='supplier-column'>Fournisseur</TableCell>
+                                <TableCell className='detail-column'>Détails</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {orders.map((order) => (
+                                <TableRow key={order.reference}>
+                                    <TableCell>
+                                        {order.reference}
+                                    </TableCell>
+                                    <TableCell>
+                                        {order.providerName}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Popup trigger={<button> Détails</button>} position="right center" modal className='popup'>
+                                            <OrderDetails details={order} />
+                                        </Popup>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+
+                        </TableBody>
+                    </Table>
+                </TableContainer>
                 : <p>Vous n'avez pas de commandes enregistrées</p>
             }
-            { /*
-            <Popup trigger={<button type="button">Ajouter un modèle à la commande</button>} position="right center" modal className='popupmodel'>
-                        <OrderModel
-                            addModel={addModel} />
-                    </Popup>
-
-        */}
-
             <div className="new-order-container">
                 <h2 className='new-order-form-title'>Ajouter une nouvelle commande</h2>
                 <form className='new-order-form' onSubmit={handleSubmit}>
@@ -200,11 +215,29 @@ const Orders = () => {
                     </div>
                     <Popup trigger={<button type="button">Ajouter un modèle à la commande</button>} open={closeModel} position="center center" modal className='popupmodel'>
                         <OrderModel
-                            addModel={addModel} 
-                            setCloseModel={setCloseModel}/>
+                            addModel={addModel}
+                            setCloseModel={setCloseModel} />
                     </Popup>
                     <div className="model-list-added">
-                        <table className='order-model-table'>
+                        <TableContainer >
+                            <Table aria-label="simple table"  className='order-model-table' >
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell className='order-head-cells'>nom du modèle</TableCell>
+                                        <TableCell className='order-head-cells'>Marque</TableCell>
+                                        <TableCell className='order-head-cells'>Echelle</TableCell>
+                                        <TableCell className='order-head-cells  qtty-cell'>Quantité</TableCell>
+                                        <TableCell className='order-head-cells'>Prix unitaire</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                {listModel.map((model) => (
+                                    <ModelLine key={model.idModel} model={model} setNewQtty={setNewQtty} />
+                                ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        {/* <table className='order-model-table'>
                             <caption>Résumé de la commande</caption>
                             <thead>
                                 <tr className='order-head-line-container'>
@@ -220,7 +253,7 @@ const Orders = () => {
                                     <ModelLine key={model.idModel} model={model} setNewQtty={setNewQtty} />
                                 ))}
                             </tbody>
-                        </table>
+                        </table> */}
                     </div>
                     <button>Valider</button>
 
