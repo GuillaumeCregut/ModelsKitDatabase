@@ -20,9 +20,6 @@ getModelWishes = async (idUser) => {
     }
     else return -1;
 }
-const addModelToUser = async (model, order) => {
-
-}
 
 const changWishes = async (wish, model, order) => {
     const { providerId } = order;
@@ -143,7 +140,8 @@ const findOne=async(id)=>{
 const addOne = async (order) => {
     const wishes = await getModelWishes(order.ownerId);
     await connectionPromise.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
-    await connectionPromise.beginTransaction();
+    //await connectionPromise.beginTransaction();
+    await connectionPromise.query('START TRANSACTION');
     try {
         //Create Order in DB
         await connectionPromise.execute("INSERT INTO orders (owner,provider,reference) VALUES(?,?,?)", [order.ownerId, order.providerId, order.reference])
@@ -183,14 +181,16 @@ const addOne = async (order) => {
             console.error(err)
             throw new MyError(err.errno)
         }
-        await connectionPromise.commit();
+        //await connectionPromise.commit();
+        await connectionPromise.query('COMMIT');
         const supplier = await supplierModel.findOne(order.providerId);
         order.setProviderName(supplier.name)
         return order;
     }
     catch (err) {
         console.error(err);
-        connectionPromise.rollback();
+       // connectionPromise.rollback();
+       await connectionPromise.query('ROLLBACK');
         if (err.errno === 1062)
             return -1;
         if (err.errno === 1452)
