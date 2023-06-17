@@ -434,6 +434,19 @@ const getStat = async (req, res) => {
     res.json(datas);
 }
 
+const getRandom=async(req,res)=>{
+    const idUser = req.user.user_id;
+    const result=await modelModel.getRandomKit(idUser);
+    if (result && result !== -1) {
+        return res.json(result)
+    }
+    else if (result === -1) {
+        return res.sendStatus(404)
+    }
+    return res.sendStatus(500);
+}
+
+
 module.exports = {
     getAll,
     getOne,
@@ -448,4 +461,5 @@ module.exports = {
     addUserPictures,
     deleteUserPicture,
     getStat,
+    getRandom,
 }

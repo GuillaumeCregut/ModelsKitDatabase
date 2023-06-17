@@ -49,6 +49,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import './App.css';
 import './LeftMenu.scss';
 import "react-toastify/dist/ReactToastify.css";
+import Random from './components/kits/random/Random';
 
 //Version of front end 
 const LocalVersion="1.0";
@@ -144,6 +145,7 @@ function App() {
             <Route path="inStock" element={<KitInStock keySearch={kitState.stock} title="en stock"/>}/>
             <Route path="ordered" element={<KitInStock keySearch={kitState.ordered} title="commandés"/>}/>
             <Route path="wip" element={<KitInStock keySearch={kitState.wip} title="en cours"/>}/>
+            <Route path="random" element={<Random />} />
             <Route path="finis" element={<FinishedModel />} />
             <Route path="finis/details/:id" element={<KitDetails />}/>
             <Route path='*' element={<NotFound />} />
