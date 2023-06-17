@@ -15,10 +15,6 @@ import './ModelsContainer.scss';
 
 const ModelsContainer = () => {
     const [isLoaded, setIsLoaded] = useState(false);
-    const [fullList, setFullList]=useState([]);
-    const [fullListLoaded, setFullListLoaded]=useState(false);
-    const [isFavoriteLoaded,setIsFavoriteLoaded]=useState(false);
-    const [favoriteModels,setFavoriteModels]=useState([]);
     const [filter, setFilter] = useState({});
     const [reload, setReload]=useState(false);
     const [modelsFiltered, setModelsFiltered] = useState([]);
@@ -59,8 +55,8 @@ const ModelsContainer = () => {
     
 
     useEffect(() => {
-        if (fullListLoaded) {
-            const temp = fullList.filter((item) => {
+        if (isLoaded) {
+            const temp = modelData.filter((item) => {
                 if (filter) {
                     for (const property in filter) {
                         if (property === 'name' && item.name.toLowerCase().includes(filter[property].toLowerCase()))
@@ -76,7 +72,7 @@ const ModelsContainer = () => {
             setModelsFiltered([...temp]);
         }
 
-    }, [filter, fullList]);
+    }, [filter]);
 
     return (
         <section className='right-page model-component'>
