@@ -17,6 +17,9 @@ const KitMenu = () => {
                     <NavLink to="wip" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Kits en cours</NavLink>
                 </li>
                 <li className="link-param-item">
+                    <NavLink to="random" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Choisir un kit</NavLink>
+                </li>
+                <li className="link-param-item">
                     <NavLink to="finis" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Kits terminés</NavLink>
                 </li>
             </ul>
