@@ -1,0 +1,25 @@
+.random-kit-container{
+    .random-title{
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    .random-btn{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .random-picture{
+        width: 350px;
+        height: auto;
+    }
+
+    .btn-add-wip{
+        margin-top: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+       margin-top : -150px;
+    }
+}
