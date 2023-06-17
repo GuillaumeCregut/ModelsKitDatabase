@@ -62,6 +62,7 @@ const uploadPictureUser=multer({storage:storageUserPictures});
 const uploadPicture=multer({storage:storagePicture});
 
 router.get('/',getidFromToken,modelController.getAll);
+router.get('/user/random',userCheck,modelController.getRandom);
 router.get('/user/:id',userCheck,modelController.getStock); 
 router.get('/favorite/:id',userCheck,modelController.getFavorite); 
 router.get('/info/:id/user/:iduser',userCheck,modelController.getAllInfoKit);

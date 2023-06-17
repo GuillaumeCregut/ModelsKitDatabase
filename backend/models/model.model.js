@@ -200,6 +200,11 @@ const getCountLikedIdUser=async(id, owner)=>{
     return dbResult[0];
 }
 
+const getRandomKit=async(userId)=>{
+    const dbResult=await dbquery('get','SELECT id,modelName,reference,boxPicture,builderName,scaleName,brandName FROM `mymodels` WHERE owner=? AND state=1 ORDER BY RAND() LIMIT 1;',[userId]);
+    return dbResult[0];
+}
+
 module.exports = {
     findAll,
     findOne,
@@ -222,4 +227,5 @@ module.exports = {
     getStatModelBrand,
     getLikedElementByIdKit,
     getCountLikedIdUser,
+    getRandomKit,
 }
