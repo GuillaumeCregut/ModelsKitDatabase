@@ -41,7 +41,7 @@ const ModelsContainer = () => {
                     setModelsFiltered(resp.data)
                     setIsLoaded(true);
                 })
-                .catch((err) => {
+                .catch(() => {
                     toast.error('Une erreur est survenue');
                 })
         }
