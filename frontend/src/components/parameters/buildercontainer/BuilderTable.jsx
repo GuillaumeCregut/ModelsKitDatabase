@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCountry } from '../../../feature/Country.slice';
 import { deleteBuilder, updateBuilder } from '../../../feature/Builder.slice';
 import { ToastContainer, toast } from 'react-toastify';
+import IconButton from '@mui/material/IconButton';
+import { FaTrash } from "react-icons/fa";
 
 const BuilderTable = ({ builder }) => {
     const [countryLoaded, setCountryLoaded] = useState(false);
@@ -162,7 +164,7 @@ const BuilderTable = ({ builder }) => {
             headerName: 'Action',
             width: 130,
             renderCell: (params) => {
-                return (rankUser === ranks.admin ? <button onClick={() => handleDelete(params)}>Supprimer </button> : null);
+                return (rankUser === ranks.admin ? <IconButton onClick={() => handleDelete(params)}><FaTrash className='builder-delete'/> </IconButton> : null);
             },
         },
     ]

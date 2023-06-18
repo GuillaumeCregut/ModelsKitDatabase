@@ -55,6 +55,10 @@
        font-size: 1.2rem;
     }
 
+    .builder-delete:hover{
+        color :red;
+    }
+    
     @media screen and (max-width: 768px) {
 
         .builder-container {
