@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import useAuth from '../../../hooks/useAuth';
 import ranks from "../../../feature/ranks";
-
+import Button from '@mui/material/Button';
+import {MdFormatListBulletedAdd} from "react-icons/md";
 import './FormAddSimple.scss';
 
 /**
@@ -46,7 +47,7 @@ const FormAddSimple = ({action}) => {
                     className="from-add-simple-input"
                 />
             </label>
-            <button className='form-add-simple-btn'>Ajouter</button>
+            <Button className='form-add-simple-btn' variant="contained"><MdFormatListBulletedAdd className='icon-add-simple-button'/>Ajouter</Button>
             </form>
         </section>
     )
