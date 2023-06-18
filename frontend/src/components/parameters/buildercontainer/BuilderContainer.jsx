@@ -8,6 +8,8 @@ import useAuth from '../../../hooks/useAuth';
 import ranks from '../../../feature/ranks';
 import CountrySelector from '../../selectors/countryselector/CountrySelector';
 import { ToastContainer, toast } from 'react-toastify';
+import Button from '@mui/material/Button';
+import {MdFormatListBulletedAdd} from "react-icons/md";
 
 import './BuilderContainer.scss';
 import BuilderTable from './BuilderTable';
@@ -121,7 +123,7 @@ const BuilderContainer = () => {
                                 selectedCountry={selectedCountry} 
                                 />
                         </label>
-                        <button className='builder-add-btn'>Ajouter</button>
+                        <Button  className='builder-add-btn'variant="contained"><MdFormatListBulletedAdd className='icon-add-builder-button'/>Ajouter</Button>
                     </form>
                 </section>
                 : null
