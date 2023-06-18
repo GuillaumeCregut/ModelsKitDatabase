@@ -54,7 +54,7 @@ const createModelItem = (doc, model) => {
         doc.addPage();
     }
     let filePath = './utils/no_image.jpg';
-    if (model.boxPicture.includes('jpg'))
+    if (model.boxPicture.includes('jpg')||model.boxPicture.includes('png'))
         filePath = model.boxPicture.replaceAll('\\', '/');
     doc.image(`./${filePath}`, doc.x, doc.y + 30, {
         fit: [70, 70],
