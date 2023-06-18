@@ -68,10 +68,14 @@ Enjoy !
 
 **Note** : when first user is created (by you) you need to run `npm run setadmin` to make this user admin of the site.
 
-Docker Version (not updated from 1.0)
+Docker Version 
 -
 
 There is a simple version for deploying on docker. As I'm not an expert with this, you should use the file to make your own version.
+
+The docker deployment will use 3 images (front end, back end and mysql Server). All thoses images are included in dockerfiles and combined in a docker-compose file.
+
+Feel free to adapt those files for your own deployment.
 
 Enhance security
 -
