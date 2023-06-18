@@ -9,6 +9,8 @@ import ScaleSelector from "../../selectors/scaleselector/ScaleSelector";
 import { useDispatch } from 'react-redux';
 import { addModel } from '../../../feature/Model.slice';
 import { ToastContainer, toast } from 'react-toastify';
+import Button from '@mui/material/Button';
+import {MdFormatListBulletedAdd} from "react-icons/md";
 
 import './FormAddModel.scss';
 
@@ -160,7 +162,7 @@ const FormAddModel = ({setReload}) => {
                             : 'Glisser la photo'}</FileDrop>
 
                     </div>
-                    <button className="form-add-model-btn">Ajouter</button>
+                    <Button className="form-add-model-btn" variant="contained"><MdFormatListBulletedAdd className="icon-add-model" />Ajouter</Button>
                 </div>
             </form>
         </div>

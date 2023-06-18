@@ -111,6 +111,12 @@
     padding: 7px;
   }
 
+  .icon-add-model{
+    margin : 0 10px;
+    min-height: 25px;
+    min-width: 25px;
+}
+
   @media screen and (max-width: 768px) {
     .form-add-model {
       flex-direction: column;

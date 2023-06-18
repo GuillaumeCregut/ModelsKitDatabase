@@ -17,6 +17,9 @@ import PeriodSelector from '../../selectors/periodSelector/PeriodSelector';
 import { AiFillHeart,AiOutlineHeart } from "react-icons/ai";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
+import IconButton from '@mui/material/IconButton';
+import { RxUpdate } from "react-icons/rx";
+import {BsDoorClosed} from "react-icons/bs";
 
 import './ModelBlock.scss';
 
@@ -248,8 +251,8 @@ const ModelBlock = ({ model, setReload }) => {
                     </div>
                 </div>
                 <div className="modal-btn-container">
-                    <button onClick={handleUpdate}>Modifier</button>
-                    <button onClick={closeModal}>Fermer</button>
+                    <IconButton onClick={handleUpdate}><RxUpdate className='valid-mod-btn'/></IconButton>
+                    <IconButton onClick={closeModal}><BsDoorClosed className='valid-mod-btn'/></IconButton>
                 </div>
             </Modal>
         </article>

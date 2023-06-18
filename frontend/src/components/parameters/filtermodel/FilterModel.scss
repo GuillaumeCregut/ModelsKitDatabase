@@ -23,11 +23,16 @@
     }
 
     .btn-filter{
-        display: block;
+        display: flex;
         padding: 8px;
-        font-size: 1rem;
-        width: 80px;
         margin: 10px auto;
+    }
+
+    .search-model-icon{
+        min-height: 20px;
+        min-width: 20px;
+        margin-right: 10px;
+        
     }
 
     @media screen and (max-width: 768px) {
