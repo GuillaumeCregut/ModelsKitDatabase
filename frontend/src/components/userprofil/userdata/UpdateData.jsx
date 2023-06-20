@@ -1,5 +1,7 @@
 import { useState, useEffect,useRef } from 'react';
 import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
+import Button from '@mui/material/Button';
+
 import './UpdateData.scss';
 
 const UpdateData = ({ user, cancelAction,updateUser }) => {
@@ -149,9 +151,9 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                     </>
                     : null
                 }
-                <button className='update-user-data-btn'>Valider les modifications</button>
+                <Button className='update-user-data user-btn' variant="contained">Valider</Button>
             </form>
-            <button onClick={() => cancelAction(false)}> Annuler</button>
+            <Button  variant="contained" className='user-btn' onClick={() => cancelAction(false)}> Annuler</Button>
         </div>
     )
 }
