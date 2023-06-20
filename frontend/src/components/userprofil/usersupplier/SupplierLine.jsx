@@ -2,7 +2,13 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { useState } from 'react';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+import IconButton from '@mui/material/IconButton';
 import {  toast } from 'react-toastify';
+import { FaTrash } from "react-icons/fa";
+import { RxUpdate } from "react-icons/rx";
+import {BsCheck2Square} from "react-icons/bs";
+import {BsDoorClosed} from "react-icons/bs";
+
 
 const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
     const [update, setUpdate] = useState(false);
@@ -59,15 +65,18 @@ const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
     return (
         <TableRow>
             <TableCell className='cell-supplier'>
-                <button onClick={handleDelete}>-</button>
+                <IconButton onClick={handleDelete}>< FaTrash className='delete-supplier'/></IconButton>
             </TableCell>
             <TableCell  className='cell-supplier'>
                 {update
-                    ? <p><input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} /> <button onClick={handleUpdate}>Valider</button> <button onClick={handleEdit}>Fermer</button></p>
+                    ? <p>
+                        <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} /> 
+                        <IconButton onClick={handleUpdate} className='supplier-line-btn'><BsCheck2Square className='close-supplier-btn'/></IconButton>
+                         <IconButton onClick={handleEdit} className='supplier-line-btn'><BsDoorClosed className='close-supplier-btn'/></IconButton></p>
                     : <p>{supplier.name} </p>}
             </TableCell>
             <TableCell  className='cell-supplier'>
-                <button onClick={handleEdit}>Modifier</button>
+                <IconButton onClick={handleEdit}><RxUpdate/></IconButton>
             </TableCell>
         </TableRow>
     )
