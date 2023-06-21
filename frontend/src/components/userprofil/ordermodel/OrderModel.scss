@@ -48,6 +48,15 @@
         margin: 10px 5px;
     }
 
+    .add-model-order-icon{
+        width: 40px;
+        height: 40px;
+    }
+
+    .add-model-order-icon:hover{
+        color: rgb(19, 158, 19);
+    }
+
     @media screen and (max-width: 768px) {
         width: 90%;
         margin : 0 auto;
