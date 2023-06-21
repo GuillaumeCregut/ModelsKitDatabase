@@ -8,6 +8,8 @@ import { setCountry } from '../../../feature/Country.slice';
 import { deleteBuilder, updateBuilder } from '../../../feature/Builder.slice';
 import { ToastContainer, toast } from 'react-toastify';
 import IconButton from '@mui/material/IconButton';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { FaTrash } from "react-icons/fa";
 
 const BuilderTable = ({ builder }) => {
@@ -138,24 +140,24 @@ const BuilderTable = ({ builder }) => {
         {
             field: 'countryId',
             headerName: 'Pays',
-            width: 130,
+            width: 150,
             renderCell: (params) => {
                 if (rankUser === ranks.admin)
-                    return (<select
+                    return (<Select
                         id="country-select"
                         defaultValue={params.value}
                         onChange={(e) => updateCountry(params.row, e.target.value)}
-                        className='builder-add-select'
+                         className='builder-add-select'
                     >
                         {countryLoaded
                             ? countryData.map((item) => (
-                                <option
+                                <MenuItem
                                     key={item.id}
-                                    value={item.id} >{item.name}</option>
+                                    value={item.id} >{item.name}</MenuItem>
                             ))
                             : null
                         }
-                    </select>)
+                    </Select>)
                 return params.row.countryName;
             },
         },
