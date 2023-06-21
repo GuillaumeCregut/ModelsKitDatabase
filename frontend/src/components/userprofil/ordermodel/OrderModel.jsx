@@ -6,6 +6,8 @@ import { setModel } from '../../../feature/Model.slice';
 import { ToastContainer, toast } from 'react-toastify';
 import useAuth from "../../../hooks/useAuth";
 import { AwaitLoad } from "../../awaitload/AwaitLoad";
+import IconButton from '@mui/material/IconButton';
+import {MdFormatListBulletedAdd} from "react-icons/md";
 
 import './OrderModel.scss';
 
@@ -167,7 +169,7 @@ const OrderModel = ({ addModel,setCloseModel }) => {
                     ref={qttyRef} 
                     min="1" />
                 </label>
-            <button onClick={handleClik}>Ajouter</button>
+            <IconButton onClick={handleClik} ><MdFormatListBulletedAdd className="add-model-order-icon"/></IconButton>
             </div>
             <RxCrossCircled onClick={()=>setCloseModel(false)} className="close-model-add"/>
         </div>

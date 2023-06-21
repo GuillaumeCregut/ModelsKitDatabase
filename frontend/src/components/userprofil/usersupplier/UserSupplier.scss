@@ -25,6 +25,27 @@
         width: 20px;
     }
 
+    .delete-supplier{
+        width: 20px;
+        height: 20px;
+    }
+
+    .delete-supplier:hover{
+        color : red;
+    }
+
+    .supplier-line-btn{
+        margin: 0 10px;
+    }
+
+    .close-supplier-btn{
+        width: 30px;
+        height: 30px;
+    }
+
+    .close-supplier-btn:hover{
+        color : rgb(13, 179, 13);
+    }
 
     .form-add-supplier-container{
        margin: 10px auto;
@@ -36,8 +57,13 @@
     }
 
     .form-add-supplier-btn{
-        width: 50px;
+        width: 150px;
         margin : 10px;
+    }
+    .add-supplier-icon{
+        margin-right: 10px;
+        height: 20px;
+        width: 20px;
     }
 
     input{

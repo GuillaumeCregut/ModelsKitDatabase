@@ -55,6 +55,16 @@
        font-size: 1.2rem;
     }
 
+    .builder-delete:hover{
+        color :red;
+    }
+
+    .icon-add-builder-button{
+        margin : 0 10px;
+        min-height: 20px;
+        min-width: 20px;
+    }
+
     @media screen and (max-width: 768px) {
 
         .builder-container {

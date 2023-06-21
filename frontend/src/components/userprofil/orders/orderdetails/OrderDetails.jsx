@@ -9,7 +9,7 @@ const OrderDetails = ({details}) => {
             <p>Détails</p>
             <ul>
                 {details.models.map((model)=>(
-                    <li key={model.id}>{model.name} -Quantité : {model.qtty} - Prix unitaire : {model.price} euros</li>
+                    <li key={model.id}> - {model.name} -Quantité : {model.qtty} - Prix unitaire : {model.price} euros</li>
                 ))}
             </ul>
             

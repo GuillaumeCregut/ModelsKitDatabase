@@ -13,6 +13,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 
 import './Orders.scss';
 
@@ -166,7 +168,7 @@ const Orders = () => {
 
     return (idUser !== 0
         ? (<section className='orders-container'>
-            Mes commandes : <button onClick={() => setDeployed(!deployed)}>{deployed ? 'cacher' : 'Afficher'}</button>
+            Mes commandes : <Button onClick={() => setDeployed(!deployed)} variant='contained'>{deployed ? 'cacher' : 'Afficher'}</Button>
             {orders.length > 0
                 ? <TableContainer className={deployed ? "list-order list-order-deployed" : "list-order"}>
                     <Table aria-label="simple table"  >
@@ -187,7 +189,7 @@ const Orders = () => {
                                         {order.providerName}
                                     </TableCell>
                                     <TableCell>
-                                        <Popup trigger={<button> Détails</button>} position="right center" modal className='popup'>
+                                        <Popup trigger={<Button variant='contained'> Détails</Button>} position="right center" modal className='popup'>
                                             <OrderDetails details={order} />
                                         </Popup>
                                     </TableCell>
@@ -213,7 +215,7 @@ const Orders = () => {
                                 setProvider={setProvider} />
                         </label>
                     </div>
-                    <Popup trigger={<button type="button">Ajouter un modèle à la commande</button>} open={closeModel} position="center center" modal className='popupmodel'>
+                    <Popup trigger={<Button type="button" variant='contained'>Ajouter un modèle à la commande</Button>} open={closeModel} position="center center" modal className='popupmodel'>
                         <OrderModel
                             addModel={addModel}
                             setCloseModel={setCloseModel} />
@@ -237,25 +239,8 @@ const Orders = () => {
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                        {/* <table className='order-model-table'>
-                            <caption>Résumé de la commande</caption>
-                            <thead>
-                                <tr className='order-head-line-container'>
-                                    <th className='order-head-cells'>nom du modèle</th>
-                                    <th className='order-head-cells'>marque</th>
-                                    <th className='order-head-cells'>Echelle</th>
-                                    <th className='order-head-cells qtty-cell'>Quantité</th>
-                                    <th className='order-head-cells'>Prix unitaire</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {listModel.map((model) => (
-                                    <ModelLine key={model.idModel} model={model} setNewQtty={setNewQtty} />
-                                ))}
-                            </tbody>
-                        </table> */}
                     </div>
-                    <button>Valider</button>
+                    <Button variant='contained'>Valider</Button>
 
                 </form>
 

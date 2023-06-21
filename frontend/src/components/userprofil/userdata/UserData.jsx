@@ -3,9 +3,10 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useAuth from '../../../hooks/useAuth';
 import Login from '../../login/Login';
 import { ToastContainer, toast } from 'react-toastify';
+import Button from '@mui/material/Button';
+import UpdateData from './UpdateData';
 
 import './UserData.scss';
-import UpdateData from './UpdateData';
 
 const UserData = () => {
     const [user, setUser] = useState(null);
@@ -59,7 +60,7 @@ const UserData = () => {
                     <p>Login : {user.login}</p>
 
                     <p>Email : {user.email}</p>
-                    <button onClick={() => setIsModify(!isModify)}>Modifier les valeurs</button>
+                    <Button onClick={() => setIsModify(!isModify)} variant='contained' className='user-modif-btn'>Modifier les valeurs</Button>
                 </div>)
             : <Login />
     )

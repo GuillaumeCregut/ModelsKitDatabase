@@ -5,6 +5,10 @@ import useAuth from '../../../hooks/useAuth';
 import { ToastContainer, toast } from 'react-toastify';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { useDispatch } from 'react-redux';
+import IconButton from '@mui/material/IconButton';
+import { FaTrash } from "react-icons/fa";
+
+import './SimpleArray.scss';
 
 const SimpleArray = ({ item, wrapper }) => {
     const axiosPrivate = useAxiosPrivate();
@@ -28,7 +32,7 @@ const SimpleArray = ({ item, wrapper }) => {
             headerName: 'Action',
             width: 130,
             renderCell: (params) => {
-                return (rankUser === ranks.admin ? <button onClick={() => handleDelete(params.value)}>Supprimer </button> : null);
+                return (rankUser === ranks.admin ? <IconButton onClick={() => handleDelete(params.value)}><FaTrash className='trash-simple' /> </IconButton> : null);
             },
         },
     ]
