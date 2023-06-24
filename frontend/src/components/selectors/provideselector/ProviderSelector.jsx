@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { ToastContainer, toast } from 'react-toastify';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import './ProviderSelector.scss';
 
@@ -31,18 +33,19 @@ const ProviderSelector = ({id, provider, setProvider}) => {
     return (
         <>
         <ToastContainer />
-        <select
+        <Select
         id={id}
+        className='provider-selector'
         value={provider}
         onChange={(e)=>setProvider(e.target.value)}>
-            <option value="0">--</option>
+            <MenuItem value="0">--</MenuItem>
              {providers.length>0
             ?providers.map((providerItem)=>(
-                <option value={providerItem.id} key={providerItem.id}>{providerItem.name}</option>
+                <MenuItem value={providerItem.id} key={providerItem.id}>{providerItem.name}</MenuItem>
             ))
             :null
             }
-        </select>
+        </Select>
         </>
     )
 }
