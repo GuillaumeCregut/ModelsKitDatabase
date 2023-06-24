@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {setBuilder} from '../../../feature/Builder.slice';
 import { ToastContainer, toast } from 'react-toastify';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import './BuilderSelector.scss';
 
@@ -33,22 +35,22 @@ const BuilderSelector = ({id,selectedBuilder, setSelectedBuilder}) => {
     return (
         <>
         <ToastContainer />
-        <select
+        <Select
             id={id}
             value={selectedBuilder}
             onChange={(e) => setSelectedBuilder(e.target.value)}
             className='builder-selector'
         >
-            <option value="0">--</option>
+            <MenuItem value="0">--</MenuItem>
          {builderLoaded
          ?builderData.map((item)=>(
-            <option 
+            <MenuItem 
                 key={item.id}
-                value={item.id}>{item.name} ({item.countryName})</option>
+                value={item.id}>{item.name} ({item.countryName})</MenuItem>
          ))
         :null
         }   
-        </select>
+        </Select>
         </>
     )
 }

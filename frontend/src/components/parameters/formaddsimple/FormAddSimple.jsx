@@ -47,7 +47,7 @@ const FormAddSimple = ({action}) => {
                     className="from-add-simple-input"
                 />
             </label>
-            <Button className='form-add-simple-btn' variant="contained"><MdFormatListBulletedAdd className='icon-add-simple-button'/>Ajouter</Button>
+            <Button className='form-add-simple-btn' variant="contained" onClick={handleSubmit}><MdFormatListBulletedAdd className='icon-add-simple-button'/>Ajouter</Button>
             </form>
         </section>
     )

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { setCategory } from '../../../feature/Category.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import './CategorySelector.scss';
 
@@ -34,22 +36,22 @@ const CategorySelector = ({id,selectedCategory,setSelectedCategory}) => {
     return (
         <>
          <ToastContainer />
-        <select
+        <Select
         id={id}
         value={selectedCategory}
         onChange={(e) => setSelectedCategory(e.target.value)}
         className='category-selector'
         >
-            <option value="0">--</option>
+            <MenuItem value="0">--</MenuItem>
              {categoryLoaded
                 ? categoryData.map((item) => (
-                    <option
+                    <MenuItem
                         key={item.id}
-                        value={item.id}>{item.name}</option>
+                        value={item.id}>{item.name}</MenuItem>
                 ))
                 : null
             }
-        </select>
+        </Select>
         </>
     )
 }

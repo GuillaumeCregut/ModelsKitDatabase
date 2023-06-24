@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { setBrand } from '../../../feature/Brand.slice';
 import { useDispatch, useSelector } from 'react-redux';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import "./BrandSelector.scss";
 
@@ -27,22 +29,22 @@ const BrandSelector = ({ selectedBrand, setSelectedBrand,id }) => {
     }, [])
 
     return (
-        <select
+        <Select
             id={id}
             value={selectedBrand}
             onChange={(e) => setSelectedBrand(e.target.value)}
             className='brand-selector'
         >
-            <option value="0">--</option>
+            <MenuItem value="0">--</MenuItem>
             {brandLoaded
                 ? brandData.map((item) => (
-                    <option
+                    <MenuItem
                         key={item.id}
-                        value={item.id}>{item.name}</option>
+                        value={item.id}>{item.name}</MenuItem>
                 ))
                 : null
             }
-        </select>
+        </Select>
     )
 }
 

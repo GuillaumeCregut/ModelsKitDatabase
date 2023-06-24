@@ -3,6 +3,8 @@ import axios from 'axios';
 import { setPeriod } from '../../../feature/Period.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import './PeriodSelector.scss';
 
@@ -35,21 +37,21 @@ const PeriodSelector = ({selectedPeriod,setSelectedPeriod, id}) => {
     return (
         <>
         <ToastContainer />
-        <select
+        <Select
         id={id}
         value={selectedPeriod}
         onChange={(e) => setSelectedPeriod(e.target.value)}
         className='period-selector'
         >
-            <option value="0">--</option>
+            <MenuItem value="0">--</MenuItem>
             {periodLoaded
             ?periodData.map((item)=>(
-                <option key={item.id}
-                value={item.id}>{item.name}</option>
+                <MenuItem key={item.id}
+                value={item.id}>{item.name}</MenuItem>
             )
             )
             :null}
-        </select>
+        </Select>
         </>
     )
 }

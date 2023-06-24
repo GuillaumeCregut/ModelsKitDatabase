@@ -123,7 +123,7 @@ const BuilderContainer = () => {
                                 selectedCountry={selectedCountry} 
                                 />
                         </label>
-                        <Button  className='builder-add-btn'variant="contained"><MdFormatListBulletedAdd className='icon-add-builder-button'/>Ajouter</Button>
+                        <Button  className='builder-add-btn'variant="contained" onClick={handleSubmit}><MdFormatListBulletedAdd className='icon-add-builder-button'/>Ajouter</Button>
                     </form>
                 </section>
                 : null
