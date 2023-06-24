@@ -162,7 +162,7 @@ const FormAddModel = ({setReload}) => {
                             : 'Glisser la photo'}</FileDrop>
 
                     </div>
-                    <Button className="form-add-model-btn" variant="contained"><MdFormatListBulletedAdd className="icon-add-model" />Ajouter</Button>
+                    <Button className="form-add-model-btn" variant="contained" onClick={handleSubmit}><MdFormatListBulletedAdd className="icon-add-model" />Ajouter</Button>
                 </div>
             </form>
         </div>
