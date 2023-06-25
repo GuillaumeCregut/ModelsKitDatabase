@@ -3,6 +3,8 @@ import useAuth from '../../../hooks/useAuth';
 import ranks from "../../../feature/ranks";
 import Button from '@mui/material/Button';
 import {MdFormatListBulletedAdd} from "react-icons/md";
+import Input from '@mui/material/Input';
+
 import './FormAddSimple.scss';
 
 /**
@@ -39,12 +41,12 @@ const FormAddSimple = ({action}) => {
                 onSubmit={handleSubmit}
             >
             <label htmlFor="new-name">Nom du nouvel élément : 
-                <input 
-                    type="text" 
+                <Input 
                     id="new-name" 
                     value={newName}
                     onChange={(e)=>setNewName(e.target.value)}
                     className="from-add-simple-input"
+                    placeholder='Nom'
                 />
             </label>
             <Button className='form-add-simple-btn' variant="contained" onClick={handleSubmit}><MdFormatListBulletedAdd className='icon-add-simple-button'/>Ajouter</Button>
