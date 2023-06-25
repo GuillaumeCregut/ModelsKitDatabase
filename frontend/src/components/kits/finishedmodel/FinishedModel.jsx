@@ -3,7 +3,7 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { Link } from 'react-router-dom';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import './FinishedModel.scss';
 
@@ -35,7 +35,6 @@ const FinishedModel = () => {
 
     return (
         <div className='finished-models'>
-            <ToastContainer />
             <div className="finished-top-page">
                 <h2>Modèles finis</h2>
                 <div className="list-finished-model-container">

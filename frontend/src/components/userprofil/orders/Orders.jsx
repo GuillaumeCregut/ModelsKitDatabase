@@ -6,7 +6,7 @@ import ProviderSelector from '../../selectors/provideselector/ProviderSelector';
 import OrderModel from '../ordermodel/OrderModel';
 import ModelLine from './ModelLine';
 import OrderDetails from './orderdetails/OrderDetails';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -246,7 +246,6 @@ const Orders = () => {
                 </form>
 
             </div>
-            <ToastContainer />
         </section>)
         : <p>Vous n'êtes pas connecté</p>
     )

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import jwt_decode from "jwt-decode";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { IconButton } from '@mui/material';
 import { MdVisibilityOff, MdVisibility, MdLogin } from "react-icons/md";
 
@@ -75,7 +75,6 @@ const Login = () => {
 
     return (
         <section className='login-container'>
-            <ToastContainer />
             <h2 className="login-title">Connexion</h2>
             <p className={errMsg ? "login-error-msg" : "login-hide"} aria-live="assertive" ref={errRef}>{errMsg} </p>
             <form className='login-form' onSubmit={handleSubmit}>

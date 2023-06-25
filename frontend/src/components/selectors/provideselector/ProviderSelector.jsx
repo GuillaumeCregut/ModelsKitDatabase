@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -31,8 +31,6 @@ const ProviderSelector = ({id, provider, setProvider}) => {
     },[]);
 
     return (
-        <>
-        <ToastContainer />
         <Select
         id={id}
         className='provider-selector'
@@ -46,7 +44,6 @@ const ProviderSelector = ({id, provider, setProvider}) => {
             :null
             }
         </Select>
-        </>
     )
 }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useAuth from '../../../hooks/useAuth';
 import Login from '../../login/Login';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import UpdateData from './UpdateData';
 
@@ -53,7 +53,6 @@ const UserData = () => {
             isModify
                 ? <UpdateData user={user} cancelAction={setIsModify} updateUser={updateUser} />
                 : (<div className='user-data-container'>
-                    <ToastContainer />
                     <h3 className='user-data-title'>Mon profil</h3>
                     <p>Nom : {user.lastname}</p>
                     <p>Prénom :{user.firstname}</p>

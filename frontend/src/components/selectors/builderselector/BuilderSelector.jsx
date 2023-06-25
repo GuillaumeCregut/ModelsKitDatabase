@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {setBuilder} from '../../../feature/Builder.slice';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -33,8 +33,6 @@ const BuilderSelector = ({id,selectedBuilder, setSelectedBuilder}) => {
     },[]);
 
     return (
-        <>
-        <ToastContainer />
         <Select
             id={id}
             value={selectedBuilder}
@@ -51,7 +49,6 @@ const BuilderSelector = ({id,selectedBuilder, setSelectedBuilder}) => {
         :null
         }   
         </Select>
-        </>
     )
 }
 

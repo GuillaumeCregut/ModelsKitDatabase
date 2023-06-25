@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addPeriod, setPeriod, updatePeriod, deletePeriod } from '../../../feature/Period.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
@@ -54,7 +54,6 @@ const AreaContainer = () => {
 
     return (
         <section className="right-page">
-            <ToastContainer />
             <h2 className='solo-title'>Les périodes</h2>
             <div className='solo-container'>
                 {isLoaded

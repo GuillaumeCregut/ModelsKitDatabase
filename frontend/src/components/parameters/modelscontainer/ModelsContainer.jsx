@@ -9,7 +9,7 @@ import useAuth from '../../../hooks/useAuth';
 import ranks from '../../../feature/ranks';
 import FilterModel from '../filtermodel/FilterModel';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import './ModelsContainer.scss';
 
@@ -76,7 +76,6 @@ const ModelsContainer = () => {
 
     return (
         <section className='right-page model-component'>
-            <ToastContainer />
             <h2 className="model-title">Les modèles</h2>
             <div className="main-model-container">
 

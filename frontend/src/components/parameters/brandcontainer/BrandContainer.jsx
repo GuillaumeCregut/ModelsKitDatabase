@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addBrand, setBrand, updateBrand, deleteBrand } from '../../../feature/Brand.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
@@ -53,7 +53,6 @@ const BrandContainer = () => {
 
     return (
         <section className="right-page">
-            <ToastContainer />
             <h2 className='solo-title'>Les marques</h2>
             <div className='solo-container'>
                 {isLoaded

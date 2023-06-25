@@ -16,7 +16,7 @@ import ScaleSelector from '../../selectors/scaleselector/ScaleSelector';
 import PeriodSelector from '../../selectors/periodSelector/PeriodSelector';
 import { AiFillHeart,AiOutlineHeart } from "react-icons/ai";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import IconButton from '@mui/material/IconButton';
 import { RxUpdate } from "react-icons/rx";
 import {BsDoorClosed} from "react-icons/bs";
@@ -159,7 +159,6 @@ const ModelBlock = ({ model, setReload }) => {
     }
     return (
         <article className='model-block'>
-            <ToastContainer />
             <div className="model-card-container" onClick={turnCard} >
                 <ReactCardFlip isFlipped={displayBack} flipDirection="horizontal" containerClassName="card-settings">
                     <div className='flip-card-front'>

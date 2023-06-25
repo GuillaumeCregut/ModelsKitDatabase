@@ -6,7 +6,7 @@ import useAuth from '../../../hooks/useAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCountry } from '../../../feature/Country.slice';
 import { deleteBuilder, updateBuilder } from '../../../feature/Builder.slice';
-import { ToastContainer, toast } from 'react-toastify';
+import {toast } from 'react-toastify';
 import IconButton from '@mui/material/IconButton';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -173,8 +173,6 @@ const BuilderTable = ({ builder }) => {
 
 
     return (
-        <>
-            <ToastContainer />
             <DataGrid
                 isRowSelectable={() => false}
                 processRowUpdate={handleProcess}
@@ -190,7 +188,6 @@ const BuilderTable = ({ builder }) => {
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
             />
-        </>
     )
 }
 

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { FaFileUpload } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import './FileUploader.scss';
 
@@ -68,7 +68,6 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
 
     return (
         <div className="file-uploader">
-            <ToastContainer />
             <section className='file-upload-container'>
                 <label className='input-label'>{label}</label>
                 <p className='drag-drop-text'>Glisser vos fichiers ici ou </p>

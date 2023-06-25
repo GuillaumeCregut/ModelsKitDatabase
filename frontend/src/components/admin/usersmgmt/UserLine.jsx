@@ -2,7 +2,7 @@ import {useState} from 'react';
 
 import ranks from '../../../feature/ranks';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -40,7 +40,7 @@ const UserLine = ({user}) => {
     return (
         <TableRow>   
             
-            <TableCell className='row-user'>{user.firstname}<ToastContainer /> </TableCell>
+            <TableCell className='row-user'>{user.firstname} </TableCell>
             <TableCell className='row-user'>{user.lastname}</TableCell>
             <TableCell className='row-user'>
                 {user.id===idFirstUser

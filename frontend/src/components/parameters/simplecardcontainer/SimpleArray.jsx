@@ -2,7 +2,7 @@ import { DataGrid, useGridApiRef } from '@mui/x-data-grid';
 import { useCallback } from 'react';
 import ranks from '../../../feature/ranks';
 import useAuth from '../../../hooks/useAuth';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { useDispatch } from 'react-redux';
 import IconButton from '@mui/material/IconButton';
@@ -107,24 +107,21 @@ const SimpleArray = ({ item, wrapper }) => {
     }, []);
 
     return (
-        <>
-            <ToastContainer />
-            <DataGrid
-                isRowSelectable={() => false}
-                processRowUpdate={handleProcess}
-                onProcessRowUpdateError={handleProcessRowUpdateError}
-                rows={item}
-                apiRef={apiRef}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10]}
-                checkboxSelection
-            />
-        </>
+        <DataGrid
+            isRowSelectable={() => false}
+            processRowUpdate={handleProcess}
+            onProcessRowUpdateError={handleProcessRowUpdateError}
+            rows={item}
+            apiRef={apiRef}
+            columns={columns}
+            initialState={{
+                pagination: {
+                    paginationModel: { page: 0, pageSize: 5 },
+                },
+            }}
+            pageSizeOptions={[5, 10]}
+            checkboxSelection
+        />
     )
 }
 
