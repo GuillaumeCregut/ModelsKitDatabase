@@ -5,14 +5,14 @@ import useAuth from '../../hooks/useAuth';
 import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from 'react-toastify';
 import { IconButton } from '@mui/material';
-import {MdVisibilityOff,MdVisibility} from "react-icons/md";
+import { MdVisibilityOff, MdVisibility, MdLogin } from "react-icons/md";
 
 import './Login.scss';
 
 const Login = () => {
     const [login, setLogin] = useState('');
     const [pass, setPass] = useState('');
-    const [showPassword,setShowPassword]=useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [errMsg, setErrMsg] = useState(false);
     const { setAuth } = useAuth();
     const loginRef = useRef();
@@ -95,7 +95,7 @@ const Login = () => {
                 <label htmlFor="password" className="login-label">
                     <span className="login-pwd">
                         <input
-                            type={showPassword?"text":"password"}
+                            type={showPassword ? "text" : "password"}
                             className="input-login-form"
                             placeholder='Mot de passe'
                             id="password"
@@ -103,11 +103,13 @@ const Login = () => {
                             value={pass}
                             onChange={(e) => setPass(e.target.value)}
                         />
-                        <IconButton onClick={()=>{setShowPassword(!showPassword)}} > {!showPassword?<MdVisibility />:<MdVisibilityOff />} </IconButton>
+                        <IconButton onClick={() => { setShowPassword(!showPassword) }} > {!showPassword ? <MdVisibility /> : <MdVisibilityOff />} </IconButton>
                     </span>
                 </label>
-                <button className='login-btn'>Connexion</button>
             </form>
+            <div className="login-btn-container">
+                <IconButton onClick={handleSubmit}><MdLogin className='login-btn' /></IconButton>
+            </div>
             <p className="login-footer">
                 Pas encore de compte ? <Link to='/signup'>Inscrivez-vous</Link>
             </p>

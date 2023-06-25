@@ -40,11 +40,19 @@
         outline: none;
     }
 
+    .login-btn-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .login-btn{
-        width: 150px;
-        height: 25px;
-        border-radius: 5px;
-        margin : 20px auto;
+        width: 40px;
+        height: 40px;
+    }
+
+    .login-btn:hover{
+        color: rgb(19, 190, 19);
     }
 
     .login-footer{
