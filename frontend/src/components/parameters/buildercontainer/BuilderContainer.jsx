@@ -13,13 +13,14 @@ import {MdFormatListBulletedAdd} from "react-icons/md";
 
 import './BuilderContainer.scss';
 import BuilderTable from './BuilderTable';
+import { Input } from '@mui/material';
 
 const BuilderContainer = () => {
     const url = `${import.meta.env.VITE_APP_API_URL}builder`;
     const [isLoaded, setIsLoaded] = useState(false);
     const [findElement, setFindElement] = useState('');
     const [filteredBuiler, setFilteredBuilder] = useState([]);
-    const [selectedCountry, setSelectedCountry] = useState(1);
+    const [selectedCountry, setSelectedCountry] = useState(0);
     const [newBuilder, setNewBuilder] = useState('');
     const buildersData = useSelector((state) => state.builders.builder);
     const dispatch = useDispatch();
@@ -106,8 +107,8 @@ const BuilderContainer = () => {
                     <h2 className='add-builder-title'>Ajouter un constructeur</h2>
                     <form className="builder-add-form" onSubmit={handleSubmit}>
                         <label htmlFor="builder-name" className='builder-add-label'>Nom du constructeur :
-                            <input
-                                type="text"
+                            <Input
+                                placeholder='Nom'
                                 id="builder-name"
                                 value={newBuilder}
                                 onChange={(e) => setNewBuilder(e.target.value)}

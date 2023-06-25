@@ -12,6 +12,7 @@ import {MdFormatListBulletedAdd} from "react-icons/md";
 import Button from '@mui/material/Button';
 
 import './UserSupplier.scss';
+import { Input } from "@mui/material";
 
 const UserSupplier2 = () => {
     const [suppliers, setSuppliers] = useState([]);
@@ -86,7 +87,7 @@ const UserSupplier2 = () => {
             </TableContainer>
             <div className="form-add-supplier-container">
                 <form onSubmit={handleSubmit} className="form-add-supplier">
-                    <label htmlFor="name-supplier">Nom du fournisseur : <input type="text" id="name-supplier" ref={nameRef} /></label>
+                    <label htmlFor="name-supplier">Nom du fournisseur : <Input placeholder="Nom" id="name-supplier" ref={nameRef} /></label>
                     <Button className="form-add-supplier-btn" variant="contained"><MdFormatListBulletedAdd className="add-supplier-icon"/>Ajouter</Button>
                 </form>
             </div>

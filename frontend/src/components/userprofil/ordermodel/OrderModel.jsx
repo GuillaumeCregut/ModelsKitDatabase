@@ -8,6 +8,7 @@ import useAuth from "../../../hooks/useAuth";
 import { AwaitLoad } from "../../awaitload/AwaitLoad";
 import IconButton from '@mui/material/IconButton';
 import {MdFormatListBulletedAdd} from "react-icons/md";
+import { Input, InputAdornment } from "@mui/material";
 
 import './OrderModel.scss';
 
@@ -92,7 +93,8 @@ const OrderModel = ({ addModel,setCloseModel }) => {
     }, [price]);
 
     const handleClik = () => {
-        if (isPriceOk && qttyRef.current.value !== 0) {
+        console.log(isPriceOk,qttyRef.current.value,selectedModel);
+        if (isPriceOk && qttyRef.current.value > 0&&selectedModel!==0) {
             const selectedModelItem = modelData.find((item) => item.id === selectedModel);
             const item = {
                 qtty: qttyRef.current.value,
@@ -135,7 +137,7 @@ const OrderModel = ({ addModel,setCloseModel }) => {
                 </div>
                 <div className="order-model-all-models-container">
                     <h3>Liste des modèles</h3>
-                    <p>Filtre : <input type="text" value={filter} onChange={(e) => setFilter(e.target.value)} /></p>
+                    <p>Filtre : <Input type="text" value={filter} onChange={(e) => setFilter(e.target.value)} /></p>
                     <div className="order-model-list-all-models all-models-list">
                         {isLoaded
                             ? filteredModel.map((model) => (
@@ -154,8 +156,9 @@ const OrderModel = ({ addModel,setCloseModel }) => {
             </div>
             <div className="order-model-inputs-container">
             <label htmlFor="price">Prix :
-                <input 
-                    type="text" 
+                <Input
+                    placeholder="Prix" 
+                    endAdornment={<InputAdornment position="end"> € </InputAdornment>}
                     className="order-model-inputs"
                     id="price" 
                     value={price} 
@@ -164,7 +167,8 @@ const OrderModel = ({ addModel,setCloseModel }) => {
             <label htmlFor="qtty">Quantité :
                 <input 
                     type="number" 
-                    className="order-model-inputs"
+                    className="order-model-inputs qtty-order"
+                   
                     id="qtty" 
                     ref={qttyRef} 
                     min="1" />

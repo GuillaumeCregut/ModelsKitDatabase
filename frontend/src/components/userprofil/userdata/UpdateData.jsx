@@ -1,6 +1,9 @@
 import { useState, useEffect,useRef } from 'react';
 import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import Button from '@mui/material/Button';
+import { IconButton, Input, InputAdornment } from '@mui/material';
+import {MdVisibilityOff,MdVisibility} from "react-icons/md";
+
 
 import './UpdateData.scss';
 
@@ -18,6 +21,7 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
     const [errMsg, setErrMsg] = useState('');
     const [pwd1Focus, setPwd1Focus] = useState(false);
     const [loginFocus, setLoginFocus] = useState(false);
+    const [showPassword, setShowPassword]=useState(false);
 
     const errRef = useRef();
 
@@ -76,34 +80,34 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
             <p ref={errRef} className={errMsg ? 'signup-err' : 'signup-err-off'} aria-live="assertive">{errMsg}</p>
             <form onSubmit={handleSubmit} className='update-user-info-form'>
                 <label htmlFor='lastname'>Nom :
-                    <input
-                        type='text'
+                    <Input
                         id='lastname'
                         value={lastname}
                         onChange={(e) => setLastname(e.target.value)}
                         autoComplete='off'
+                        className='input-user'
                     />
                 </label>
                 <label htmlFor='firstname'>Prénom :
-                    <input
-                        type='text'
+                    <Input
                         id='firstname'
                         value={firstname}
                         onChange={(e) => setFirstname(e.target.value)}
                         autoComplete='off'
+                        className='input-user'
                     />
                 </label>
                 <label htmlFor='login'><span>Login :
                     <FaCheck className={validLogin ? "signup-valid" : "signup-hide"} />
                     <FaTimes className={validLogin || !login ? "signup-hide" : "signup-invalid"} /></span>
-                    <input
-                        type='text'
+                    <Input
                         id='login'
                         value={login}
                         onChange={(e) => setLogin(e.target.value)}
                         onFocus={() => setLoginFocus(true)}
                         onBlur={() => setLoginFocus(false)}
                         autoComplete='off'
+                        className='input-user'
                     />
                 </label>
                 <p id="uidnote" className={loginFocus && login && !validLogin ? "signup-instruction" : "signup-err-off"}>
@@ -111,12 +115,12 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                     Lettres, nombres underscore et tirets sont autorisés.
                 </p>
                 <label htmlFor='email'>Email :
-                    <input
-                        type='text'
+                    <Input
                         id='email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         autoComplete='off'
+                        className='input-user'
                     />
                 </label>
                 <label htmlFor='change-password'>Modifier le mot de passe ? <input type="checkbox" id="change-password" checked={isPwdChecked} onChange={e => setIsPwdChecked(!isPwdChecked)} /> </label>
@@ -124,13 +128,21 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                     ? <><label htmlFor='pass1'><span>Nouveau Mot de passe :
                         <FaCheck className={validPwd ? "signup-valid" : "signup-hide"} />
                         <FaTimes className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"} /></span>
-                        <input
-                            type="password"
+                        <Input
+                            type={showPassword ?"text":"password"}
                             id="pass1"
                             value={pass1}
                             onChange={(e) => setPass1(e.target.value)}
                             onFocus={() => setPwd1Focus(true)}
                             onBlur={() => setPwd1Focus(false)}
+                            className='input-user'
+                            endAdornment={<InputAdornment position="end">
+                                <IconButton aria-label='toggle pawword visibility' onClick={()=>setShowPassword(!showPassword)}>
+                                    {
+                                        !showPassword?<MdVisibility />:<MdVisibilityOff />
+                                    }
+                                </IconButton>
+                            </InputAdornment>}
                         />
                         </label>
                         <p id="pwdnote" className={pwd1Focus && pass1 && !validPwd ? "signup-instruction" : "signup-err-off"}>
@@ -140,12 +152,12 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                         <label htmlFor='pass2'><span>Nouveau mot de passe (vérification) :
                             <FaCheck className={validMatch && pass2 && validPwd ? "signup-valid" : "signup-hide"} />
                             <FaTimes className={validMatch || !pass2 ? "signup-hide" : "signup-invalid"} /></span>
-                            <input
+                            <Input
                                 type="password"
                                 id="pass2"
                                 value={pass2}
                                 onChange={(e) => setPass2(e.target.value)}
-                              
+                                className='input-user'
                             />
                         </label>
                     </>

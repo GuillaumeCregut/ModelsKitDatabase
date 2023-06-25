@@ -17,6 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 
 import './Orders.scss';
+import { Input } from '@mui/material';
 
 
 const Orders = () => {
@@ -206,7 +207,7 @@ const Orders = () => {
                 <form className='new-order-form' onSubmit={handleSubmit}>
                     <div className="form-header-inputs">
                         <label htmlFor="">Référence de la commande :
-                            <input type="text" id="" ref={orderRefRef} />
+                            <Input placeholder="Référence" id="" ref={orderRefRef} />
                         </label>
                         <label htmlFor="provider">Fournisseur :
                             <ProviderSelector
