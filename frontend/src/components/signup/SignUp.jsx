@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import {FaCheck, FaTimes, FaInfoCircle} from 'react-icons/fa';
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import { IconButton } from '@mui/material';
+import {MdVisibilityOff,MdVisibility} from "react-icons/md";
 
 import './SignUp.scss';
 
@@ -21,7 +23,7 @@ const SignUp = () => {
     const [validMatch, setValidMatch] = useState(false);
     const [pwd1Focus, setPwd1Focus] = useState(false);
     const [loginFocus, setLoginFocus] = useState(false);
-
+    const [showPassword,setShowPassword]=useState(false);
 
     useEffect(() => {
         userRef.current.focus();
@@ -166,12 +168,13 @@ const SignUp = () => {
                         <FaInfoCircle/> Doit être de 4 à 24 caractères, doit commencer par une lettre.<br />
                             Lettres, nombres underscore et tirets sont autorisés.
                         </p>
-                        <label htmlFor="password1" className='form-signup-label'><span>Mot de passe :
+                        <label htmlFor="password1" className='form-signup-label'><span>Mot de passe
                             <FaCheck className={validPwd ? "signup-valid" : "signup-hide"} />
                             <FaTimes className={validPwd || !password1 ? "signup-hide" : "signup-invalid"} /></span>
                             <input
-                                type="password"
+                                type={showPassword?"text":"password"}
                                 className='form-signup-input'
+                                placeholder='Mot de passe'
                                 value={password1}
                                 onChange={(e) => { setPassword1(e.target.value) }}
                                 id="password1"
@@ -180,6 +183,7 @@ const SignUp = () => {
                                 onFocus={() => setPwd1Focus(true)}
                                 onBlur={() => setPwd1Focus(false)}
                                 required />
+                                <IconButton onClick={()=>setShowPassword(!showPassword)}>{!showPassword?<MdVisibility />:<MdVisibilityOff />}</IconButton>
                         </label>
                         <p id="pwdnote" className={pwd1Focus && password1 && !validPwd ? "signup-instruction" : "signup-err-off"}>
                             Doit être de 8 à 24 caractères, Doit inclure une majuscule, un chiffre et un caractère spécial.<br />
@@ -191,6 +195,7 @@ const SignUp = () => {
                             <input
                                 type="password"
                                 className='form-signup-input'
+                                placeholder='Vérification'
                                 value={password2}
                                 onChange={(e) => { setPassword2(e.target.value) }}
                                 id="password2"
