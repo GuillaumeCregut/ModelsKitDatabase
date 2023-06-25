@@ -70,7 +70,7 @@ const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
             <TableCell  className='cell-supplier'>
                 {update
                     ? <p>
-                        <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} /> 
+                        <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} className='user-supplier-field-name' /> 
                         <IconButton onClick={handleUpdate} className='supplier-line-btn'><BsCheck2Square className='close-supplier-btn'/></IconButton>
                          <IconButton onClick={handleEdit} className='supplier-line-btn'><BsDoorClosed className='close-supplier-btn'/></IconButton></p>
                     : <p>{supplier.name} </p>}
