@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import {BiSearchAlt} from "react-icons/bi";
 
 import './FilterModel.scss';
+import { Input } from '@mui/material';
 
 const FilterModel = ({setFilter}) => {
     const [selectedCountry, setSelectedCountry] = useState(0);
@@ -94,7 +95,7 @@ const FilterModel = ({setFilter}) => {
                 </label>
                 </div>
                 <label htmlFor="model-name" className='model-filter-label'>par nom :
-                <input type="text" id="model-name"  ref={refName} className='filter-nbame-input'/>
+                <Input id="model-name"  ref={refName} className='filter-nbame-input' placeholder='Nom'/>
                 </label>
             </div>
             <div>

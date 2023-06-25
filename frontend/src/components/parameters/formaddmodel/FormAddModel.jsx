@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import {MdFormatListBulletedAdd} from "react-icons/md";
 
 import './FormAddModel.scss';
+import { Input } from "@mui/material";
 
 const FormAddModel = ({setReload}) => {
     const [selectedScale, setSelectedScale] = useState(0);
@@ -83,8 +84,8 @@ const FormAddModel = ({setReload}) => {
             <form onSubmit={handleSubmit} className='form-add-model' encType="multipart/form-data">
                 <div className="form-add-model-inputs-container">
                     <label htmlFor="new-name">Nom du modèle :
-                        <input
-                            type="text"
+                        <Input
+                            placeholder="Nom"
                             id="new-name"
                             ref={nameRef}
                             className='add-model-form-input'
@@ -93,8 +94,8 @@ const FormAddModel = ({setReload}) => {
                         />
                     </label>
                     <label htmlFor="new-reference">Référence :
-                        <input
-                            type="text"
+                        <Input
+                            placeholder="référence"
                             id="new-reference"
                             ref={refRef}
                             className='add-model-form-input'
@@ -140,8 +141,8 @@ const FormAddModel = ({setReload}) => {
                         />
                     </label>
                     <label htmlFor="new-reference">Lien scalemates :
-                        <input
-                            type="text"
+                        <Input
+                            placeholder="Scalemates"
                             id="new-reference"
                             ref={linkRef}
                             className='add-model-form-input'

@@ -22,6 +22,7 @@ import { RxUpdate } from "react-icons/rx";
 import {BsDoorClosed} from "react-icons/bs";
 
 import './ModelBlock.scss';
+import { Input } from '@mui/material';
 
 
 const ModelBlock = ({ model, setReload }) => {
@@ -226,13 +227,13 @@ const ModelBlock = ({ model, setReload }) => {
                                 setSelectedPeriod={setSelectedPeriod} />
                         </label>
                         <label htmlFor="new-name">Nom :
-                            <input type="text" id="new-name" value={newName} onChange={(e) => setNewName(e.target.value)} />
+                            <Input id="new-name" value={newName} onChange={(e) => setNewName(e.target.value)} />
                         </label>
                         <label htmlFor="new-ref">Référence :
-                            <input type="text" id="new-ref" value={newRef} onChange={(e) => setNewRef(e.target.value)} />
+                            <Input id="new-ref" value={newRef} onChange={(e) => setNewRef(e.target.value)} />
                         </label>
                         <label htmlFor="new-link">Lien scalmates :
-                            <input type="text" id="new-link" value={newLink} onChange={(e) => setNewLink(e.target.value)} />
+                            <Input id="new-link" value={newLink} onChange={(e) => setNewLink(e.target.value)} />
                         </label>
                     </div>
                     <div className='modal-dropzone'>
