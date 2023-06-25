@@ -30,9 +30,14 @@
     .input-login-form{
         margin-left: 5px;
         padding-left: 2px;
-        background-color: white;
-        border-radius: 5px;
         height: 25px;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba($color: #000000, $alpha: 0.84);
+    }
+
+    .input-login-form:focus{
+        outline: none;
     }
 
     .login-btn{
