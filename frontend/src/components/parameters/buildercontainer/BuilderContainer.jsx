@@ -85,8 +85,8 @@ const BuilderContainer = () => {
             <ToastContainer />
             <h2 className='builders-container-title'>Constructeurs</h2>
             <label htmlFor="find-builder" className='builder-search-label'>Rechercher un constructeur :
-                <input
-                    type="text"
+                <Input
+                   
                     id="find-builder"
                     value={findElement}
                     onChange={(e) => setFindElement(e.target.value)}
