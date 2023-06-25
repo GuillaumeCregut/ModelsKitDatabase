@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCountry, deleteCountry, addCountry, updateCountry } from '../../../feature/Country.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
@@ -55,7 +55,6 @@ const CountryContainer = () => {
 
     return (
         <section className="right-page">
-            <ToastContainer />
             <h2 className='solo-title'>Les pays</h2>
             <div className='solo-container'>
                 {isLoaded

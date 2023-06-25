@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import UserLine from './UserLine';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -31,7 +31,6 @@ const UserMgmt = () => {
 
     return (
         <section className='admin-user'>
-            <ToastContainer />
            <h1 className='admin-user-title'>Gestion des utilisateurs</h1> 
            <TableContainer >
             <Table  aria-label="simple table" className='table-user'>

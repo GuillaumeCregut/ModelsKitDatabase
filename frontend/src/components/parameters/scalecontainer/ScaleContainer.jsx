@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addScale, setScale, updateScale, deleteScale } from '../../../feature/Scale.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
@@ -52,7 +52,6 @@ const ScaleContainer = () => {
 
     return (
         <section className="right-page">
-            <ToastContainer />
             <h2 className='solo-title'>Les échelles</h2>
             <div className='solo-container'>
                 {isLoaded

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addCategory, setCategory, updateCategory, deleteCategory } from '../../../feature/Category.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
@@ -54,7 +54,6 @@ const CategoryContainer = () => {
 
     return (
         <section className="right-page">
-            <ToastContainer />
             <h2 className='solo-title'>Les catégories</h2>
             <div className='solo-container'>
                 {isLoaded ?

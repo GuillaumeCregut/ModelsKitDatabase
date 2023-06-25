@@ -7,7 +7,7 @@ import { addBuilder,  setBuilder } from '../../../feature/Builder.slice';
 import useAuth from '../../../hooks/useAuth';
 import ranks from '../../../feature/ranks';
 import CountrySelector from '../../selectors/countryselector/CountrySelector';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import {MdFormatListBulletedAdd} from "react-icons/md";
 
@@ -82,7 +82,6 @@ const BuilderContainer = () => {
 
     return (
         <section className=' right-page builders-container-page'>
-            <ToastContainer />
             <h2 className='builders-container-title'>Constructeurs</h2>
             <label htmlFor="find-builder" className='builder-search-label'>Rechercher un constructeur :
                 <Input
