@@ -50,6 +50,7 @@ const FormAddSimple = ({action}) => {
                     onChange={(e)=>setNewName(e.target.value)}
                     className="from-add-simple-input"
                     placeholder='Nom'
+                    autoComplete='off'
                 />
             </label>
             <Button className='form-add-simple-btn' variant="contained" onClick={handleSubmit}><MdFormatListBulletedAdd className='icon-add-simple-button'/>Ajouter</Button>
