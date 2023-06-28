@@ -32,6 +32,15 @@
         margin-left: 5px;
     }
 
+    .input-ref-order{
+        border: none;
+        border-bottom: 1px solid black;
+    }
+
+    .input-ref-order:focus{
+        outline: none;
+    }
+
     .order-model-table{
         margin: 20px 0;
         border-spacing: 0 20px;

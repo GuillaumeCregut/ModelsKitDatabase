@@ -93,7 +93,6 @@ const OrderModel = ({ addModel, setCloseModel }) => {
     }, [price]);
 
     const handleClik = () => {
-        console.log(isPriceOk, qttyRef.current.value, selectedModel);
         if (isPriceOk && qttyRef.current.value > 0 && selectedModel !== 0) {
             const selectedModelItem = modelData.find((item) => item.id === selectedModel);
             const item = {

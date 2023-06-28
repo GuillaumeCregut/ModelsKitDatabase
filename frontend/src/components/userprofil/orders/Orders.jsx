@@ -13,11 +13,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 
 import './Orders.scss';
-import { Input } from '@mui/material';
+
 
 
 const Orders = () => {
@@ -206,8 +205,8 @@ const Orders = () => {
                 <h2 className='new-order-form-title'>Ajouter une nouvelle commande</h2>
                 <form className='new-order-form' onSubmit={handleSubmit}>
                     <div className="form-header-inputs">
-                        <label htmlFor="">Référence de la commande :
-                            <Input placeholder="Référence" id="" ref={orderRefRef} />
+                        <label htmlFor="ref-order">Référence de la commande :
+                            <input placeholder="Référence" id="ref-order" className="input-ref-order" ref={orderRefRef} />
                         </label>
                         <label htmlFor="provider">Fournisseur :
                             <ProviderSelector
