@@ -95,7 +95,6 @@ const SimpleArray = ({ item, wrapper }) => {
         }, []);
 
     const handleProcessRowUpdateError = useCallback((error) => {
-        console.log(error.message);
     }, []);
 
     return (
