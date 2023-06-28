@@ -120,7 +120,6 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
                             return (
                                 <ul {...provided.droppableProps} ref={provided.innerRef} className={snapshot.isDraggingOver ? 'dropzone dropOK' : 'dropzone'}>
                                     {state.ordered.map((item, index) => {
-                                        //console.log('map',item)
                                         return (
                                             <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                 {(provided, snapshot) => { //snapshot should be use for style

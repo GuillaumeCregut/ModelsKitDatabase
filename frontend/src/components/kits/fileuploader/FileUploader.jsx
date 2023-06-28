@@ -13,7 +13,7 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
     const [files, setFiles] = useState({});
     const fileInputField = useRef(null);
     const [openModal, setOpenModal] = useState(false);
-    const [fileNameRemove,setFileNameRemove]=useState('');
+    const [fileNameRemove, setFileNameRemove] = useState('');
 
     const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
 
@@ -58,20 +58,19 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
         updateFilesCb(filesAsArray);
     }
 
-    const openModalAction=(filename)=>{
+    const openModalAction = (filename) => {
         setFileNameRemove(filename);
         setOpenModal(true);
     }
 
     const removeFile = () => {
-       console.log('delete file :',fileNameRemove);
-             delete files[fileNameRemove];
-             setFiles({ ...files });
+        delete files[fileNameRemove];
+        setFiles({ ...files });
         //}
         setOpenModal(false);
     }
 
-    const handleClose=()=>{
+    const handleClose = () => {
         setOpenModal(false);
     }
 
@@ -88,7 +87,7 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
                 aria-describedby="alert-dialog-description">
                 <DialogContent>
                     <DialogContentText>
-                    Voulez-vous supprimer cette image ?
+                        Voulez-vous supprimer cette image ?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

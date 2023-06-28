@@ -2,9 +2,10 @@ import { useState } from 'react';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import Button from '@mui/material/Button';
 import { MdOutlineManageSearch } from "react-icons/md";
+import { toast } from 'react-toastify';
+import RandomKitInfo from './RandomKitInfo';
 
 import './Random.scss';
-import RandomKitInfo from './RandomKitInfo';
 
 const Random = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -18,7 +19,7 @@ const Random = () => {
                 setModel(resp.data)
             })
             .catch((err)=>{
-                console.log(err)
+                toast.warn("Une erreur est survenue")
             })
     }
     return (

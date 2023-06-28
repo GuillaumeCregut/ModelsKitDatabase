@@ -150,7 +150,11 @@ const addModelInStock=async(user,model)=>{
     else {
         return undefined;
     }
+}
 
+const getModelStockInfoById=async(id)=>{
+        const dbResult=await dbquery('get','SELECT * FROM mymodels WHERE id=?',[id]);
+        return dbResult[0];
 }
 
 const getModelStockById=async(id,idUser)=>{
@@ -184,4 +188,5 @@ module.exports={
     updateRank,
     getModelStockById,
     deleteModelStock,
+    getModelStockInfoById,
 }
