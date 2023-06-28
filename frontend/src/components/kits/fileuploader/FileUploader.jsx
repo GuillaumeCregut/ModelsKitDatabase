@@ -92,8 +92,8 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <IconButton onClick={handleClose}>no</IconButton>
-                    <IconButton onClick={removeFile}>Yes</IconButton>
+                    <IconButton onClick={handleClose}>Non</IconButton>
+                    <IconButton onClick={removeFile}>Oui</IconButton>
                 </DialogActions>
             </Dialog>
             <section className='file-upload-container'>

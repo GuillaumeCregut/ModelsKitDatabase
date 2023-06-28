@@ -3,7 +3,7 @@ import ReactCardFlip from 'react-card-flip';
 import useAuth from '../../../hooks/useAuth';
 import UpDateRemoveBtn from '../updateremovebtn/UpDateRemoveBtn';
 import ranks from '../../../feature/ranks';
-import { deleteModel,updateModel } from '../../../feature/Model.slice';
+import { deleteModel, updateModel } from '../../../feature/Model.slice';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import useAxiosPrivateMulti from '../../../hooks/useAxiosMulti';
 import { useDispatch } from 'react-redux';
@@ -14,22 +14,21 @@ import BuilderSelector from '../../selectors/builderselector/BuilderSelector';
 import CategorySelector from '../../selectors/categoryselector/CategorySelector';
 import ScaleSelector from '../../selectors/scaleselector/ScaleSelector';
 import PeriodSelector from '../../selectors/periodSelector/PeriodSelector';
-import { AiFillHeart,AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { toast } from 'react-toastify';
 import IconButton from '@mui/material/IconButton';
 import { RxUpdate } from "react-icons/rx";
-import {BsDoorClosed} from "react-icons/bs";
-
+import { BsDoorClosed } from "react-icons/bs";
 import './ModelBlock.scss';
-import { Input } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, Input } from '@mui/material';
 
 
 const ModelBlock = ({ model, setReload }) => {
     const url = `${import.meta.env.VITE_APP_URL}`;
     const [displayBack, setDisplayBack] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    ////
+    const [openModal, setOpenModal] = useState(false);
     const [selectedBrand, setSelectedBrand] = useState(model.brand);
     const [selectedCategory, setSelectedCategory] = useState(model.category);
     const [selectedPeriod, setSelectedPeriod] = useState(model.period);
@@ -40,19 +39,19 @@ const ModelBlock = ({ model, setReload }) => {
     const [newName, setNewName] = useState(model.name);
     const [newRef, setNewRef] = useState(model.reference);
     const [newLink, setNewLink] = useState(model.link ? model.link : '');
-    const [isLiked,setIsLiked]=useState(model.isLiked);
+    const [isLiked, setIsLiked] = useState(model.isLiked);
 
     const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
-    const axiosMulti=useAxiosPrivateMulti();
+    const axiosMulti = useAxiosPrivateMulti();
     const dispatch = useDispatch();
 
     let rankUser = auth?.rank;
     if (!rankUser)
         rankUser = 0;
-    let idUser=auth.id;
-    if(!idUser)
-        idUser=0;
+    let idUser = auth.id;
+    if (!idUser)
+        idUser = 0;
 
     useEffect(() => {
         if (fileUpload) {
@@ -70,9 +69,9 @@ const ModelBlock = ({ model, setReload }) => {
         setShowModal(true);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setIsLiked(model.isLiked);
-    },[model.isLiked])
+    }, [model.isLiked])
 
     const closeModal = () => {
         setShowModal(false);
@@ -85,80 +84,99 @@ const ModelBlock = ({ model, setReload }) => {
         if (fileUpload)
             formData.append('file', fileUpload);
         formData.append('name', newName);
-        formData.append('reference',newRef);
+        formData.append('reference', newRef);
         formData.append('brand', selectedBrand);
         formData.append('builder', selectedBuilder);
         formData.append('scale', selectedScale);
         formData.append('category', selectedCategory);
         formData.append('period', selectedPeriod);
-        if(newLink!=='')
+        if (newLink !== '')
             formData.append('scalemates', newLink);
         const urlApi = `${import.meta.env.VITE_APP_API_URL}model/${model.id}`;
-        if (window.confirm(`Voulez vous modifier  ${model.name} ?`)) {
-            axiosMulti
-                .put(urlApi,formData)
-                .then((resp) => {
-                    if(resp?.data){
-                        dispatch(updateModel([resp.data,model.id]))
-                        setReload(prev=>!prev);
-                    }
-                })
-                .catch((err) => {
-                    toast.error('Une erreur est survenue');
-                })
-        }
+        axiosMulti
+            .put(urlApi, formData)
+            .then((resp) => {
+                if (resp?.data) {
+                    dispatch(updateModel([resp.data, model.id]))
+                    setReload(prev => !prev);
+                }
+            })
+            .catch((err) => {
+                toast.error('Une erreur est survenue');
+            })
         closeModal();
     }
 
     const handleDelete = () => {
         const urlApi = `${import.meta.env.VITE_APP_API_URL}model/${model.id}`
-        if (window.confirm(`Voulez vous supprimer  ${model.name} ?`)) {
-            axiosPrivate
-                .delete(urlApi)
-                .then(() => {
-                    dispatch(deleteModel(model.id));
-                    setReload(prev=>!prev);
-                })
-                .catch((err) => {
-                    toast.error('Une erreur est survenue');
-                })
-        }
+        axiosPrivate
+            .delete(urlApi)
+            .then(() => {
+                dispatch(deleteModel(model.id));
+                setReload(prev => !prev);
+            })
+            .catch((err) => {
+                toast.error('Une erreur est survenue');
+            })
+        setOpenModal(false);
     }
+    
     Modal.setAppElement('#root');
 
-    const handleClick=()=>{
-        const  data={
-            modelId:model.id,
-            owner:idUser,
-            like : !isLiked
+    const handleClick = () => {
+        const data = {
+            modelId: model.id,
+            owner: idUser,
+            like: !isLiked
         }
         const url = `${import.meta.env.VITE_APP_API_URL}model/favorite/`;
         axiosPrivate
-            .post(url,data)
-            .then((resp)=>{
-                setIsLiked((prev)=>!prev)
+            .post(url, data)
+            .then((resp) => {
+                setIsLiked((prev) => !prev)
             })
-            .catch((err)=>{
+            .catch((err) => {
                 toast.error('Une erreur est survenue');
             })
     }
 
-    const handleCart=()=>{
-        if(window.confirm("Voulez-vous ajouter ce modèle dans votre stock ?")){
+    const handleCart = () => {
             const url = `${import.meta.env.VITE_APP_API_URL}users/model/`;
             axiosPrivate
-                .post(url,{user:idUser,model:model.id})
-                .then((resp)=>{
+                .post(url, { user: idUser, model: model.id })
+                .then((resp) => {
+                    //Nota : mettre à jour le stock dans le store
                     toast.info("Le modèle a bien été ajouté. Pour modifier, veuillez vous rendre dans votre stock.")
                 })
-                .catch((err)=>{
+                .catch((err) => {
                     toast.error("Une erreur est survenue, le modèle n'a put être ajouté au stock");
                 })
+    }
 
-        }
+    const handleClose = () => {
+        setOpenModal(false);
+    }
+
+    const handleOpenConfirm = () => {
+        setOpenModal(true);
     }
     return (
         <article className='model-block'>
+            <Dialog
+                open={openModal}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description">
+                <DialogContent>
+                    <DialogContentText>
+                        Voulez-vous supprimer ce kit ?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <IconButton onClick={handleClose}>Non</IconButton>
+                    <IconButton onClick={handleDelete}>Oui</IconButton>
+                </DialogActions>
+            </Dialog>
             <div className="model-card-container" onClick={turnCard} >
                 <ReactCardFlip isFlipped={displayBack} flipDirection="horizontal" containerClassName="card-settings">
                     <div className='flip-card-front'>
@@ -180,14 +198,14 @@ const ModelBlock = ({ model, setReload }) => {
             <h3 className='model-card-title'> {model.brandName}<br />
                 {model.name}</h3>
             <p className='model-reference'>{model.reference} - {model.scaleName}</p>
-           {idUser!==0
-           ? <div className='user-buttons'>
-                <p onClick={handleClick}>{isLiked?<AiFillHeart className='model-like model-like-true'/>:<AiOutlineHeart className='model-like'/>}</p>
-                <MdOutlineAddShoppingCart className="add-cart-model" onClick={handleCart}/>
-            </div>
-            :null}
+            {idUser !== 0
+                ? <div className='user-buttons'>
+                    <p onClick={handleClick}>{isLiked ? <AiFillHeart className='model-like model-like-true' /> : <AiOutlineHeart className='model-like' />}</p>
+                    <MdOutlineAddShoppingCart className="add-cart-model" onClick={handleCart} />
+                </div>
+                : null}
             <div className={rankUser === ranks.admin ? "card-btn-container" : ''}><UpDateRemoveBtn
-                deleteAction={handleDelete}
+                deleteAction={handleOpenConfirm}
                 updateAction={handleModalUpdate} /></div>
             <Modal
                 isOpen={showModal}
@@ -251,8 +269,8 @@ const ModelBlock = ({ model, setReload }) => {
                     </div>
                 </div>
                 <div className="modal-btn-container">
-                    <IconButton onClick={handleUpdate}><RxUpdate className='valid-mod-btn'/></IconButton>
-                    <IconButton onClick={closeModal}><BsDoorClosed className='valid-mod-btn'/></IconButton>
+                    <IconButton onClick={handleUpdate}><RxUpdate className='valid-mod-btn' /></IconButton>
+                    <IconButton onClick={closeModal}><BsDoorClosed className='valid-mod-btn' /></IconButton>
                 </div>
             </Modal>
         </article>
