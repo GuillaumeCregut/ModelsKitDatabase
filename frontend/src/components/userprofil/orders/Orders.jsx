@@ -101,18 +101,16 @@ const Orders = () => {
                     reference: orderRefRef.current.value,
                     list: list
                 }
-                if (window.confirm('voulez vous valider la commande ?')) {
-                    const url = `${import.meta.env.VITE_APP_API_URL}order/`;
-                    axiosPrivate
-                        .post(url, dataSend)
-                        .then((resp) => {
-                            resetForm();
-                            setRefresh(!refresh)
-                        })
-                        .catch((err) => {
-                            toast.error('Une erreur est survenue');
-                        })
-                }
+                const url = `${import.meta.env.VITE_APP_API_URL}order/`;
+                axiosPrivate
+                    .post(url, dataSend)
+                    .then((resp) => {
+                        resetForm();
+                        setRefresh(!refresh)
+                    })
+                    .catch((err) => {
+                        toast.error('Une erreur est survenue');
+                    })
             }
             else
                 toast.warn('Veuillez choisir un fournisseur')
@@ -222,7 +220,7 @@ const Orders = () => {
                     </Popup>
                     <div className="model-list-added">
                         <TableContainer >
-                            <Table aria-label="simple table"  className='order-model-table' >
+                            <Table aria-label="simple table" className='order-model-table' >
                                 <TableHead>
                                     <TableRow>
                                         <TableCell className='order-head-cells'>nom du modèle</TableCell>
@@ -233,14 +231,14 @@ const Orders = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                {listModel.map((model) => (
-                                    <ModelLine key={model.idModel} model={model} setNewQtty={setNewQtty} />
-                                ))}
+                                    {listModel.map((model) => (
+                                        <ModelLine key={model.idModel} model={model} setNewQtty={setNewQtty} />
+                                    ))}
                                 </TableBody>
                             </Table>
                         </TableContainer>
                     </div>
-                    <Button variant='contained'>Valider</Button>
+                    <Button variant='contained' onClick={handleSubmit}>Valider</Button>
 
                 </form>
 
