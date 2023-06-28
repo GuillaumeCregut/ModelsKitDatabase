@@ -76,6 +76,10 @@
         border-bottom: 1px solid black;
     }
 
+    .user-supplier-field-name:focus{
+        outline: none;
+    }
+
     @media screen and (max-width: 768px) {
         margin-top: -150px;
         
