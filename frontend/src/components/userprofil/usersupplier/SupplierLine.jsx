@@ -3,11 +3,11 @@ import TableCell from '@mui/material/TableCell';
 import { useState } from 'react';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import IconButton from '@mui/material/IconButton';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { FaTrash } from "react-icons/fa";
 import { RxUpdate } from "react-icons/rx";
-import {BsCheck2Square} from "react-icons/bs";
-import {BsDoorClosed} from "react-icons/bs";
+import { BsCheck2Square } from "react-icons/bs";
+import { BsDoorClosed } from "react-icons/bs";
 
 
 const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
@@ -22,61 +22,57 @@ const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
     /* */
     const handleDelete = () => {
         const id = supplier.id;
-        if (window.confirm("Voulez-vous supprimer ce fournisseur ?")) {
-            const url = `${import.meta.env.VITE_APP_API_URL}supplier/${supplier.id}`;
-            axiosPrivate
-                .delete(url)
-                .then((resp)=>{
-                    setSuppliers(suppliers.filter((item)=>item.id!==id))
-                })
-                .catch((err)=>{
-                    toast.error('Une erreur est survenue');
-                })
-        }
+        const url = `${import.meta.env.VITE_APP_API_URL}supplier/${supplier.id}`;
+        axiosPrivate
+            .delete(url)
+            .then((resp) => {
+                setSuppliers(suppliers.filter((item) => item.id !== id))
+            })
+            .catch((err) => {
+                toast.error('Une erreur est survenue');
+            })
     }
 
     const handleUpdate = () => {
         const id = supplier.id;
-        if (window.confirm("Voulez vous modifier ce fournisseur ?")) {
-            const newSupplier = {
-                name: newName,
-                owner: supplier.owner
-            }
-            const url = `${import.meta.env.VITE_APP_API_URL}supplier/${supplier.id}`;
-            axiosPrivate
-                .put(url,newSupplier)
-                .then((resp)=>{
-                    setSuppliers(
-                        suppliers.map((item)=>{
-                            if(item.id===id)
-                                return {...item,name:newName}
-                            else
-                                return item;
-                        })
-                    )
-                    handleEdit();
-                })
-                .catch((err)=>{
-                    toast.error('Une erreur est survenue');
-                })
+        const newSupplier = {
+            name: newName,
+            owner: supplier.owner
         }
+        const url = `${import.meta.env.VITE_APP_API_URL}supplier/${supplier.id}`;
+        axiosPrivate
+            .put(url, newSupplier)
+            .then((resp) => {
+                setSuppliers(
+                    suppliers.map((item) => {
+                        if (item.id === id)
+                            return { ...item, name: newName }
+                        else
+                            return item;
+                    })
+                )
+                handleEdit();
+            })
+            .catch((err) => {
+                toast.error('Une erreur est survenue');
+            })
     }
-    /* */
+
     return (
         <TableRow>
             <TableCell className='cell-supplier'>
-                <IconButton onClick={handleDelete}>< FaTrash className='delete-supplier'/></IconButton>
+                <IconButton onClick={handleDelete}>< FaTrash className='delete-supplier' /></IconButton>
             </TableCell>
-            <TableCell  className='cell-supplier'>
+            <TableCell className='cell-supplier'>
                 {update
                     ? <p>
-                        <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} className='user-supplier-field-name' /> 
-                        <IconButton onClick={handleUpdate} className='supplier-line-btn'><BsCheck2Square className='close-supplier-btn'/></IconButton>
-                         <IconButton onClick={handleEdit} className='supplier-line-btn'><BsDoorClosed className='close-supplier-btn'/></IconButton></p>
+                        <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} className='user-supplier-field-name' />
+                        <IconButton onClick={handleUpdate} className='supplier-line-btn'><BsCheck2Square className='close-supplier-btn' /></IconButton>
+                        <IconButton onClick={handleEdit} className='supplier-line-btn'><BsDoorClosed className='close-supplier-btn' /></IconButton></p>
                     : <p>{supplier.name} </p>}
             </TableCell>
-            <TableCell  className='cell-supplier'>
-                <IconButton onClick={handleEdit}><RxUpdate/></IconButton>
+            <TableCell className='cell-supplier'>
+                <IconButton onClick={handleEdit}><RxUpdate /></IconButton>
             </TableCell>
         </TableRow>
     )

@@ -38,25 +38,23 @@ const SimpleArray = ({ item, wrapper }) => {
     ]
 
     const handleDelete = (id) => {
-        if (window.confirm('Voulez vous supprimer ?')) {
-            const urlApi = `${url}/${id}`;
-            axiosPrivate
-                .delete(urlApi)
-                .then(() => {
-                    dispatch(deleteAction(id))
-                })
-                .catch((err) => {
-                    if (err.response.status === 404) {
-                        toast.warn("L'élément n'existe pas")
-                    }
-                    if (err.response.status < 404) {
-                        toast.warn("Vous n'êtes pas autoriser à supprimer")
-                    }
-                    if (err.response.status === 500) {
-                        toast.error("Une erreur serveur est survenue")
-                    }
-                })
-        }
+        const urlApi = `${url}/${id}`;
+        axiosPrivate
+            .delete(urlApi)
+            .then(() => {
+                dispatch(deleteAction(id))
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    toast.warn("L'élément n'existe pas")
+                }
+                if (err.response.status < 404) {
+                    toast.warn("Vous n'êtes pas autoriser à supprimer")
+                }
+                if (err.response.status === 500) {
+                    toast.error("Une erreur serveur est survenue")
+                }
+            })
     }
 
     const updateData = async (newRow, old) => {
@@ -93,13 +91,7 @@ const SimpleArray = ({ item, wrapper }) => {
             const id = newRow.id;
             const oldName = apiRef.current.getCellValue(id, 'name');
             const updatedRow = { ...newRow, isNew: false };
-            if (window.confirm(`Voulez vous modifier ${newRow.id} avec ${newRow.name}?`)) {
-                return await updateData(updatedRow, oldName);
-            }
-            else {
-                updatedRow.name = oldName;
-                return updatedRow;
-            }
+            return await updateData(updatedRow, oldName);
         }, []);
 
     const handleProcessRowUpdateError = useCallback((error) => {
