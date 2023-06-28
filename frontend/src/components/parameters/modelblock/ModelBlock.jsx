@@ -4,6 +4,7 @@ import useAuth from '../../../hooks/useAuth';
 import UpDateRemoveBtn from '../updateremovebtn/UpDateRemoveBtn';
 import ranks from '../../../feature/ranks';
 import { deleteModel, updateModel } from '../../../feature/Model.slice';
+import {addStock} from '../../../feature/stockUser.slice';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import useAxiosPrivateMulti from '../../../hooks/useAxiosMulti';
 import { useDispatch } from 'react-redux';
@@ -20,8 +21,9 @@ import { toast } from 'react-toastify';
 import IconButton from '@mui/material/IconButton';
 import { RxUpdate } from "react-icons/rx";
 import { BsDoorClosed } from "react-icons/bs";
-import './ModelBlock.scss';
 import { Dialog, DialogActions, DialogContent, DialogContentText, Input } from '@mui/material';
+
+import './ModelBlock.scss';
 
 
 const ModelBlock = ({ model, setReload }) => {
@@ -145,10 +147,12 @@ const ModelBlock = ({ model, setReload }) => {
             axiosPrivate
                 .post(url, { user: idUser, model: model.id })
                 .then((resp) => {
-                    //Nota : mettre à jour le stock dans le store
+                    console.log(resp.data)
+                    dispatch(addStock(resp.data));
                     toast.info("Le modèle a bien été ajouté. Pour modifier, veuillez vous rendre dans votre stock.")
                 })
                 .catch((err) => {
+                    console.log(err)
                     toast.error("Une erreur est survenue, le modèle n'a put être ajouté au stock");
                 })
     }
