@@ -166,7 +166,9 @@ const addModelStock = async (req, res) => {
     const { user, model } = req.body;
     const result = await userModel.addModelInStock(user, model);
     if (result && result !== -1) {
-        return res.sendStatus(204);
+        const modelResult=await userModel.getModelStockInfoById(result);
+        console.log(modelResult)
+        return res.status(201).json(modelResult);
     }
     else if (result === -1)
         return res.sendStatus(500);
