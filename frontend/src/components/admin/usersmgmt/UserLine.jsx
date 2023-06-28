@@ -1,5 +1,4 @@
 import {useState} from 'react';
-
 import ranks from '../../../feature/ranks';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { toast } from 'react-toastify';
