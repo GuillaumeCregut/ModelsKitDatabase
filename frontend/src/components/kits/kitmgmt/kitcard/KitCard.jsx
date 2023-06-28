@@ -25,12 +25,12 @@ const KitCard = ({ kitDetails, refresh = false, setRefresh = null, displayImage 
             .delete(urlStock)
             .then(() => {
                 dispatch(deleteStock(kitDetails.id));
-                setRefresh(!refresh);
+                setRefresh(!refresh); 
             })
             .catch((err) => {
-                console.log(err);
                 toast.error('Une erreur est survenue');
             })
+        setOpenModal(false);
     }
 
     return (
