@@ -4,10 +4,10 @@ import useAuth from '../../../hooks/useAuth';
 import UpDateRemoveBtn from '../updateremovebtn/UpDateRemoveBtn';
 import ranks from '../../../feature/ranks';
 import { deleteModel, updateModel } from '../../../feature/Model.slice';
-import {addStock} from '../../../feature/stockUser.slice';
+import { addStock, setStock } from '../../../feature/stockUser.slice';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import useAxiosPrivateMulti from '../../../hooks/useAxiosMulti';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
 import { FileDrop } from 'react-file-drop';
 import BrandSelector from '../../selectors/brandselector/BrandSelector';
@@ -47,7 +47,7 @@ const ModelBlock = ({ model, setReload }) => {
     const axiosPrivate = useAxiosPrivate();
     const axiosMulti = useAxiosPrivateMulti();
     const dispatch = useDispatch();
-
+    const StocksData = useSelector((state) => state.stockUsers.stockUser);
     let rankUser = auth?.rank;
     if (!rankUser)
         rankUser = 0;
@@ -55,10 +55,26 @@ const ModelBlock = ({ model, setReload }) => {
     if (!idUser)
         idUser = 0;
 
+    const getModelsUser = (id) => {
+        const url = `${import.meta.env.VITE_APP_API_URL}model/user/${id}`;
+        axiosPrivate
+            .get(url)
+            .then((resp) => {
+                dispatch(setStock(resp.data));
+            })
+            .catch((err) => {
+                toast.error('Une erreur est survenue');
+            })
+    }
+
     useEffect(() => {
         if (fileUpload) {
             const img = URL.createObjectURL(fileUpload)
             setUrlImage(img)
+        }
+
+        if (idUser !== 0 && !StocksData) {
+            getModelsUser(idUser);
         }
 
     }, [fileUpload])
@@ -122,7 +138,7 @@ const ModelBlock = ({ model, setReload }) => {
             })
         setOpenModal(false);
     }
-    
+
     Modal.setAppElement('#root');
 
     const handleClick = () => {
@@ -143,18 +159,16 @@ const ModelBlock = ({ model, setReload }) => {
     }
 
     const handleCart = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}users/model/`;
-            axiosPrivate
-                .post(url, { user: idUser, model: model.id })
-                .then((resp) => {
-                    console.log(resp.data)
-                    dispatch(addStock(resp.data));
-                    toast.info("Le modèle a bien été ajouté. Pour modifier, veuillez vous rendre dans votre stock.")
-                })
-                .catch((err) => {
-                    console.log(err)
-                    toast.error("Une erreur est survenue, le modèle n'a put être ajouté au stock");
-                })
+        const url = `${import.meta.env.VITE_APP_API_URL}users/model/`;
+        axiosPrivate
+            .post(url, { user: idUser, model: model.id })
+            .then((resp) => {
+                dispatch(addStock(resp.data));
+                toast.info("Le modèle a bien été ajouté. Pour modifier, veuillez vous rendre dans votre stock.")
+            })
+            .catch((err) => {
+                toast.error("Une erreur est survenue, le modèle n'a put être ajouté au stock");
+            })
     }
 
     const handleClose = () => {
