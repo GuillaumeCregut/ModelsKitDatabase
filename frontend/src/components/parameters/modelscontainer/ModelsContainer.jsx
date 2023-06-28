@@ -87,7 +87,6 @@ const ModelsContainer = () => {
                                 key={item.id}
                                 model={item}
                                 setReload={setReload}
-                            // showModal={setModal}
                             />
                         )
                         )
