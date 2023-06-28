@@ -18,7 +18,6 @@ const KitCard = ({ kitDetails, refresh = false, setRefresh = null, displayImage 
     const handleClose = () => {
         setOpenModal(false);
     }
-
     const deleteKit = () => {
         const urlStock = `${import.meta.env.VITE_APP_API_URL}users/model/${kitDetails.id}`;
         axiosPrivate
@@ -51,7 +50,7 @@ const KitCard = ({ kitDetails, refresh = false, setRefresh = null, displayImage 
                 </DialogActions>
             </Dialog>
             <h4>{kitDetails.modelName} - {kitDetails.builderName}</h4>
-            {displayImage && <img src={`${url}${kitDetails.boxPicture}`} alt={kitDetails.modelName} />}
+            {displayImage &&kitDetails.boxPicture&& <img src={`${url}${kitDetails.boxPicture}`} alt={kitDetails.modelName} />}
             <p>{kitDetails.brandName} - {kitDetails.scaleName} </p>
             <p>Référence : {kitDetails.reference} </p>
             <div className="delete-btn-container">
