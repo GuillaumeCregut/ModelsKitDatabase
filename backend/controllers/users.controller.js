@@ -167,7 +167,6 @@ const addModelStock = async (req, res) => {
     const result = await userModel.addModelInStock(user, model);
     if (result && result !== -1) {
         const modelResult=await userModel.getModelStockInfoById(result);
-        console.log(modelResult)
         return res.status(201).json(modelResult);
     }
     else if (result === -1)
@@ -213,8 +212,6 @@ const deleteModel = async (req, res) => {
         return res.sendStatus(404);
     const files = result[0].pictures;
     if (files) {
-        console.log('On doit supprimer');
-        //Supprime les fichiers si besoin
         try {
             const dirPath = path.join(__dirname, '..', files);
             fs.rmSync(dirPath, { recursive: true, force: true });;
