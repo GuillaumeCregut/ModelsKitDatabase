@@ -8,6 +8,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 
 import './KitInStock.scss';
+import { Input } from "@mui/material";
 
 const KitInStock = ({keySearch,title}) => {
     const [refresh, setRefresh]=useState(false);
@@ -54,7 +55,7 @@ const KitInStock = ({keySearch,title}) => {
              Kits {title}: {kits.length}
             <div className="filter">
                 <label htmlFor="filter">
-                   Recherche par nom : <input type="text" id="filter"  value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                   Recherche par nom : <Input type="text" id="filter"  value={search} onChange={(e)=>setSearch(e.target.value)}/>
                 </label>
             </div>
           
