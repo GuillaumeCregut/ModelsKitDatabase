@@ -18,17 +18,15 @@ const BrandContainer = () => {
     const axiosPrivate = useAxiosPrivate();
 
     const addAction = (newData) => {
-        if (window.confirm("Voulez vous ajouter l'élément ?")) {
-            axiosPrivate
-                .post(url, newData)
-                .then((resp) => {
-                    const newBrand = resp.data;
-                    dispatch(addBrand(newBrand));
-                })
-                .catch((err) => {
-                    toast.error("Vous n'êtes pas autorisé à ajouter un élément.");
-                })
-        }
+        axiosPrivate
+            .post(url, newData)
+            .then((resp) => {
+                const newBrand = resp.data;
+                dispatch(addBrand(newBrand));
+            })
+            .catch((err) => {
+                toast.error("Vous n'êtes pas autorisé à ajouter un élément.");
+            })
     }
 
     const getBrands = () => {

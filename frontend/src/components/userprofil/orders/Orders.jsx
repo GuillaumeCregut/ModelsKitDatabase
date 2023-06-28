@@ -13,11 +13,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 
 import './Orders.scss';
-import { Input } from '@mui/material';
+
 
 
 const Orders = () => {
@@ -102,18 +101,16 @@ const Orders = () => {
                     reference: orderRefRef.current.value,
                     list: list
                 }
-                if (window.confirm('voulez vous valider la commande ?')) {
-                    const url = `${import.meta.env.VITE_APP_API_URL}order/`;
-                    axiosPrivate
-                        .post(url, dataSend)
-                        .then((resp) => {
-                            resetForm();
-                            setRefresh(!refresh)
-                        })
-                        .catch((err) => {
-                            toast.error('Une erreur est survenue');
-                        })
-                }
+                const url = `${import.meta.env.VITE_APP_API_URL}order/`;
+                axiosPrivate
+                    .post(url, dataSend)
+                    .then((resp) => {
+                        resetForm();
+                        setRefresh(!refresh)
+                    })
+                    .catch((err) => {
+                        toast.error('Une erreur est survenue');
+                    })
             }
             else
                 toast.warn('Veuillez choisir un fournisseur')
@@ -206,8 +203,8 @@ const Orders = () => {
                 <h2 className='new-order-form-title'>Ajouter une nouvelle commande</h2>
                 <form className='new-order-form' onSubmit={handleSubmit}>
                     <div className="form-header-inputs">
-                        <label htmlFor="">Référence de la commande :
-                            <Input placeholder="Référence" id="" ref={orderRefRef} />
+                        <label htmlFor="ref-order">Référence de la commande :
+                            <input placeholder="Référence" id="ref-order" className="input-ref-order" ref={orderRefRef} />
                         </label>
                         <label htmlFor="provider">Fournisseur :
                             <ProviderSelector
@@ -223,7 +220,7 @@ const Orders = () => {
                     </Popup>
                     <div className="model-list-added">
                         <TableContainer >
-                            <Table aria-label="simple table"  className='order-model-table' >
+                            <Table aria-label="simple table" className='order-model-table' >
                                 <TableHead>
                                     <TableRow>
                                         <TableCell className='order-head-cells'>nom du modèle</TableCell>
@@ -234,14 +231,14 @@ const Orders = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                {listModel.map((model) => (
-                                    <ModelLine key={model.idModel} model={model} setNewQtty={setNewQtty} />
-                                ))}
+                                    {listModel.map((model) => (
+                                        <ModelLine key={model.idModel} model={model} setNewQtty={setNewQtty} />
+                                    ))}
                                 </TableBody>
                             </Table>
                         </TableContainer>
                     </div>
-                    <Button variant='contained'>Valider</Button>
+                    <Button variant='contained' onClick={handleSubmit}>Valider</Button>
 
                 </form>
 

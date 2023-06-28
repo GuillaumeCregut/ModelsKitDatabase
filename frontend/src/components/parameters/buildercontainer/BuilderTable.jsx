@@ -75,13 +75,7 @@ const BuilderTable = ({ builder }) => {
             //countryName
             const oldName = apiRef.current.getCellValue(id, 'name');
             const updatedRow = { ...newRow, isNew: false };
-            if (window.confirm(`Voulez vous modifier ${newRow.id} avec ${newRow.name}?`)) {
-                return await updateData(updatedRow, BuilderCountry,countryName,oldName);
-            }
-            else {
-                updatedRow.name = oldName;
-                return updatedRow;
-            }
+            return await updateData(updatedRow, BuilderCountry,countryName,oldName);
         }, []);
 
     const handleProcessRowUpdateError = useCallback((error) => {
@@ -89,8 +83,6 @@ const BuilderTable = ({ builder }) => {
     }, []);
 
     const handleDelete = (rowData) => {
-        if (!window.confirm(`Voulez-vous supprimer ${rowData.row.name} ?`))
-            return -1
         const url = `${import.meta.env.VITE_APP_API_URL}builder/${rowData.id}`;
         axiosPrivate
             .delete(url)
@@ -98,7 +90,7 @@ const BuilderTable = ({ builder }) => {
                 dispatch(deleteBuilder(rowData.id));
             })
             .catch((err) => {
-                toast.error("Vous n'êtes pas autorisé à ajouter un élément.");
+                toast.error("Vous n'êtes pas autorisé à supprimer cet élément.");
             })
     }
 
