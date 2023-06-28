@@ -2,7 +2,6 @@ import axios from 'axios';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { addPeriod, setPeriod, updatePeriod, deletePeriod } from '../../../feature/Period.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
@@ -18,17 +17,15 @@ const AreaContainer = () => {
     const axiosPrivate = useAxiosPrivate();
 
     const addAction = (newData) => {
-        if (window.confirm("Voulez vous ajouter l'élément ?")) {
-            axiosPrivate
-                .post(url, newData)
-                .then((resp) => {
-                    const newPeriod = resp.data;
-                    dispatch(addPeriod(newPeriod));
-                })
-                .catch((err) => {
-                    toast.error("Vous n'êtes pas autorisé à ajouter un élément.")
-                })
-        }
+        axiosPrivate
+            .post(url, newData)
+            .then((resp) => {
+                const newPeriod = resp.data;
+                dispatch(addPeriod(newPeriod));
+            })
+            .catch((err) => {
+                toast.error("Vous n'êtes pas autorisé à ajouter un élément.")
+            })
     }
 
     const getPeriods = () => {

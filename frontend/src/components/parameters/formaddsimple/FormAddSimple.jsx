@@ -4,6 +4,7 @@ import ranks from "../../../feature/ranks";
 import Button from '@mui/material/Button';
 import {MdFormatListBulletedAdd} from "react-icons/md";
 import Input from '@mui/material/Input';
+import { toast } from 'react-toastify';
 
 import './FormAddSimple.scss';
 
@@ -26,8 +27,10 @@ const FormAddSimple = ({action}) => {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        if(newName==='')
-            return-1;
+        if(newName===''){
+            toast.error("Vous remplir les champs.")
+            return
+        }
         const newData={name:newName}
         action(newData);
         setNewName('');

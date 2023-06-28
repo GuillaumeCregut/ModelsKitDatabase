@@ -17,7 +17,6 @@ const ScaleContainer = () => {
     const axiosPrivate = useAxiosPrivate();
 
     const addAction = (newData) => {
-        if (window.confirm("Voulez vous ajouter l'élément ?")) {
             axiosPrivate
                 .post(url, newData)
                 .then((resp) => {
@@ -27,7 +26,6 @@ const ScaleContainer = () => {
                 .catch((err) => {
                     toast.error("Vous n'êtes pas autorisé à ajouter un élément.")
                 })
-        }
     }
 
     const getScales = () => {

@@ -18,17 +18,15 @@ const CategoryContainer = () => {
 
 
     const addAction = (newData) => {
-        if (window.confirm("Voulez vous ajouter l'élément ?")) {
-            axiosPrivate
-                .post(url, newData)
-                .then((resp) => {
-                    const newCategory = resp.data;
-                    dispatch(addCategory(newCategory));
-                })
-                .catch((err) => {
-                    toast.error("Vous n'êtes pas autorisé à ajouter un élément.")
-                })
-        }
+        axiosPrivate
+            .post(url, newData)
+            .then((resp) => {
+                const newCategory = resp.data;
+                dispatch(addCategory(newCategory));
+            })
+            .catch((err) => {
+                toast.error("Vous n'êtes pas autorisé à ajouter un élément.");
+            })
     }
 
     const getCategories = () => {
@@ -58,8 +56,8 @@ const CategoryContainer = () => {
             <div className='solo-container'>
                 {isLoaded ?
                     <SimpleArray item={categoriesData}
-                    wrapper={wrapper}/>
-                
+                        wrapper={wrapper} />
+
                     : <AwaitLoad />
                 }
             </div>

@@ -17,17 +17,15 @@ const CountryContainer = () => {
     const axiosPrivate = useAxiosPrivate();
 
     const addAction = (newData) => {
-        if (window.confirm("Voulez vous ajouter l'élément ?")) {
-            axiosPrivate
-                .post(url, newData)
-                .then((resp) => {
-                    const newCountry = resp.data;
-                    dispatch(addCountry(newCountry));
-                })
-                .catch((err) => {
-                    toast.error("Vous n'êtes pas autorisé à ajouter un élément.");
-                })
-        }
+        axiosPrivate
+            .post(url, newData)
+            .then((resp) => {
+                const newCountry = resp.data;
+                dispatch(addCountry(newCountry));
+            })
+            .catch((err) => {
+                toast.error("Vous n'êtes pas autorisé à ajouter un élément.");
+            })
     }
 
 

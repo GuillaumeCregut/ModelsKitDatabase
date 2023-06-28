@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import { useDispatch, useSelector } from 'react-redux';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import { addBuilder,  setBuilder } from '../../../feature/Builder.slice';
+import { addBuilder, setBuilder } from '../../../feature/Builder.slice';
 import useAuth from '../../../hooks/useAuth';
 import ranks from '../../../feature/ranks';
 import CountrySelector from '../../selectors/countryselector/CountrySelector';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
-import {MdFormatListBulletedAdd} from "react-icons/md";
+import { MdFormatListBulletedAdd } from "react-icons/md";
 
 import './BuilderContainer.scss';
 import BuilderTable from './BuilderTable';
@@ -58,25 +58,23 @@ const BuilderContainer = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (window.confirm("Voulez vous ajouter l'élément ?")) {
-            if (newBuilder !== '') {
-                const addNewBuilder = {
-                    name: newBuilder,
-                    country: selectedCountry
-                }
-                axiosPrivate
-                    .post(url, addNewBuilder)
-                    .then((resp) => {
-                        const newBuilderDb = resp.data;
-                        dispatch(addBuilder(newBuilderDb));
-                    })
-                    .catch((err) => {
-                        toast.error("Vous n'êtes pas autorisé à ajouter un élément.")
-                    })
+        if (newBuilder !== '' && selectedCountry!==0) {
+            const addNewBuilder = {
+                name: newBuilder,
+                country: selectedCountry
             }
+            axiosPrivate
+                .post(url, addNewBuilder)
+                .then((resp) => {
+                    const newBuilderDb = resp.data;
+                    dispatch(addBuilder(newBuilderDb));
+                })
+                .catch((err) => {
+                    toast.error("Vous n'êtes pas autorisé à ajouter un élément.")
+                })
         }
         else {
-           toast.warn("Veuillez remplir tous les champs");
+            toast.warn("Veuillez remplir tous les champs");
         }
     }
 
@@ -85,7 +83,7 @@ const BuilderContainer = () => {
             <h2 className='builders-container-title'>Constructeurs</h2>
             <label htmlFor="find-builder" className='builder-search-label'>Rechercher un constructeur :
                 <Input
-                   
+
                     id="find-builder"
                     value={findElement}
                     onChange={(e) => setFindElement(e.target.value)}
@@ -94,9 +92,9 @@ const BuilderContainer = () => {
             </label>
             <div className="builder-container">
                 {isLoaded ?
-                        <BuilderTable      
-                            builder={filteredBuiler}
-                        />
+                    <BuilderTable
+                        builder={filteredBuiler}
+                    />
                     : <AwaitLoad />
                 }
             </div>
@@ -120,10 +118,10 @@ const BuilderContainer = () => {
                             <CountrySelector
                                 id="country-select"
                                 setSelectedCountry={setSelectedCountry}
-                                selectedCountry={selectedCountry} 
-                                />
+                                selectedCountry={selectedCountry}
+                            />
                         </label>
-                        <Button  className='builder-add-btn'variant="contained" onClick={handleSubmit}><MdFormatListBulletedAdd className='icon-add-builder-button'/>Ajouter</Button>
+                        <Button className='builder-add-btn' variant="contained" onClick={handleSubmit}><MdFormatListBulletedAdd className='icon-add-builder-button' />Ajouter</Button>
                     </form>
                 </section>
                 : null
