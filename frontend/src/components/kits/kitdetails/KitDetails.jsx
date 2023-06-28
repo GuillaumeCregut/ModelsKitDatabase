@@ -12,7 +12,6 @@ import { toast } from 'react-toastify';
 import 'react-medium-image-zoom/dist/styles.css';
 
 import './KitDetails.scss';
-import axios from 'axios';
 
 
 const MAX_FILE_UPLOAD = 4;
