@@ -68,6 +68,8 @@ const BuilderContainer = () => {
                 .then((resp) => {
                     const newBuilderDb = resp.data;
                     dispatch(addBuilder(newBuilderDb));
+                    setNewBuilder('');
+                    setSelectedCountry(0);
                 })
                 .catch((err) => {
                     toast.error("Vous n'êtes pas autorisé à ajouter un élément.")
