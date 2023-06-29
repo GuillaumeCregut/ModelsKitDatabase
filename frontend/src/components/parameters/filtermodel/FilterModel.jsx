@@ -5,8 +5,11 @@ import CategorySelector from '../../selectors/categoryselector/CategorySelector'
 import PeriodSelector from '../../selectors/periodSelector/PeriodSelector';
 import ScaleSelector from '../../selectors/scaleselector/ScaleSelector';
 import BuilderSelector from '../../selectors/builderselector/BuilderSelector';
+import Button from '@mui/material/Button';
+import {BiSearchAlt} from "react-icons/bi";
 
 import './FilterModel.scss';
+import { Input } from '@mui/material';
 
 const FilterModel = ({setFilter}) => {
     const [selectedCountry, setSelectedCountry] = useState(0);
@@ -92,11 +95,11 @@ const FilterModel = ({setFilter}) => {
                 </label>
                 </div>
                 <label htmlFor="model-name" className='model-filter-label'>par nom :
-                <input type="text" id="model-name"  ref={refName} className='filter-nbame-input'/>
+                <Input id="model-name"  ref={refName} className='filter-nbame-input' placeholder='Nom'/>
                 </label>
             </div>
             <div>
-            <button onClick={handleFilter} className='btn-filter'>Trier</button>
+            <Button onClick={handleFilter} className='btn-filter' variant="contained" ><BiSearchAlt className='search-model-icon'/>Trier</Button>
             </div>
         </div>
     )

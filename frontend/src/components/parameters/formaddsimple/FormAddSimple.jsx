@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import useAuth from '../../../hooks/useAuth';
 import ranks from "../../../feature/ranks";
+import Button from '@mui/material/Button';
+import {MdFormatListBulletedAdd} from "react-icons/md";
+import Input from '@mui/material/Input';
+import { toast } from 'react-toastify';
 
 import './FormAddSimple.scss';
 
@@ -23,8 +27,10 @@ const FormAddSimple = ({action}) => {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        if(newName==='')
-            return-1;
+        if(newName===''){
+            toast.error("Vous remplir les champs.")
+            return
+        }
         const newData={name:newName}
         action(newData);
         setNewName('');
@@ -38,15 +44,16 @@ const FormAddSimple = ({action}) => {
                 onSubmit={handleSubmit}
             >
             <label htmlFor="new-name">Nom du nouvel élément : 
-                <input 
-                    type="text" 
+                <Input 
                     id="new-name" 
                     value={newName}
                     onChange={(e)=>setNewName(e.target.value)}
                     className="from-add-simple-input"
+                    placeholder='Nom'
+                    autoComplete='off'
                 />
             </label>
-            <button className='form-add-simple-btn'>Ajouter</button>
+            <Button className='form-add-simple-btn' variant="contained" onClick={handleSubmit}><MdFormatListBulletedAdd className='icon-add-simple-button'/>Ajouter</Button>
             </form>
         </section>
     )

@@ -5,12 +5,13 @@ import { AwaitLoad } from "../../awaitload/AwaitLoad";
 import { setStock } from "../../../feature/stockUser.slice";
 import KitCard from "../kitmgmt/kitcard/KitCard";
 import { useDispatch,useSelector } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import './KitInStock.scss';
+import { Input } from "@mui/material";
 
 const KitInStock = ({keySearch,title}) => {
-   
+    const [refresh, setRefresh]=useState(false);
     const [kits, setKits] = useState([]);
     const [search, setSearch]=useState('');
     const [filteredKits,setFilteredKits]=useState([]);
@@ -24,7 +25,6 @@ const KitInStock = ({keySearch,title}) => {
         userId = 0;
 
     useEffect(() => {
-        
         const getModelsUser = () => {
             const url = `${import.meta.env.VITE_APP_API_URL}model/user/${userId}`;
             axiosPrivate
@@ -44,7 +44,7 @@ const KitInStock = ({keySearch,title}) => {
             setIsLoaded(true);
             setKits(StocksData.filter(item => item.state === keySearch));
         }
-    }, [keySearch]);
+    }, [keySearch,refresh]);
 
     useEffect(()=>{
         setFilteredKits(kits.filter((kit)=>kit.modelName.toLowerCase().includes(search.toLowerCase())))
@@ -52,11 +52,10 @@ const KitInStock = ({keySearch,title}) => {
 
     return (
         <div className="kit-instock">
-            <ToastContainer />
              Kits {title}: {kits.length}
             <div className="filter">
                 <label htmlFor="filter">
-                   Recherche par nom : <input type="text" id="filter"  value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                   Recherche par nom : <Input type="text" id="filter"  value={search} onChange={(e)=>setSearch(e.target.value)}/>
                 </label>
             </div>
           
@@ -64,7 +63,7 @@ const KitInStock = ({keySearch,title}) => {
             { isLoaded
                 ? filteredKits.map((kit)=>(
                     <li key={kit.id}>
-                        <KitCard kitDetails={kit} displayImage={true} />
+                        <KitCard kitDetails={kit} displayImage={true} refresh={refresh} setRefresh={setRefresh}/>
                     </li>
                 ))
                 : <AwaitLoad />

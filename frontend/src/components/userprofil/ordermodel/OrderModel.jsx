@@ -3,13 +3,16 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { setModel } from '../../../feature/Model.slice';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import useAuth from "../../../hooks/useAuth";
 import { AwaitLoad } from "../../awaitload/AwaitLoad";
+import IconButton from '@mui/material/IconButton';
+import { MdFormatListBulletedAdd } from "react-icons/md";
+import { Input, InputAdornment } from "@mui/material";
 
 import './OrderModel.scss';
 
-const OrderModel = ({ addModel,setCloseModel }) => {
+const OrderModel = ({ addModel, setCloseModel }) => {
     const [price, setPrice] = useState(0.0);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isFavoriteLoaded, setIsFavoriteLoaded] = useState(false);
@@ -28,9 +31,9 @@ const OrderModel = ({ addModel,setCloseModel }) => {
         idUser = 0;
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setCloseModel(true);
-    },[])
+    }, [])
 
     useEffect(() => {
         if (isLoaded) {
@@ -90,7 +93,7 @@ const OrderModel = ({ addModel,setCloseModel }) => {
     }, [price]);
 
     const handleClik = () => {
-        if (isPriceOk && qttyRef.current.value !== 0) {
+        if (isPriceOk && qttyRef.current.value > 0 && selectedModel !== 0) {
             const selectedModelItem = modelData.find((item) => item.id === selectedModel);
             const item = {
                 qtty: qttyRef.current.value,
@@ -112,7 +115,6 @@ const OrderModel = ({ addModel,setCloseModel }) => {
 
     return (
         <div className="order-model-container">
-            <ToastContainer />
             <div className="order-model-list-container">
                 <div className="order-model-all-models-container">
                     <h3>Liste des modèles favoris</h3>
@@ -124,8 +126,8 @@ const OrderModel = ({ addModel,setCloseModel }) => {
                                     name="model"
                                     value={item.modelId}
                                     checked={selectedModel === item.modelId}
-                                    onChange={changeModel} 
-                                    className='radio-model-item'/>
+                                    onChange={changeModel}
+                                    className='radio-model-item' />
                                     {item.modelName}</p>
                             ))
                             : <AwaitLoad />}
@@ -133,7 +135,7 @@ const OrderModel = ({ addModel,setCloseModel }) => {
                 </div>
                 <div className="order-model-all-models-container">
                     <h3>Liste des modèles</h3>
-                    <p>Filtre : <input type="text" value={filter} onChange={(e) => setFilter(e.target.value)} /></p>
+                    <p>Filtre : <Input type="text" value={filter} onChange={(e) => setFilter(e.target.value)} /></p>
                     <div className="order-model-list-all-models all-models-list">
                         {isLoaded
                             ? filteredModel.map((model) => (
@@ -151,25 +153,27 @@ const OrderModel = ({ addModel,setCloseModel }) => {
                 </div>
             </div>
             <div className="order-model-inputs-container">
-            <label htmlFor="price">Prix :
-                <input 
-                    type="text" 
-                    className="order-model-inputs"
-                    id="price" 
-                    value={price} 
-                    onChange={(e) => setPrice(e.target.value)} />
+                <label htmlFor="price">Prix :
+                    <Input
+                        placeholder="Prix"
+                        endAdornment={<InputAdornment position="end"> € </InputAdornment>}
+                        className="order-model-inputs"
+                        id="price"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)} />
                 </label>
-            <label htmlFor="qtty">Quantité :
-                <input 
-                    type="number" 
-                    className="order-model-inputs"
-                    id="qtty" 
-                    ref={qttyRef} 
-                    min="1" />
+                <label htmlFor="qtty">Quantité :
+                    <input
+                        type="number"
+                        className="order-model-inputs qtty-order"
+
+                        id="qtty"
+                        ref={qttyRef}
+                        min="1" />
                 </label>
-            <button onClick={handleClik}>Ajouter</button>
+                <IconButton onClick={handleClik} ><MdFormatListBulletedAdd className="add-model-order-icon" /></IconButton>
             </div>
-            <RxCrossCircled onClick={()=>setCloseModel(false)} className="close-model-add"/>
+            <RxCrossCircled onClick={() => setCloseModel(false)} className="close-model-add" />
         </div>
     )
 }

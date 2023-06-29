@@ -20,16 +20,8 @@
     }
 
     .builder-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        padding: 0 10px;
-        min-height: 100px;
-        max-height: 300px;
-        border: 1px solid black;
+        padding: 0 10px;    
         margin :0 20px;
-        padding: 20px;
-        overflow: auto;
     }
 
     .add-builder-container{
@@ -63,8 +55,26 @@
        font-size: 1.2rem;
     }
 
+    .builder-delete:hover{
+        color :red;
+    }
+    
+    .builder-add-select{
+        height: 1.2rem;
+
+    }
+
+    .icon-add-builder-button{
+        margin : 0 10px;
+        min-height: 20px;
+        min-width: 20px;
+    }
+
     @media screen and (max-width: 768px) {
 
+        .builder-container {
+            width: 95vw;
+        }
         .find-builder-input{
             margin-left: 0;
             margin-top: 10px;

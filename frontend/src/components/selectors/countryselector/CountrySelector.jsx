@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { setCountry } from '../../../feature/Country.slice';
 import { useDispatch, useSelector } from 'react-redux';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import './CountrySelector.scss';
 
@@ -28,22 +30,22 @@ const CountrySelector = ({ selectedCountry, setSelectedCountry, id }) => {
     }, [])
 
     return (
-        <select
+        <Select
             id={id}
             value={selectedCountry}
             onChange={(e) => setSelectedCountry(e.target.value)}
             className='country-selector'
         >
-            <option value="0">--</option>
+            <MenuItem value="0">--</MenuItem>
             {countryLoaded
                 ? countryData.map((item) => (
-                    <option
+                    <MenuItem
                         key={item.id}
-                        value={item.id}>{item.name}</option>
+                        value={item.id}>{item.name}</MenuItem>
                 ))
                 : null
             }
-        </select>
+        </Select>
     )
 }
 

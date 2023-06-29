@@ -6,8 +6,45 @@
         margin: 10px 0;
     }
 
-    .supplier-container{
-        margin-left: 10px;
+    .supplierArray-head{
+        width: 100px;
+       text-align: center;
+    }
+
+    .table-supplier{
+        width: 50vw;
+        margin: 0 auto;
+        margin-bottom: 30px;
+    }
+
+    .cell-supplier{
+        text-align: center;
+    }
+
+    .supplierArray-button{
+        width: 20px;
+    }
+
+    .delete-supplier{
+        width: 20px;
+        height: 20px;
+    }
+
+    .delete-supplier:hover{
+        color : red;
+    }
+
+    .supplier-line-btn{
+        margin: 0 10px;
+    }
+
+    .close-supplier-btn{
+        width: 30px;
+        height: 30px;
+    }
+
+    .close-supplier-btn:hover{
+        color : rgb(13, 179, 13);
     }
 
     .form-add-supplier-container{
@@ -20,12 +57,38 @@
     }
 
     .form-add-supplier-btn{
-        width: 50px;
+        width: 150px;
         margin : 10px;
+    }
+    .add-supplier-icon{
+        margin-right: 10px;
+        height: 20px;
+        width: 20px;
     }
 
     input{
         font-size: 1.2rem;
         padding: 2px;
+    }
+
+    .user-supplier-field-name{
+        border: none;
+        border-bottom: 1px solid black;
+    }
+
+    .user-supplier-field-name:focus{
+        outline: none;
+    }
+
+    @media screen and (max-width: 768px) {
+        margin-top: -150px;
+        
+        .pdf-object {
+            width: 450px;
+        }
+
+        .user-supplier-field-name{
+            font-size: 0.8rem;
+        }
     }
 }

@@ -11,6 +11,7 @@ router.post('/',usersController.addOne);
 router.post('/model',userCheck,usersController.addModelStock);
 router.patch('/admin/:id',userCheck,checkLevel,usersController.updateRank);
 router.put('/:id',userCheck,usersController.updateUser);
+router.delete('/model/:id',userCheck,usersController.deleteModel);
 router.delete('/:id',userCheck,usersController.deleteUser);
 
 module.exports=router;

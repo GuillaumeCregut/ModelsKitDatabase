@@ -7,12 +7,11 @@ import FileUploader from '../fileuploader/FileUploader';
 import Zoom from 'react-medium-image-zoom';
 import useAxiosPrivateMulti from '../../../hooks/useAxiosMulti';
 import { FaTrash } from "react-icons/fa";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import 'react-medium-image-zoom/dist/styles.css';
 
 import './KitDetails.scss';
-import axios from 'axios';
 
 
 const MAX_FILE_UPLOAD = 4;
@@ -83,7 +82,6 @@ const KitDetails = () => {
 
     return (
         <div>
-            <ToastContainer />
             {
                 isLoaded
                     ? (<div className="detail-container">

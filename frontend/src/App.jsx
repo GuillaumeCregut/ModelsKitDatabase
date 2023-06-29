@@ -33,7 +33,6 @@ import kitState from './feature/kitState';
 /*User profil components */
 import UserData from './components/userprofil/userdata/UserData';
 import UserSupplier from './components/userprofil/usersupplier/UserSupplier';
-
 import Orders from './components/userprofil/orders/Orders';
 import KitsHome from './components/kits/home/KitsHome';
 import KitManagement from './components/kits/kitmgmt/KitManagement';
@@ -42,12 +41,17 @@ import KitDetails from './components/kits/kitdetails/KitDetails';
 import KitInStock from './components/kits/kitinstock/KitInStock';
 import Statistics from './components/userprofil/statistics/Statistics';
 import PdfStats from './components/userprofil/pdfstats/PdfStats';
-
-import './App.css';
-import "react-toastify/dist/ReactToastify.css";
+//Admiin Menu
 import Logs from './components/admin/logs/Logs';
 import UserMgmt from './components/admin/usersmgmt/UserMgmt';
 import { ToastContainer, toast } from 'react-toastify';
+
+import './App.css';
+import './LeftMenu.scss';
+import "react-toastify/dist/ReactToastify.css";
+import Random from './components/kits/random/Random';
+import KitDetailsPage from './components/kits/kitmgmt/kitcard/kitdetailspage/KitDetailsPage';
+
 //Version of front end 
 const LocalVersion="1.0";
 
@@ -142,8 +146,10 @@ function App() {
             <Route path="inStock" element={<KitInStock keySearch={kitState.stock} title="en stock"/>}/>
             <Route path="ordered" element={<KitInStock keySearch={kitState.ordered} title="commandés"/>}/>
             <Route path="wip" element={<KitInStock keySearch={kitState.wip} title="en cours"/>}/>
+            <Route path="random" element={<Random />} />
             <Route path="finis" element={<FinishedModel />} />
             <Route path="finis/details/:id" element={<KitDetails />}/>
+            <Route path="detailskit/:id" element={<KitDetailsPage />} />
             <Route path='*' element={<NotFound />} />
           </Route>
           <Route path='login' element={<Login />} />

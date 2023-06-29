@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setModel } from '../../../feature/Model.slice';
@@ -9,16 +9,12 @@ import useAuth from '../../../hooks/useAuth';
 import ranks from '../../../feature/ranks';
 import FilterModel from '../filtermodel/FilterModel';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import './ModelsContainer.scss';
 
 const ModelsContainer = () => {
     const [isLoaded, setIsLoaded] = useState(false);
-    const [fullList, setFullList]=useState([]);
-    const [fullListLoaded, setFullListLoaded]=useState(false);
-    const [isFavoriteLoaded,setIsFavoriteLoaded]=useState(false);
-    const [favoriteModels,setFavoriteModels]=useState([]);
     const [filter, setFilter] = useState({});
     const [reload, setReload]=useState(false);
     const [modelsFiltered, setModelsFiltered] = useState([]);
@@ -34,64 +30,33 @@ const ModelsContainer = () => {
     let rankUser = auth?.rank;
     if (!rankUser)
         rankUser = 0;
-
-    useEffect(()=>{
-        if(isFavoriteLoaded&&isLoaded){
-            const newArray=modelData.map((model)=>{
-                const index=favoriteModels.findIndex((item)=>item.modelId===model.id)
-                if(index!==-1)
-                    return {...model,like:true}
-                else
-                    return {...model,like:false}
-            })
-            setFullList([...newArray]);
-            setFullListLoaded(true);
-        }
-    },[isFavoriteLoaded,isLoaded]);
+  
 
     useEffect(() => {
         const getModels = async () => {
-            await axios
+            await axiosPrivate
                 .get(url)
                 .then((resp) => {
                     dispatch(setModel(resp.data));
                     setModelsFiltered(resp.data)
                     setIsLoaded(true);
                 })
-                .catch((err) => {
+                .catch(() => {
                     toast.error('Une erreur est survenue');
                 })
         }
-        if (!modelData) {
+        if (!modelData||auth.token) {
             getModels();
         }
         else
             setModelsFiltered([...modelData]);
         setIsLoaded(true);
-    }, [reload]);
+    }, [reload,auth]);
     
-    useEffect(()=>{
-        const getFavorites=()=>{
-            const url = `${import.meta.env.VITE_APP_API_URL}model/favorite/${idUser}`;
-            axiosPrivate
-                .get(url)
-                .then((resp)=>{
-                    setFavoriteModels(resp.data)
-                    setIsFavoriteLoaded(true);
-
-                })
-                .catch((err)=>{
-                    toast.error('Une erreur est survenue');
-                })
-        }
-        if(idUser!==0)
-            getFavorites();
-
-    },[idUser]);
 
     useEffect(() => {
-        if (fullListLoaded) {
-            const temp = fullList.filter((item) => {
+        if (isLoaded) {
+            const temp = modelData.filter((item) => {
                 if (filter) {
                     for (const property in filter) {
                         if (property === 'name' && item.name.toLowerCase().includes(filter[property].toLowerCase()))
@@ -107,11 +72,10 @@ const ModelsContainer = () => {
             setModelsFiltered([...temp]);
         }
 
-    }, [filter, fullList]);
+    }, [filter]);
 
     return (
         <section className='right-page model-component'>
-            <ToastContainer />
             <h2 className="model-title">Les modèles</h2>
             <div className="main-model-container">
 
@@ -123,7 +87,6 @@ const ModelsContainer = () => {
                                 key={item.id}
                                 model={item}
                                 setReload={setReload}
-                            // showModal={setModal}
                             />
                         )
                         )

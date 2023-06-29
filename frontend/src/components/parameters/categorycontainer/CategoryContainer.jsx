@@ -2,11 +2,11 @@ import axios from 'axios';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SimpleCardContainer } from '../simplecardcontainer/SimpleCardContainer';
 import { addCategory, setCategory, updateCategory, deleteCategory } from '../../../feature/Category.slice';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import FormAddSimple from '../formaddsimple/FormAddSimple';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import SimpleArray from '../simplecardcontainer/SimpleArray';
 
 
 const CategoryContainer = () => {
@@ -18,17 +18,15 @@ const CategoryContainer = () => {
 
 
     const addAction = (newData) => {
-        if (window.confirm("Voulez vous ajouter l'élément ?")) {
-            axiosPrivate
-                .post(url, newData)
-                .then((resp) => {
-                    const newCategory = resp.data;
-                    dispatch(addCategory(newCategory));
-                })
-                .catch((err) => {
-                    toast.error("Vous n'êtes pas autorisé à ajouter un élément.")
-                })
-        }
+        axiosPrivate
+            .post(url, newData)
+            .then((resp) => {
+                const newCategory = resp.data;
+                dispatch(addCategory(newCategory));
+            })
+            .catch((err) => {
+                toast.error("Vous n'êtes pas autorisé à ajouter un élément.");
+            })
     }
 
     const getCategories = () => {
@@ -54,16 +52,12 @@ const CategoryContainer = () => {
 
     return (
         <section className="right-page">
-            <ToastContainer />
             <h2 className='solo-title'>Les catégories</h2>
             <div className='solo-container'>
-                {isLoaded ? categoriesData.map(item => (
-                    <SimpleCardContainer
-                        key={item.id}
-                        item={item}
-                        wrapper={wrapper}
-                    />
-                ))
+                {isLoaded ?
+                    <SimpleArray item={categoriesData}
+                        wrapper={wrapper} />
+
                     : <AwaitLoad />
                 }
             </div>

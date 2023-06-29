@@ -84,7 +84,6 @@ const addOne=async(req,res)=>{
         order.addModels(item);
     })
     const result=await orderModel.addOne(order);
-    console.log(result)
     if(result&&typeof(result)==="object"){
         return res.status(201).json(result);
     }

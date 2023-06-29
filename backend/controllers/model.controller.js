@@ -51,12 +51,13 @@ const validateStock = (data) => {
     return Joi.object({
         id: Joi.number().min(1).presence('required'),
         owner: Joi.number().min(1).presence('required'),
-        newState: Joi.number().min(1).presence('required'),
+        newState: Joi.number().min(1).presence('required')
     }).validate(data, { abortEarly: false }).error;
 }
 
 const getAll = async (req, res) => {
-    const result = await modelModel.findAll();
+    const {user_id}=req.user||0;
+    const result = await modelModel.findAll(user_id);
     if (result && result !== -1) {
         return res.json(result)
     }
@@ -259,6 +260,14 @@ const updateStock = async (req, res) => {
         return res.status(422).send(error);
     }
     const { owner, id, newState } = req.body;
+    //Before changing, see if it is a favorite
+    if(newState===4){
+        const resultIdKit=await modelModel.getLikedElementByIdKit(id);
+        const isLiked=await modelModel.getCountLikedIdUser(resultIdKit.model,owner);
+        if (isLiked.count>=1){
+            return res.sendStatus(409);
+        }
+    }
     const result = await modelModel.updateStock(id, owner, newState);
     if (result && result !== -1) {
         return res.sendStatus(204);
@@ -425,6 +434,19 @@ const getStat = async (req, res) => {
     res.json(datas);
 }
 
+const getRandom=async(req,res)=>{
+    const idUser = req.user.user_id;
+    const result=await modelModel.getRandomKit(idUser);
+    if (result && result !== -1) {
+        return res.json(result)
+    }
+    else if (result === -1) {
+        return res.sendStatus(404)
+    }
+    return res.sendStatus(500);
+}
+
+
 module.exports = {
     getAll,
     getOne,
@@ -439,4 +461,5 @@ module.exports = {
     addUserPictures,
     deleteUserPicture,
     getStat,
+    getRandom,
 }

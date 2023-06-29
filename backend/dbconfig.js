@@ -1,6 +1,6 @@
 const {logError}=require('./utils/logEvent')
 const mysql = require('mysql2');
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
   host: process.env.DB_HOST, // address of the server
   port: process.env.DB_PORT, // port of the DB server (mysql), not to be confused with the nodeJS server PORT !
   user: process.env.DB_USER,
@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
   timezone:'Z'
 });
 
-connection.connect((err) => {
+connection.getConnection((err) => {
   if (err) {
     logError(`Error connecting DB : ${err.stack}`)
     console.error('error connecting: ' + err.stack);

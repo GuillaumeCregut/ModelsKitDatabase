@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react'
 import { FaFileUpload } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import './FileUploader.scss';
+import { Dialog, DialogActions, DialogContent, DialogContentText, IconButton } from '@mui/material';
 
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
 const KILO_BYTES_PER_BYTE = 1000;
@@ -11,6 +12,8 @@ const KILO_BYTES_PER_BYTE = 1000;
 const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES }) => {
     const [files, setFiles] = useState({});
     const fileInputField = useRef(null);
+    const [openModal, setOpenModal] = useState(false);
+    const [fileNameRemove, setFileNameRemove] = useState('');
 
     const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
 
@@ -19,14 +22,14 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
     }
 
     const handleNewFileUpload = (e) => {
-        if (Object.keys(files).length+1 <= maxFile) {
+        if (Object.keys(files).length + 1 <= maxFile) {
             const { files: newFiles } = e.target;
             if (newFiles.length) {
                 let updateFiles = addNewFiles(newFiles);
                 setFiles(updateFiles);
             }
         }
-        else{
+        else {
             toast.warn(`Vous ne pouvez déposer que ${maxFile} photos`)
         }
     }
@@ -55,20 +58,43 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
         updateFilesCb(filesAsArray);
     }
 
-    const removeFile = (filename) => {
-        if (window.confirm("Voulez-vous supprimer cette image ?")) {
-            delete files[filename];
-            setFiles({ ...files });
-        }
+    const openModalAction = (filename) => {
+        setFileNameRemove(filename);
+        setOpenModal(true);
     }
 
-    const handleSendFile=()=>{
+    const removeFile = () => {
+        delete files[fileNameRemove];
+        setFiles({ ...files });
+        //}
+        setOpenModal(false);
+    }
+
+    const handleClose = () => {
+        setOpenModal(false);
+    }
+
+    const handleSendFile = () => {
         callUpdateFilesCb({ ...files });
     }
 
     return (
         <div className="file-uploader">
-            <ToastContainer />
+            <Dialog
+                open={openModal}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description">
+                <DialogContent>
+                    <DialogContentText>
+                        Voulez-vous supprimer cette image ?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <IconButton onClick={handleClose}>Non</IconButton>
+                    <IconButton onClick={removeFile}>Oui</IconButton>
+                </DialogActions>
+            </Dialog>
             <section className='file-upload-container'>
                 <label className='input-label'>{label}</label>
                 <p className='drag-drop-text'>Glisser vos fichiers ici ou </p>
@@ -102,7 +128,7 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
                                         <span>{file.name}</span>
                                         <aside>
                                             <span>{convertBytesToKB(file.size)} kb</span>
-                                            <FaTrash className='trash-icon' onClick={() => removeFile(fileName)} />
+                                            <FaTrash className='trash-icon' onClick={() => openModalAction(fileName)} />
                                         </aside>
                                     </div>
                                 </div>
@@ -111,7 +137,7 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
                     })}
                 </section>
             </article>
-           { Object.keys(files).length>0? <button onClick={handleSendFile}>Valider</button>:null}
+            {Object.keys(files).length > 0 ? <button onClick={handleSendFile}>Valider</button> : null}
         </div>
     )
 }

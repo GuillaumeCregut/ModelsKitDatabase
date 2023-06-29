@@ -8,7 +8,9 @@ import PeriodSelector from "../../selectors/periodSelector/PeriodSelector";
 import ScaleSelector from "../../selectors/scaleselector/ScaleSelector";
 import { useDispatch } from 'react-redux';
 import { addModel } from '../../../feature/Model.slice';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import Button from '@mui/material/Button';
+import {MdFormatListBulletedAdd} from "react-icons/md";
 
 import './FormAddModel.scss';
 
@@ -52,6 +54,9 @@ const FormAddModel = ({setReload}) => {
                     toast.error('Une erreur est survenue');
                 })
         }
+        else{
+            toast.error('Veuillez remplir les champs');
+        }
 
     }
 
@@ -76,13 +81,12 @@ const FormAddModel = ({setReload}) => {
     }, [fileUpload])
     return (
         <div className="form-add-model-container">
-            <ToastContainer />
             <h2>Ajouter un modèle</h2>
             <form onSubmit={handleSubmit} className='form-add-model' encType="multipart/form-data">
                 <div className="form-add-model-inputs-container">
                     <label htmlFor="new-name">Nom du modèle :
                         <input
-                            type="text"
+                            placeholder="Nom"
                             id="new-name"
                             ref={nameRef}
                             className='add-model-form-input'
@@ -92,7 +96,7 @@ const FormAddModel = ({setReload}) => {
                     </label>
                     <label htmlFor="new-reference">Référence :
                         <input
-                            type="text"
+                            placeholder="référence"
                             id="new-reference"
                             ref={refRef}
                             className='add-model-form-input'
@@ -139,7 +143,7 @@ const FormAddModel = ({setReload}) => {
                     </label>
                     <label htmlFor="new-reference">Lien scalemates :
                         <input
-                            type="text"
+                            placeholder="Scalemates"
                             id="new-reference"
                             ref={linkRef}
                             className='add-model-form-input'
@@ -160,7 +164,7 @@ const FormAddModel = ({setReload}) => {
                             : 'Glisser la photo'}</FileDrop>
 
                     </div>
-                    <button className="form-add-model-btn">Ajouter</button>
+                    <Button className="form-add-model-btn" variant="contained" onClick={handleSubmit}><MdFormatListBulletedAdd className="icon-add-model" />Ajouter</Button>
                 </div>
             </form>
         </div>

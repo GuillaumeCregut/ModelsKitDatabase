@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import './KitMenu.scss';
+
 const KitMenu = () => {
     return (
-        <div className='kit-menu'>
-            <ul className="kit-links-container">
+        <div className='left-menu'>
+            <ul className="left-links-container">
                 <li className="link-param-item">
                     <NavLink to="gestion" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Gestion du stock</NavLink>
                 </li>
@@ -15,6 +15,9 @@ const KitMenu = () => {
                 </li>
                 <li className="link-param-item">
                     <NavLink to="wip" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Kits en cours</NavLink>
+                </li>
+                <li className="link-param-item">
+                    <NavLink to="random" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Choisir un kit</NavLink>
                 </li>
                 <li className="link-param-item">
                     <NavLink to="finis" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Kits terminés</NavLink>

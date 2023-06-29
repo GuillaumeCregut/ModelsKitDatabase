@@ -3,7 +3,7 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { Link } from 'react-router-dom';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import './FinishedModel.scss';
 
@@ -35,14 +35,13 @@ const FinishedModel = () => {
 
     return (
         <div className='finished-models'>
-            <ToastContainer />
             <div className="finished-top-page">
                 <h2>Modèles finis</h2>
                 <div className="list-finished-model-container">
                     <ul className='list-finished-model'>
                         {isLoaded
                         ?listModel.filter(item => item.state === 3).map((item) => (
-                            <li key={item.id} className='list-finished-item'><Link to={`details/${item.id}`}>{item.modelName}</Link></li>
+                            <Link to={`details/${item.id}`}> <li key={item.id} className='list-finished-item'>{item.modelName}</li></Link>
                         ))
                         :<AwaitLoad />}
                     </ul>

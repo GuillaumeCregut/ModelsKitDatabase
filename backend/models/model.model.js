@@ -1,9 +1,14 @@
 const Model = require('../classes/model.class');
 const { dbquery } = require('../utils/dbutils');
 
-const findAll = async () => {
-    const dbResult = await dbquery('get', 'SELECT * FROM model_full ORDER BY name');
-
+const findAll = async (userId) => {
+    let sql="SELECT null as 'liked', model_full.* FROM model_full ORDER BY name"
+    if(userId!==0)
+    {
+        sql="SELECT m.*, model_user.state as liked FROM model_full m left join( SELECT owner,model, state FROM model_user WHERE owner=? AND state=4) as model_user ON model_user.model=m.id";
+    }    
+    
+    const dbResult = await dbquery('get', sql,[userId]);
     if (dbResult && dbResult !== -1) {
         const models = dbResult.map((item) => {
             const newModel = new Model(item.id, item.name, item.brand, item.builder, item.category, item.period, item.reference, item.scale);
@@ -16,6 +21,7 @@ const findAll = async () => {
             newModel.setLink(item.scalemates);
             newModel.setCountryId(item.countryid);
             newModel.setCountryName(item.countryname);
+            newModel.setIsLiked(item.liked!==null)
             return newModel;
         });
         return models;
@@ -184,6 +190,21 @@ const getStatModelBrand=async(id)=>{
     return dbResult;
 }
 
+const getLikedElementByIdKit=async(id)=>{
+    const dbResult=await dbquery('get','SELECT model from model_user WHERE id=?',[id]);
+    return dbResult[0];
+}
+
+const getCountLikedIdUser=async(id, owner)=>{
+    const dbResult=await dbquery('get', 'SELECT count(*) as count FROM  model_user WHERE model=? AND owner=? AND state=4',[id,owner]);
+    return dbResult[0];
+}
+
+const getRandomKit=async(userId)=>{
+    const dbResult=await dbquery('get','SELECT id,modelName,reference,boxPicture,builderName,scaleName,brandName FROM `mymodels` WHERE owner=? AND state=1 ORDER BY RAND() LIMIT 1;',[userId]);
+    return dbResult[0];
+}
+
 module.exports = {
     findAll,
     findOne,
@@ -203,5 +224,8 @@ module.exports = {
     getStatModelProvider,
     getStatModelScale,
     getStatModelPrice,
-    getStatModelBrand
+    getStatModelBrand,
+    getLikedElementByIdKit,
+    getCountLikedIdUser,
+    getRandomKit,
 }

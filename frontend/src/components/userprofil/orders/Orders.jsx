@@ -6,19 +6,27 @@ import ProviderSelector from '../../selectors/provideselector/ProviderSelector';
 import OrderModel from '../ordermodel/OrderModel';
 import ModelLine from './ModelLine';
 import OrderDetails from './orderdetails/OrderDetails';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Button from '@mui/material/Button';
 
 import './Orders.scss';
 
 
+
 const Orders = () => {
     const [orders, setOrders] = useState([]);
-    const [isRefresh,setIsRefresh]=useState(false);
+    const [isRefresh, setIsRefresh] = useState(false);
     const [listModel, setListModel] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const [provider, setProvider] = useState(0);
     const [deployed, setDeployed] = useState(false);
-    const [closeModel,setCloseModel]=useState(false);
+    const [closeModel, setCloseModel] = useState(false);
     const axiosPrivate = useAxiosPrivate();
     const orderRefRef = useRef();
     const { auth } = useAuth();
@@ -60,7 +68,7 @@ const Orders = () => {
     }, [refresh]);
 
     useEffect(() => {
-        if (listModel.length > 0 || provider !== 0|| isRefresh) {
+        if (listModel.length > 0 || provider !== 0 || isRefresh) {
             const orderStore = {
                 provider: parseInt(provider),
                 reference: orderRefRef?.current.value,
@@ -75,10 +83,8 @@ const Orders = () => {
         setListModel([]);
         orderRefRef.current.value = '';
         window.localStorage.removeItem("myOrder")
-        //Empty list
-        //clear ref
-
     }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (orderRefRef.current.value === '') {
@@ -95,18 +101,16 @@ const Orders = () => {
                     reference: orderRefRef.current.value,
                     list: list
                 }
-                if (window.confirm('voulez vous valider la commande ?')) {
-                    const url = `${import.meta.env.VITE_APP_API_URL}order/`;
-                    axiosPrivate
-                        .post(url, dataSend)
-                        .then((resp) => {
-                            resetForm();
-                            setRefresh(!refresh)
-                        })
-                        .catch((err) => {
-                            toast.error('Une erreur est survenue');
-                        })
-                }
+                const url = `${import.meta.env.VITE_APP_API_URL}order/`;
+                axiosPrivate
+                    .post(url, dataSend)
+                    .then((resp) => {
+                        resetForm();
+                        setRefresh(!refresh)
+                    })
+                    .catch((err) => {
+                        toast.error('Une erreur est survenue');
+                    })
             }
             else
                 toast.warn('Veuillez choisir un fournisseur')
@@ -162,34 +166,45 @@ const Orders = () => {
 
     return (idUser !== 0
         ? (<section className='orders-container'>
-            Mes commandes : <button onClick={() => setDeployed(!deployed)}>{deployed ? 'cacher' : 'Afficher'}</button>
+            Mes commandes : <Button onClick={() => setDeployed(!deployed)} variant='contained'>{deployed ? 'cacher' : 'Afficher'}</Button>
             {orders.length > 0
-                ? <ul className={deployed ? "list-order list-order-deployed" : "list-order"}>
-                    {orders.map((order) => (
-                        <li key={order.reference}>
-                            Ref : <span className="item-list-order">{order.reference}</span> - Fournisseur : <span className="item-list-order">{order.providerName}</span>
-                            <Popup trigger={<button> Détails</button>} position="right center" modal className='popup'>
-                                <OrderDetails details={order} />
-                            </Popup>
-                        </li>
-                    ))}
-                </ul>
+                ? <TableContainer className={deployed ? "list-order list-order-deployed" : "list-order"}>
+                    <Table aria-label="simple table"  >
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className='ref-column'>Référence</TableCell>
+                                <TableCell className='supplier-column'>Fournisseur</TableCell>
+                                <TableCell className='detail-column'>Détails</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {orders.map((order) => (
+                                <TableRow key={order.reference}>
+                                    <TableCell>
+                                        {order.reference}
+                                    </TableCell>
+                                    <TableCell>
+                                        {order.providerName}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Popup trigger={<Button variant='contained'> Détails</Button>} position="right center" modal className='popup'>
+                                            <OrderDetails details={order} />
+                                        </Popup>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+
+                        </TableBody>
+                    </Table>
+                </TableContainer>
                 : <p>Vous n'avez pas de commandes enregistrées</p>
             }
-            { /*
-            <Popup trigger={<button type="button">Ajouter un modèle à la commande</button>} position="right center" modal className='popupmodel'>
-                        <OrderModel
-                            addModel={addModel} />
-                    </Popup>
-
-        */}
-
             <div className="new-order-container">
                 <h2 className='new-order-form-title'>Ajouter une nouvelle commande</h2>
                 <form className='new-order-form' onSubmit={handleSubmit}>
                     <div className="form-header-inputs">
-                        <label htmlFor="">Référence de la commande :
-                            <input type="text" id="" ref={orderRefRef} />
+                        <label htmlFor="ref-order">Référence de la commande :
+                            <input placeholder="Référence" id="ref-order" className="input-ref-order" ref={orderRefRef} />
                         </label>
                         <label htmlFor="provider">Fournisseur :
                             <ProviderSelector
@@ -198,36 +213,36 @@ const Orders = () => {
                                 setProvider={setProvider} />
                         </label>
                     </div>
-                    <Popup trigger={<button type="button">Ajouter un modèle à la commande</button>} open={closeModel} position="center center" modal className='popupmodel'>
+                    <Popup trigger={<Button type="button" variant='contained'>Ajouter un modèle à la commande</Button>} open={closeModel} position="center center" modal className='popupmodel'>
                         <OrderModel
-                            addModel={addModel} 
-                            setCloseModel={setCloseModel}/>
+                            addModel={addModel}
+                            setCloseModel={setCloseModel} />
                     </Popup>
                     <div className="model-list-added">
-                        <table className='order-model-table'>
-                            <caption>Résumé de la commande</caption>
-                            <thead>
-                                <tr className='order-head-line-container'>
-                                    <th className='order-head-cells'>nom du modèle</th>
-                                    <th className='order-head-cells'>marque</th>
-                                    <th className='order-head-cells'>Echelle</th>
-                                    <th className='order-head-cells qtty-cell'>Quantité</th>
-                                    <th className='order-head-cells'>Prix unitaire</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {listModel.map((model) => (
-                                    <ModelLine key={model.idModel} model={model} setNewQtty={setNewQtty} />
-                                ))}
-                            </tbody>
-                        </table>
+                        <TableContainer >
+                            <Table aria-label="simple table" className='order-model-table' >
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell className='order-head-cells'>nom du modèle</TableCell>
+                                        <TableCell className='order-head-cells'>Marque</TableCell>
+                                        <TableCell className='order-head-cells'>Echelle</TableCell>
+                                        <TableCell className='order-head-cells  qtty-cell'>Quantité</TableCell>
+                                        <TableCell className='order-head-cells'>Prix unitaire</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {listModel.map((model) => (
+                                        <ModelLine key={model.idModel} model={model} setNewQtty={setNewQtty} />
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </div>
-                    <button>Valider</button>
+                    <Button variant='contained' onClick={handleSubmit}>Valider</Button>
 
                 </form>
 
             </div>
-            <ToastContainer />
         </section>)
         : <p>Vous n'êtes pas connecté</p>
     )

@@ -44,6 +44,7 @@
         justify-content: space-between;
     }
 
+
     .model-like {
         width: 30px;
         height: auto;
@@ -59,4 +60,8 @@
         height: 30px;
     }
 
+}
+
+.valid-mod-btn:hover{
+    color: rgb(22, 191, 22);
 }

@@ -166,7 +166,8 @@ const addModelStock = async (req, res) => {
     const { user, model } = req.body;
     const result = await userModel.addModelInStock(user, model);
     if (result && result !== -1) {
-        return res.sendStatus(204);
+        const modelResult=await userModel.getModelStockInfoById(result);
+        return res.status(201).json(modelResult);
     }
     else if (result === -1)
         return res.sendStatus(500);
@@ -186,7 +187,7 @@ const updateRank = async (req, res) => {
     }
     if (isNaN(req.params.id))
         return res.sendStatus(422);
-    const id=parseInt(req.params.id,10);
+    const id = parseInt(req.params.id, 10);
     const result = await userModel.updateRank(id, req.body.rank);
     if (result && result !== -1) {
         return res.sendStatus(204);
@@ -197,6 +198,43 @@ const updateRank = async (req, res) => {
         return res.sendStatus(404);
 }
 
+const deleteModel = async (req, res) => {
+
+    const modelId = parseInt(req.params.id);
+    if (modelId === 0 || isNaN(modelId)) {
+        return res.status(422).send('bad Id');
+    }
+    const idUser = req.user.user_id;
+    //Récupère les infos du modèle à supprimer
+    const result = await userModel.getModelStockById(modelId, idUser);
+    //Améliorer le retour lors de la migration du back end
+    if (result.length === 0)
+        return res.sendStatus(404);
+    const files = result[0].pictures;
+    if (files) {
+        try {
+            const dirPath = path.join(__dirname, '..', files);
+            fs.rmSync(dirPath, { recursive: true, force: true });;
+        }
+        catch (err) {
+            //Log le result
+            logError(`UserController.deleteUser : ${err}`)
+            console.error('Erreur de suppression')
+
+        }
+    }
+    const resultDelete = await userModel.deleteModelStock(modelId);
+    if (resultDelete && resultDelete !== -1) {
+        return res.sendStatus(204);
+    }
+    else if (result === -1) {
+        res.sendStatus(500);
+    }
+    else {
+        res.sendStatus(404);
+    }
+}
+
 module.exports = {
     getAll,
     getOne,
@@ -205,4 +243,5 @@ module.exports = {
     deleteUser,
     addModelStock,
     updateRank,
+    deleteModel,
 }

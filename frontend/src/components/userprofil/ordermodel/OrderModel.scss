@@ -48,6 +48,28 @@
         margin: 10px 5px;
     }
 
+    .add-model-order-icon{
+        width: 40px;
+        height: 40px;
+    }
+
+    .add-model-order-icon:hover{
+        color: rgb(19, 158, 19);
+    }
+
+    .qtty-order{
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+        font-size: 1rem;
+        font-family: "Roboto","Helvetica","Arial",sans-serif;
+        font-weight: 400;
+    }
+
+    .qtty-order:focus{
+        outline: none;
+    }
+
     @media screen and (max-width: 768px) {
         width: 90%;
         margin : 0 auto;
