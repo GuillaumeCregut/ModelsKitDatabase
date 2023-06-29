@@ -9,14 +9,14 @@ import ListItemText from '@mui/material/ListItemText';
 import kitState from '../../../../../feature/kitState';
 import { MdFlag, MdBuild, MdOutlineAccessTime, MdOutlineTimeToLeave, MdOutlineBrandingWatermark, MdScale } from "react-icons/md";
 
+import './KitDetailsPage.scss';
+
 const KitDetailsPage = (props) => {
     const location = useLocation();
     const [model, setModel] = useState();
     const [loaded, SetLoaded] = useState(false);
     const axiosPrivate = useAxiosPrivate();
     const params = useParams();
-    console.log(params.id);
-    console.log(location.state);
     const stockModel = location.state;
     const url = `${import.meta.env.VITE_APP_URL}`;
 
@@ -26,22 +26,20 @@ const KitDetailsPage = (props) => {
             axiosPrivate
                 .get(url)
                 .then((resp) => {
-                    console.log(resp.data);
                     setModel(resp.data);
                     SetLoaded(true);
                 })
                 .catch((err) => {
-                    console.log(err)
                     toast.error('Une erreur est survenue');
                 })
         }
         getModel();
     }, [])
     return (
-        <div>
-            <h2>Détail du modèle : "{stockModel.modelName}"</h2>
+        <div className='kit-details-page'>
+            <h2 className='kit-detail-page-title'>Détail du modèle : "{stockModel.modelName}"</h2>
             <div className="img-kit">
-                {stockModel.boxPicture ? <img src={`${url}${stockModel.boxPicture}`} alt={stockModel.modelName} className='model-picture' /> : null}
+                {stockModel.boxPicture ? <img src={`${url}${stockModel.boxPicture}`} alt={stockModel.modelName} className='kit-detail-page-picture' /> : null}
             </div>
             {loaded
                 ? (<List dense>
