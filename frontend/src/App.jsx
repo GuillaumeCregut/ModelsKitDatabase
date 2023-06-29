@@ -50,6 +50,7 @@ import './App.css';
 import './LeftMenu.scss';
 import "react-toastify/dist/ReactToastify.css";
 import Random from './components/kits/random/Random';
+import KitDetailsPage from './components/kits/kitmgmt/kitcard/kitdetailspage/KitDetailsPage';
 
 //Version of front end 
 const LocalVersion="1.0";
@@ -148,6 +149,7 @@ function App() {
             <Route path="random" element={<Random />} />
             <Route path="finis" element={<FinishedModel />} />
             <Route path="finis/details/:id" element={<KitDetails />}/>
+            <Route path="detailskit/:id" element={<KitDetailsPage />} />
             <Route path='*' element={<NotFound />} />
           </Route>
           <Route path='login' element={<Login />} />
