@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { deleteStock } from "../../../../feature/stockUser.slice";
 import { Dialog, DialogActions, DialogContent, DialogContentText, IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import './KitCard.scss';
 
@@ -13,6 +14,7 @@ const KitCard = ({ kitDetails, refresh = false, setRefresh = null, displayImage 
     const [openModal, setOpenModal] = useState(false);
     const url = `${import.meta.env.VITE_APP_URL}`;
     const axiosPrivate = useAxiosPrivate();
+    const navigate=useNavigate();
     const dispatch = useDispatch();
 
     const handleClose = () => {
@@ -32,8 +34,13 @@ const KitCard = ({ kitDetails, refresh = false, setRefresh = null, displayImage 
         setOpenModal(false);
     }
 
+    const handleShowDetails=()=>{
+        //id: kitDetails.idModel
+        navigate(`../detailskit/${kitDetails.idModel}`, {state:kitDetails})
+    }
+
     return (
-        <div className='kit-card'>
+        <div className='kit-card' onClick={handleShowDetails}>
             <Dialog
                 open={openModal}
                 onClose={handleClose}
