@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
   const version={
     edititor:"editiel98",
     name:"modelsback",
-    version:'1.1'
+    version:'1.2'
   }
     res.json(version);
 });
