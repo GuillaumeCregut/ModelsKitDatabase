@@ -53,7 +53,7 @@ import Random from './components/kits/random/Random';
 import KitDetailsPage from './components/kits/kitmgmt/kitcard/kitdetailspage/KitDetailsPage';
 
 //Version of front end 
-const LocalVersion="1.1";
+const LocalVersion="1.2";
 
 function App() {
   const { auth, setAuth } = useAuth();

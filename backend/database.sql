@@ -274,8 +274,16 @@ CREATE  VIEW `model_full`  AS SELECT `m`.`id` AS `id`, `m`.`name` AS `name`, `m`
 DROP TABLE IF EXISTS `mymodels`;
 
 DROP VIEW IF EXISTS `mymodels`;
-CREATE  VIEW `mymodels`  AS SELECT `mu`.`id` AS `id`, `mu`.`model` AS `idModel`, `mu`.`state` AS `state`, `mu`.`pictures` AS `pictures`, `mu`.`owner` AS `owner`, `s`.`name` AS `stateName`, `m`.`name` AS `modelName`, `m`.`reference` AS `reference`, `m`.`picture` AS `boxPicture`, `bu`.`name` AS `builderName`, `st`.`name` AS `scaleName`, `br`.`name` AS `brandName` FROM (((((`model_user` `mu` join `state` `s` on((`mu`.`state` = `s`.`id`))) join `model` `m` on((`mu`.`model` = `m`.`id`))) join `builders` `bu` on((`m`.`builder` = `bu`.`id`))) join `scale` `st` on((`m`.`scale` = `st`.`id`))) join `brand` `br` on((`m`.`brand` = `br`.`id`)))  ;
-
+DROP VIEW IF EXISTS `mymodels`;
+CREATE  VIEW mymodels  AS 
+SELECT mu.id AS id, mu.model AS idModel, mu.state AS state, mu.pictures AS pictures,mu.price ,mu.owner AS owner, s.name AS stateName, m.name AS modelName, m.reference AS reference, m.picture AS boxPicture, bu.name AS builderName, st.name AS scaleName, br.name AS brandName,p.name as providerName 
+FROM
+model_user mu inner join state s on mu.state = s.id
+ inner join model m on mu.model = m.id 
+ inner join builders bu on m.builder = bu.id 
+ inner join scale st on m.scale = st.id 
+ inner join brand br on m.brand = br.id
+ left join provider p ON mu.provider=p.id;
 
 ALTER TABLE `builders`
   ADD CONSTRAINT `c_country_family` FOREIGN KEY (`country`) REFERENCES `country` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
