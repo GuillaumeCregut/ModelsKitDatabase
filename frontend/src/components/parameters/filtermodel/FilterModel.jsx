@@ -95,7 +95,7 @@ const FilterModel = ({setFilter}) => {
                 </label>
                 </div>
                 <label htmlFor="model-name" className='model-filter-label'>par nom :
-                <Input id="model-name"  ref={refName} className='filter-nbame-input' placeholder='Nom'/>
+                <input id="model-name"  ref={refName} className='filter-name-input' placeholder='Nom'/>
                 </label>
             </div>
             <div>
