@@ -18,8 +18,15 @@
         flex-wrap: wrap;
     }
 
-    .filter-nbame-input{
+    .filter-name-input{
         margin-left: 5px;
+        border : none;
+        border-bottom: 1px solid black;
+        background-color: transparent;
+    }
+
+    .filter-name-input:focus{
+        outline: none;
     }
 
     .btn-filter{
