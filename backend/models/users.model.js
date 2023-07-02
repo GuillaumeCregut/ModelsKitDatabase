@@ -134,24 +134,20 @@ const findCredentialsByUser = async (firsname, lastname, token) => {
 }
 
 const addModelInStock = async (user, model) => {
-    const dbResult = dbquery('add', 'INSERT INTO model_user (state,owner,model) VALUES (1,?,?)', [user, model]);
-    if (dbResult && dbResult != -1) {
-        return dbResult;
-    }
-    else {
-        return undefined;
-    }
+    const dbResult = await dbquery('add', 'INSERT INTO model_user (state,owner,model) VALUES (1,?,?)', [user, model]);
+    return dbResult;
+
 }
 
 const getModelStockInfoById = async (id) => {
     const dbResult = await dbquery('get', 'SELECT * FROM mymodels WHERE id=?', [id]);
-    return dbResult[0];
+    return dbResult.result[0];
 }
 
 const getModelStockById = async (id, idUser) => {
     const dbResult = await dbquery('get', 'SELECT * FROM model_user WHERE owner=? AND id=?', [idUser, id]);
-    if (dbResult && dbResult != -1) {
-        return dbResult;
+    if (dbResult.error===0) {
+        return dbResult.result;
     }
     else {
         //A Améliorer avec le retour des états MySql
@@ -165,19 +161,19 @@ const deleteModelStock = async (id) => {
 }
 
 module.exports = {
-    addUser,
+    addUser, //OK
     findAll, //OK
     findOne, //OK
-    deleteUser,
-    updateUser,
+    deleteUser, //OK
+    updateUser, //OK
     findOneByLogin, //OK
     setToken, //OK
     deleteTokenDb, //OK
     findUserByToken, //A vérifier
     findCredentialsByUser,  //A vérifier
-    addModelInStock,
-    updateRank,
-    getModelStockById,
-    deleteModelStock,
-    getModelStockInfoById,
+    addModelInStock, //OK
+    updateRank, //OK
+    getModelStockById, //OK
+    deleteModelStock, //OK
+    getModelStockInfoById, //OK
 }

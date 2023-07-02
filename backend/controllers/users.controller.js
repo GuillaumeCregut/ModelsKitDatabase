@@ -77,7 +77,6 @@ const addOne = async (req, res) => {
     )
     const result = await userModel.addUser(payload);
     if (typeof result !== 'object') {
-        console.log('toto')
         if (result === -2) {
             return res.sendStatus(409);
         }
@@ -164,15 +163,13 @@ const addModelStock = async (req, res) => {
     }
     const { user, model } = req.body;
     const result = await userModel.addModelInStock(user, model);
-    if (result && result !== -1) {
-        const modelResult = await userModel.getModelStockInfoById(result);
+
+    if (result.error===0) {
+        const modelResult = await userModel.getModelStockInfoById(result.result);
         return res.status(201).json(modelResult);
     }
-    else if (result === -1)
-        return res.sendStatus(500);
     else
-        return res.sendStatus(404);
-
+        return res.sendStatus(500);
 }
 
 const updateRank = async (req, res) => {
@@ -188,13 +185,14 @@ const updateRank = async (req, res) => {
         return res.sendStatus(422);
     const id = parseInt(req.params.id, 10);
     const result = await userModel.updateRank(id, req.body.rank);
-    if (result && result !== -1) {
-        return res.sendStatus(204);
+    if (result.error===0) {
+        if(result.result)
+            return res.sendStatus(204);
+        else   
+            return res.sendStatus(404);
     }
-    else if (result === -1)
-        return res.sendStatus(500);
     else
-        return res.sendStatus(404);
+        return res.sendStatus(500);
 }
 
 const deleteModel = async (req, res) => {
@@ -223,8 +221,11 @@ const deleteModel = async (req, res) => {
         }
     }
     const resultDelete = await userModel.deleteModelStock(modelId);
-    if (resultDelete && resultDelete !== -1) {
-        return res.sendStatus(204);
+    if (resultDelete.error===0) {
+        if(resultDelete.result)
+            return res.sendStatus(204);
+        else
+            return satisfies.sendStatus(404);
     }
     else if (result === -1) {
         res.sendStatus(500);
@@ -240,7 +241,7 @@ module.exports = {
     addOne, //OK
     updateUser, //OK
     deleteUser, //OK
-    addModelStock,
-    updateRank,
-    deleteModel,
+    addModelStock, //OK
+    updateRank, //OK
+    deleteModel, //A tester
 }
