@@ -71,11 +71,11 @@ const getOne = async (req, res) => {
     }
     const id = parseInt(req.params.id);
     const result = await modelModel.findOne(id);
-    if (typeof result==='object') {
+    if (typeof result === 'object') {
         return res.json(result)
     }
-    else 
-     return res.sendStatus(500);
+    else
+        return res.sendStatus(500);
 }
 
 const addOne = async (req, res) => {
@@ -99,7 +99,7 @@ const addOne = async (req, res) => {
     }
     newModel.setPicture(picture);
     const result = await modelModel.addOne(newModel);
-    if (typeof result==='object')
+    if (typeof result === 'object')
         return res.status(201).json(result);
     else
         return res.sendStatus(500);
@@ -142,7 +142,7 @@ const updateOne = async (req, res) => {
     newModel.setLink(scalemates ? scalemates : oldModel.link);
     newModel.setPicture(picture ? picture : oldModel.picture);
     const result = await modelModel.updateOne(newModel);
-    if (typeof result==='object') {
+    if (typeof result === 'object') {
         ////Remove old picture
         if (oldModel.picture && oldModel.picture != '' && picture) {
             try {
@@ -157,7 +157,7 @@ const updateOne = async (req, res) => {
         }
         return res.status(200).json(result);
     }
-    else{
+    else {
         res.sendStatus(500)
     }
 }
@@ -169,7 +169,7 @@ const deleteOne = async (req, res) => {
     }
     const idNum = parseInt(id);
     const result = await modelModel.deleteOne(idNum);
-    if (result.error===0) {
+    if (result.error === 0) {
         if (result?.oldPicture) {
             try {
                 const filePath = path.join(__dirname, '..', result.oldPicture);
@@ -203,7 +203,7 @@ const setFavorite = async (req, res) => {
     else {
         result = await modelModel.unsetFavorite(owner, modelId);
     }
-    if (result.error===0) {
+    if (result.error === 0) {
         return res.sendStatus(204);
     }
     else {
@@ -218,9 +218,9 @@ const getFavorite = async (req, res) => {
     }
     const userId = parseInt(id);
     const result = await modelModel.getFavorite(userId);
-    if (result.error===0)
+    if (result.error === 0)
         return res.json(result.result);
-    else 
+    else
         return res.sendStatus(500)
 }
 
@@ -231,12 +231,12 @@ const getStock = async (req, res) => {
     }
     const userId = parseInt(id);
     const result = await modelModel.getAllKitsUser(userId);
-    if (result && result !== -1)
-        return res.json(result)
-    else if (result === -1)
+    if (result.error === 0)
+        return res.json(result.result)
+    else {
+        await logInfo(`ModelController.getStock : ${result.result}`);
         return res.sendStatus(500);
-    await logInfo(`ModelController.getStock : something strange happen`);
-    res.sendStatus(418);
+    }
 }
 
 const updateStock = async (req, res) => {
@@ -439,9 +439,9 @@ module.exports = {
     addOne, //OK
     updateOne, //OK
     deleteOne, //OK
-    setFavorite,
-    getFavorite, //OK ?
-    getStock,
+    setFavorite, //OK
+    getFavorite, //OK 
+    getStock, //OK
     updateStock,
     getAllInfoKit,
     addUserPictures,

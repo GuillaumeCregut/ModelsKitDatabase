@@ -198,10 +198,10 @@ module.exports = {
     addOne, //OK
     updateOne, //OK
     deleteOne, //OK
-    getFavorite,
-    setFavorite,
-    unsetFavorite,
-    getAllKitsUser,
+    getFavorite, //OK
+    setFavorite, //OK
+    unsetFavorite, //OK
+    getAllKitsUser, //OK
     updateStock,
     getAllDetailsKit,
     updatePictures,
