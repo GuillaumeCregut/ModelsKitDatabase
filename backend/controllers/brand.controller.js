@@ -44,7 +44,7 @@ const addOne = async (req, res) => {
         res.status(201).json(result);
     }
     else
-        res.sendStatus(500)
+        res.sendStatus(500);
 }
 
 const updateOne = async (req, res) => {
