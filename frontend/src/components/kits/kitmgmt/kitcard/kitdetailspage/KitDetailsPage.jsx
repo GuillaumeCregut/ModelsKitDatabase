@@ -19,7 +19,6 @@ const KitDetailsPage = (props) => {
     const axiosPrivate = useAxiosPrivate();
     const params = useParams();
     const stockModel = location.state;
-    console.log(stockModel);
     const url = `${import.meta.env.VITE_APP_URL}`;
 
     useEffect(() => {
