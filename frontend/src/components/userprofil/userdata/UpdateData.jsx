@@ -163,7 +163,7 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                     </>
                     : null
                 }
-                <Button className='update-user-data user-btn' variant="contained">Valider</Button>
+                <Button className='update-user-data user-btn' variant="contained" onClick={handleSubmit}>Valider</Button>
             </form>
             <Button  variant="contained" className='user-btn' onClick={() => cancelAction(false)}> Annuler</Button>
         </div>
