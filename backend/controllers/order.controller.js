@@ -96,7 +96,6 @@ const updateOne = async (req, res) => {
 const deleteOne = async (req, res) => {
     id = req.params.id;
     const result = await orderModel.deleteOne(id);
-    console.log(result)
     if (typeof result==='object') {
         if (result.result)
             return res.sendStatus(204);

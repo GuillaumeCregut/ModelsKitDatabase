@@ -70,8 +70,10 @@ const findAll=async()=>{
 const findAllUser = async (id) => {
     //Get all orders
     const dbOrders = await dbquery('get', 'SELECT o.provider,o.reference, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.owner=?', [id]);
-    if (dbOrders.length > 0 && dbOrders !== -1) {
-        const orderList = dbOrders.map((order) => {
+    if (dbOrders.error===0) {
+        if (dbOrders.result.length===0)
+            return [];
+        const orderList = dbOrders.result.map((order) => {
             const newOrder = new Order(order.provider, id, order.reference);
             newOrder.setProviderName(order.name);
             return newOrder;
@@ -80,8 +82,8 @@ const findAllUser = async (id) => {
         for(let i=0;i<orderList.length;i++){
             const order=orderList[i];
             const dbItems = await dbquery('get', 'SELECT mo.id, mo.model_id,mo.qtte,mo.price,m.name FROM model_order mo INNER JOIN model m ON mo.model_id=m.id WHERE mo.order_id=?', [order.reference]);
-            if (dbItems && dbItems !== -1) {
-                dbItems.forEach((model) => {
+            if (dbItems.error===0) {
+                dbItems.result.forEach((model) => {
                     const newModel = {
                         id: model.model_id,
                         qtty: model.qtte,
