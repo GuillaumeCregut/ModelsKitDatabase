@@ -13,7 +13,7 @@ const findAll=async()=>{
     }
     else
     {
-        return dbResult.error;
+        return dbResult.result;
     }
 }
 
@@ -29,7 +29,7 @@ const findOne=async(id)=>{
             return{};
     }
     else
-        return dbResult.error;
+        return dbResult.result;
 }
 
 
@@ -40,7 +40,7 @@ const addOne=async(period)=>{
         return period;
     }
     else {
-        return dbResult.error;
+        return dbResult.result;
     }
 }
 

@@ -12,7 +12,7 @@ const findAll = async () => {
         return resultat;
     }
     else {
-        return dbResult.error;
+        return dbResult.result;
     }
 
 }
@@ -29,7 +29,7 @@ const findOne = async (id) => {
             return {};
     }
     else
-        return dbResult.error;
+        return dbResult.result;
 }
 
 const addOne = async (country) => {
@@ -39,7 +39,7 @@ const addOne = async (country) => {
         return country;
     }
     else {
-        return dbResult.error;
+        return dbResult.result;
     }
 }
 

@@ -14,7 +14,7 @@ const findAll = async () => {
     }
     else
     {
-        return dbResult.error;
+        return dbResult.result;
     }
 }
 
@@ -32,7 +32,7 @@ const findOne = async (id) => {
             return{};
     }
     else
-        return dbResult.error;
+        return dbResult.result;
 }
 
 const addOne = async (builder) => {
@@ -45,7 +45,7 @@ const addOne = async (builder) => {
          return builder;
      }
      else {
-        return dbResult.error;
+        return dbResult.result;
     }
 }
 

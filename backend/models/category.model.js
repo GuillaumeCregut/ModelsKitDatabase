@@ -12,7 +12,7 @@ const findAll = async () => {
         return resultat;
     }
     else {
-        return dbResult.error;
+        return dbResult.result;
     }
 }
 
@@ -28,7 +28,7 @@ const findOne = async (id) => {
             return {};
     }
     else
-        dbResult.error;
+        dbResult.result;
 }
 
 const addOne = async (category) => {
