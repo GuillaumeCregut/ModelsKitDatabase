@@ -21,7 +21,6 @@ const getAll = async (req, res) => {
 const getOne = async (req, res) => {
     const id = req.params.id;
     const result = await periodModel.findOne(id);
-    console.log(result)
     if (typeof result == 'object')
         res.json(result);
     else

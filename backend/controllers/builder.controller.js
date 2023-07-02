@@ -63,7 +63,7 @@ const updateOne = async (req, res) => {
     const errors = validate({ name, country }, true);
     if (errors) {
         const error = errors.details[0].message;
-        console.log(error)
+        console.error(error)
         return res.status(422).send(error);
     }
     const newBuilder = new Builder(idNum, name, country);

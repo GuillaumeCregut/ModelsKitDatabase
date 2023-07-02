@@ -61,7 +61,6 @@ const refreshToken = async (req, res) => {
     }
     const refreshToken = cookies.jwt;
     const result = await findUserByToken(refreshToken);
-    console.log('try ', result)
     if (!typeof result==='object') {
         return res.sendStatus(500);
     }
