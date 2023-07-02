@@ -203,14 +203,12 @@ const setFavorite = async (req, res) => {
     else {
         result = await modelModel.unsetFavorite(owner, modelId);
     }
-    if (result && result !== -1) {
+    if (result.error===0) {
         return res.sendStatus(204);
     }
-    else if (result === -1) {
+    else {
         return res.sendStatus(500)
     }
-    else
-        return res.sendStatus(404)
 }
 
 const getFavorite = async (req, res) => {
@@ -220,13 +218,9 @@ const getFavorite = async (req, res) => {
     }
     const userId = parseInt(id);
     const result = await modelModel.getFavorite(userId);
-    if (result && result !== -1)
-        return res.json(result);
-    else if (result == -1) {
-        await logInfo(`ModelController.getFavorite : something strange happen`);
-        return res.sendStatus(418)
-    }
-    else
+    if (result.error===0)
+        return res.json(result.result);
+    else 
         return res.sendStatus(500)
 }
 
@@ -446,7 +440,7 @@ module.exports = {
     updateOne, //OK
     deleteOne, //OK
     setFavorite,
-    getFavorite,
+    getFavorite, //OK ?
     getStock,
     updateStock,
     getAllInfoKit,

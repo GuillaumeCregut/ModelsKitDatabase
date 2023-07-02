@@ -106,14 +106,7 @@ const deleteOne = async (id) => {
 
 const getFavorite=async(userId)=>{
         const dbResult=await dbquery('get','SELECT id,model as modelId,modelName,brandName,builderName,scaleName FROM model_favorite WHERE owner=?',[userId]);
-        if (dbResult && dbResult !== -1) {
-            return dbResult;
-        }
-        else if (dbResult === -1) {
-            return undefined; //500 error
-        }
-        else
-            return -1 
+        return dbResult;
 }
 
 const setFavorite=async(owner,modelId)=>{
