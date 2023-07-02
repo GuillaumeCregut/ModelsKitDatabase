@@ -11,7 +11,7 @@ const findAll=async()=>{
         });
         return resultat;
     }
-    else if(dbResult.error===1)
+    else
     {
         return dbResult.error;
     }
