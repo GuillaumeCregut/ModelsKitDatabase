@@ -1,4 +1,4 @@
-const { logError,logInfo } =require('../utils/logEvent');
+const { logError, logInfo } = require('../utils/logEvent');
 const Model = require('../classes/model.class');
 const modelModel = require('../models/model.model');
 const Joi = require('joi');
@@ -56,15 +56,13 @@ const validateStock = (data) => {
 }
 
 const getAll = async (req, res) => {
-    const {user_id}=req.user||0;
+    const { user_id } = req.user || 0;
     const result = await modelModel.findAll(user_id);
-    if (result && result !== -1) {
+    if (typeof result === 'object') {
         return res.json(result)
     }
-    else if (result === -1) {
-        return res.sendStatus(404)
-    }
-    return res.sendStatus(500);
+    else
+        return res.sendStatus(500);
 }
 
 const getOne = async (req, res) => {
@@ -73,13 +71,11 @@ const getOne = async (req, res) => {
     }
     const id = parseInt(req.params.id);
     const result = await modelModel.findOne(id);
-    if (result && result !== -1) {
+    if (typeof result==='object') {
         return res.json(result)
     }
-    else if (result === -1) {
-        return res.sendStatus(404)
-    }
-    return res.sendStatus(500);
+    else 
+     return res.sendStatus(500);
 }
 
 const addOne = async (req, res) => {
@@ -103,7 +99,7 @@ const addOne = async (req, res) => {
     }
     newModel.setPicture(picture);
     const result = await modelModel.addOne(newModel);
-    if (result)
+    if (typeof result==='object')
         return res.status(201).json(result);
     else
         return res.sendStatus(500);
@@ -146,7 +142,7 @@ const updateOne = async (req, res) => {
     newModel.setLink(scalemates ? scalemates : oldModel.link);
     newModel.setPicture(picture ? picture : oldModel.picture);
     const result = await modelModel.updateOne(newModel);
-    if (result && result !== -1) {
+    if (typeof result==='object') {
         ////Remove old picture
         if (oldModel.picture && oldModel.picture != '' && picture) {
             try {
@@ -161,11 +157,9 @@ const updateOne = async (req, res) => {
         }
         return res.status(200).json(result);
     }
-    else if (result === -1) {
+    else{
         res.sendStatus(500)
     }
-    else
-        res.sendStatus(404)
 }
 
 const deleteOne = async (req, res) => {
@@ -175,10 +169,10 @@ const deleteOne = async (req, res) => {
     }
     const idNum = parseInt(id);
     const result = await modelModel.deleteOne(idNum);
-    if (result && result !== -1) {
-        if (result) {
+    if (result.error===0) {
+        if (result?.oldPicture) {
             try {
-                const filePath = path.join(__dirname, '..', result);
+                const filePath = path.join(__dirname, '..', result.oldPicture);
                 fs.unlinkSync(filePath);
                 return res.sendStatus(204);
             }
@@ -190,11 +184,9 @@ const deleteOne = async (req, res) => {
         else
             return res.sendStatus(204);
     }
-    else if (result === -1) {
+    else {
         res.sendStatus(500)
     }
-    else
-        res.sendStatus(404)
 }
 
 const setFavorite = async (req, res) => {
@@ -261,10 +253,10 @@ const updateStock = async (req, res) => {
     }
     const { owner, id, newState } = req.body;
     //Before changing, see if it is a favorite
-    if(newState===4){
-        const resultIdKit=await modelModel.getLikedElementByIdKit(id);
-        const isLiked=await modelModel.getCountLikedIdUser(resultIdKit.model,owner);
-        if (isLiked.count>=1){
+    if (newState === 4) {
+        const resultIdKit = await modelModel.getLikedElementByIdKit(id);
+        const isLiked = await modelModel.getCountLikedIdUser(resultIdKit.model, owner);
+        if (isLiked.count >= 1) {
             return res.sendStatus(409);
         }
     }
@@ -301,7 +293,7 @@ const getAllInfoKit = async (req, res) => {
                         fileArray.push(filename)
                     }
                 })
-                .catch(async(err) => {
+                .catch(async (err) => {
                     console.error(err)
                     await logError(`ModelController.getAllInfoKit : ${err}`);
                 })
@@ -384,7 +376,7 @@ const getStat = async (req, res) => {
     }
     else if (stateResult === -1)
         return res.sendStatus(500);
-    
+
     //Get period result
     const perdiodResult = await modelModel.getStatModelPeriod(id);
     if (perdiodResult && perdiodResult !== -1) {
@@ -400,7 +392,7 @@ const getStat = async (req, res) => {
     }
     else if (categoryResult === -1)
         return res.sendStatus(500);
-    
+
     //get provider result
     const providerResult = await modelModel.getStatModelProvider(id);
     if (providerResult && providerResult !== -1) {
@@ -423,7 +415,7 @@ const getStat = async (req, res) => {
     }
     else if (brandResult === -1)
         return res.sendStatus(500);
-    
+
     //get price info
     const priceResult = await modelModel.getStatModelPrice(id);
     if (priceResult && priceResult !== -1) {
@@ -434,9 +426,9 @@ const getStat = async (req, res) => {
     res.json(datas);
 }
 
-const getRandom=async(req,res)=>{
+const getRandom = async (req, res) => {
     const idUser = req.user.user_id;
-    const result=await modelModel.getRandomKit(idUser);
+    const result = await modelModel.getRandomKit(idUser);
     if (result && result !== -1) {
         return res.json(result)
     }
@@ -448,11 +440,11 @@ const getRandom=async(req,res)=>{
 
 
 module.exports = {
-    getAll,
-    getOne,
-    addOne,
-    updateOne,
-    deleteOne,
+    getAll, //OK
+    getOne, //OK
+    addOne, //OK
+    updateOne, //OK
+    deleteOne, //OK
     setFavorite,
     getFavorite,
     getStock,

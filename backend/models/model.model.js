@@ -9,8 +9,8 @@ const findAll = async (userId) => {
     }    
     
     const dbResult = await dbquery('get', sql,[userId]);
-    if (dbResult && dbResult !== -1) {
-        const models = dbResult.map((item) => {
+    if (dbResult.error===0) {
+        const models = dbResult.result.map((item) => {
             const newModel = new Model(item.id, item.name, item.brand, item.builder, item.category, item.period, item.reference, item.scale);
             newModel.setBrandName(item.brandname);
             newModel.setBuilderName(item.buildername);
@@ -26,18 +26,15 @@ const findAll = async (userId) => {
         });
         return models;
     }
-    else if (dbResult === -1) {
-        return undefined; //500 error
-    }
     else
-        return -1;
+        return dbResult.result;
 }
 
 const findOne = async (id) => {
     const dbResult = await dbquery('get', 'SELECT * FROM model_full WHERE id=? ORDER BY name', [id]);
-    if (dbResult && dbResult !== -1) {
-        if (dbResult.length > 0) {
-            const item = dbResult[0];
+    if (dbResult.error===0) {
+        if (dbResult.result.length > 0) {
+            const item = dbResult.result[0];
             const newModel = new Model(item.id, item.name, item.brand, item.builder, item.category, item.period, item.reference, item.scale);
             newModel.setBrandName(item.brandname);
             newModel.setBuilderName(item.buildername);
@@ -51,13 +48,10 @@ const findOne = async (id) => {
             return newModel;
         }
         else
-            return -1;
-    }
-    else if (dbResult === -1) {
-        return undefined; //500 error
+            return {};
     }
     else
-        return -1;
+        return dbResult.result;
 
 }
 
@@ -66,11 +60,11 @@ const addOne = async (model) => {
     const result = await dbquery('add', 'INSERT INTO model (builder,category,brand,period,scale,name,reference,scalemates,picture) VALUES (?,?,?,?,?,?,?,?,?)', [
         model.builder, model.category, model.brand, model.period, model.scale, model.name, model.reference, model.link, model.picture
     ])
-    if (result != -1) {
-        model.setId(result);
+    if (result.error===0) {
+        model.setId(result.result);
         //Getting result in text
         const dbResult = await dbquery('get', 'SELECT * FROM model_full WHERE id=? ORDER BY name', [model.id]);
-        const item = dbResult[0];
+        const item = dbResult.result[0];
         model.setBrandName(item.brandname);
         model.setBuilderName(item.buildername);
         model.setCategoryName(item.categoryname);
@@ -81,7 +75,7 @@ const addOne = async (model) => {
         return model;
     }
     else {
-        return undefined;
+        return result.error;
     }
 }
 
@@ -89,25 +83,25 @@ const updateOne = async (model) => {
     const result = await dbquery('update', 'UPDATE model SET builder=?,category=?,brand=?,period=?,scale=?,name=?,reference=?,scalemates=?,picture=? WHERE id=?', [
         model.builder, model.category, model.brand, model.period, model.scale, model.name, model.reference, model.link, model.picture,model.id
     ])
-    if (result &&result !== -1) {
-        const newModel=findOne(model.id);
+    if (result.error===0) {
+        const newModel=await findOne(model.id);
         return newModel;
     }
     else
-        return result;
+        return result.result;
 }
 
 const deleteOne = async (id) => {
     const old=await findOne(id);
     const dbResult=await dbquery('delete', 'DELETE FROM model WHERE id=?', [id]);
-    if (dbResult && dbResult !== -1) {
+    if (dbResult.error==0) {
         if(old.picture)
-            return old.picture;
+            return {error:0, oldPicture:old.picture};
         else
             return dbResult;
     }
     else
-        return dbResult
+        return dbResult;
 }
 
 const getFavorite=async(userId)=>{
@@ -206,11 +200,11 @@ const getRandomKit=async(userId)=>{
 }
 
 module.exports = {
-    findAll,
-    findOne,
-    addOne,
-    updateOne,
-    deleteOne,
+    findAll, //OK
+    findOne, //OK
+    addOne, //OK
+    updateOne, //OK
+    deleteOne, //OK
     getFavorite,
     setFavorite,
     unsetFavorite,
