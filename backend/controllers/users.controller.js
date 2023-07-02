@@ -6,6 +6,7 @@ const { encrypt } = require('../utils/crypto');
 const fs = require('fs');
 const path = require('path');
 const { createSubUpload } = require('../utils/fs');
+const { type } = require('os');
 
 const validate = (data, forCreation = true) => {
     const presence = forCreation ? 'required' : 'optional';
@@ -29,26 +30,25 @@ const validateModel = (data, forCreation = true) => {
 
 const getAll = async (req, res) => {
     const result = await userModel.findAll();
-    if (result && result !== -1)
+    if (typeof result === 'object')
         res.json(result);
-    else if (result === -1) {
-        res.sendStatus(500)
-    }
     else {
-        res.sendStatus(404)
+        res.sendStatus(500)
     }
 }
 
 const getOne = async (req, res) => {
     const id = req.params.id;
     const result = await userModel.findOne(id);
-    if (result && result !== -1)
-        res.json(result[0]);
-    else if (result === -1) {
-        res.sendStatus(500)
+    if (typeof result === 'object') {
+        if (result.length > 0)
+            res.json(result[0]);
+        else
+            res.sendStatus(404)
     }
+
     else {
-        res.sendStatus(404)
+        res.sendStatus(500)
     }
 }
 
@@ -76,16 +76,17 @@ const addOne = async (req, res) => {
         email
     )
     const result = await userModel.addUser(payload);
-    if (result) {
+    if (typeof result !== 'object') {
+        console.log('toto')
         if (result === -2) {
             return res.sendStatus(409);
         }
-        //Create userfolder
-        createSubUpload(`users/${result.id}`);
-        res.status(201).json(result);
+        else
+            return res.sendStatus(500);
     }
     else {
-        res.sendStatus(500)
+        createSubUpload(`users/${result.id}`);
+        res.status(201).json(result);
     }
 }
 
@@ -117,15 +118,14 @@ const updateUser = async (req, res) => {
         id
     )
     const result = await userModel.updateUser(payload);
-    if (result && result !== -1) {
-        res.sendStatus(204);
+    if (typeof result === 'object') {
+        if (result.result)
+            res.sendStatus(204);
+        else
+            return res.sendStatus(404)
     }
-    else if (result === -1) {
+    else
         res.sendStatus(500);
-    }
-    else {
-        res.sendStatus(404)
-    }
 }
 
 const deleteUser = async (req, res) => {
@@ -134,7 +134,10 @@ const deleteUser = async (req, res) => {
         return res.status(422).send('bad Id');
     }
     const result = await userModel.deleteUser(id);
-    if (result && result !== -1) {
+    if (result.error===0) {
+        if (!result.result){
+            return res.sendStatus(404);
+        }
         //unlink userfolder  
         try {
             const dirPath = path.join(__dirname, '..', 'assets', 'uploads', 'users', id.toString());
@@ -148,12 +151,8 @@ const deleteUser = async (req, res) => {
         }
         res.sendStatus(204);
     }
-    else if (result === -1) {
+    else 
         res.sendStatus(500);
-    }
-    else {
-        res.sendStatus(404)
-    }
 }
 
 const addModelStock = async (req, res) => {
@@ -166,7 +165,7 @@ const addModelStock = async (req, res) => {
     const { user, model } = req.body;
     const result = await userModel.addModelInStock(user, model);
     if (result && result !== -1) {
-        const modelResult=await userModel.getModelStockInfoById(result);
+        const modelResult = await userModel.getModelStockInfoById(result);
         return res.status(201).json(modelResult);
     }
     else if (result === -1)
@@ -236,11 +235,11 @@ const deleteModel = async (req, res) => {
 }
 
 module.exports = {
-    getAll,
-    getOne,
-    addOne,
-    updateUser,
-    deleteUser,
+    getAll,  //OK
+    getOne, //OK
+    addOne, //OK
+    updateUser, //OK
+    deleteUser, //OK
     addModelStock,
     updateRank,
     deleteModel,
