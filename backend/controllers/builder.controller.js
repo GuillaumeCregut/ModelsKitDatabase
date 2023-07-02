@@ -14,12 +14,10 @@ const validate = (data, option) => {
 
 const getAll = async (req, res) => {
     const result = await builderModel.findAll();
-    if (result && result !== -1)
+    if (typeof result == 'object')
         res.json(result);
-    else if (result === -1) {
-        res.sendStatus(404)
-    }
     else {
+        //traiter les cas si besoin, ici non
         res.sendStatus(500)
     }
 }
@@ -31,12 +29,10 @@ const getOne = async (req, res) => {
     }
     const idNum = parseInt(id);
     const result = await builderModel.findOne(idNum);
-    if (result && result !== -1)
+    if (typeof result == 'object')
         res.json(result);
-    else if (result === -1) {
-        res.sendStatus(404)
-    }
     else {
+        //traiter les cas si besoin, ici non
         res.sendStatus(500)
     }
 }
@@ -50,8 +46,8 @@ const addOne = async (req, res) => {
     }
     const newBuilder = new Builder(null, name, country);
     const result = await builderModel.addOne(newBuilder);
-    if (result) {
-        return res.status(201).json(result);
+    if (typeof result === 'object') {
+        res.status(201).json(result);
     }
     else
         res.sendStatus(500);
@@ -72,23 +68,19 @@ const updateOne = async (req, res) => {
     }
     const newBuilder = new Builder(idNum, name, country);
     const result = await builderModel.updateOne(newBuilder);
-    if (result && result !== -1) {
+    if (result.error === 0) {
+        if (!result.result)
+            return res.sendStatus(404);
         const countryName = await countryModel.findOne(country);
-        if (countryName && countryName !== -1){
-           return res.json(countryName);
+        if (typeof countryName === 'object' && typeof countryName?.name!=='undefined') {
+            return res.json(countryName);
         }
-        else if (countryName === -1) {
-           return res.sendStatus(500)
-        }
-        else {
-          return  res.sendStatus(404)
-        }
+        else
+            return res.sendStatus(500)
     }
-    else if (result === -1) {
+    else {
         res.sendStatus(500)
     }
-    else
-        res.sendStatus(404)
 }
 
 const deleteOne = async (req, res) => {
@@ -98,14 +90,16 @@ const deleteOne = async (req, res) => {
     }
     const idNum = parseInt(id);
     const result = await builderModel.deleteOne(idNum);
-    if (result && result !== -1) {
-        res.sendStatus(204);
+    if (result.error === 0) {
+        if (result.result)
+            return res.sendStatus(204);
+        else
+            return res.sendStatus(404);
     }
-    else if (result === -1) {
-        res.sendStatus(500)
+    else {
+
+        res.sendStatus(500);
     }
-    else
-        res.sendStatus(404)
 }
 
 module.exports = {

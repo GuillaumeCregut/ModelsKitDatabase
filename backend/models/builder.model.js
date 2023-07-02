@@ -3,52 +3,50 @@ const Builder = require('../classes/Builder.class');
 
 const findAll = async () => {
     const dbResult = await dbquery('get', 'SELECT builders.name, builders.id, builders.country, country.name as country_name FROM builders INNER JOIN country on builders.country=country.id ORDER BY builders.name');
-    if (dbResult && dbResult !== -1) {
-        const result = dbResult.map((item) => {
+    if(dbResult.error===0){
+        const resultArray=dbResult.result;
+        const resultat = resultArray.map((item) => {
             const builder = new Builder(item.id, item.name, item.country);
             builder.setCountryName(item.country_name);
             return builder;
         })
-        return result;
-    }
-    else if (dbResult === -1) {
-        return undefined;
+        return resultat;
     }
     else
-        return -1;
+    {
+        return dbResult.error;
+    }
 }
 
 const findOne = async (id) => {
     const dbResult = await dbquery('get', 'SELECT builders.name, builders.id, builders.country, country.name as country_name FROM builders INNER JOIN country on builders.country=country.id WHERE builders.id=? ORDER BY builders.name', [id]);
-    if (dbResult && dbResult !== -1) {
-        if(dbResult.length>0){
-            const result=dbResult[0];
+    if (dbResult.error===0) {
+        const resultArray=dbResult.result;
+        if (resultArray.length > 0) {
+            const result=dbResult.result[0];
             const builder = new Builder(result.id, result.name, result.country);
             builder.setCountryName(result.country_name);
             return builder;
         }
         else
-            return -1;
-    }
-    else if (dbResult === -1) {
-        return undefined;
+            return{};
     }
     else
-        return -1;
+        return dbResult.error;
 }
 
 const addOne = async (builder) => {
     const dbResult=await dbquery('add', 'INSERT INTO builders (name,country) VALUES (?,?)',[builder.name,builder.countryId]);
-    if (dbResult != -1) {
-        builder.setId(dbResult);
+    if (dbResult.error === 0) {
+        builder.setId(dbResult.result);
         //Get country Name
         const dbCountry=await dbquery('get','SELECT name FROM country WHERE id=?',[builder.countryId]); 
-        builder.setCountryName(dbCountry[0].name)
+        builder.setCountryName(dbCountry.result[0].name)
          return builder;
      }
      else {
-         return undefined;
-     }
+        return dbResult.error;
+    }
 }
 
 const updateOne = async (builder) => {
