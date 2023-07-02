@@ -249,19 +249,22 @@ const updateStock = async (req, res) => {
     //Before changing, see if it is a favorite
     if (newState === 4) {
         const resultIdKit = await modelModel.getLikedElementByIdKit(id);
-        const isLiked = await modelModel.getCountLikedIdUser(resultIdKit.model, owner);
-        if (isLiked.count >= 1) {
+        if (resultIdKit.error === 1)
+            return res.sendStatus(500);
+        const resultIdModel = resultIdKit.result[0].model;
+        const isLiked = await modelModel.getCountLikedIdUser(resultIdModel, owner);
+        if (isLiked.error === 1)
+            return res.sendStatus(500);
+        if (isLiked.result[0].count >= 1) {
             return res.sendStatus(409);
         }
     }
     const result = await modelModel.updateStock(id, owner, newState);
-    if (result && result !== -1) {
+    if (result.error === 0) {
         return res.sendStatus(204);
     }
-    else if (result === -1)
-        return res.sendStatus(500);
     else
-        return res.sendStatus(404);
+        return res.sendStatus(500);
 }
 
 const getAllInfoKit = async (req, res) => {
@@ -275,7 +278,7 @@ const getAllInfoKit = async (req, res) => {
         return res.sendStatus(401);
     }
     const result = await modelModel.getAllDetailsKit(idKit);
-    if (result && result !== -1) {
+    if (typeof result === 'object') {
         //Get all images and add them to responses
         if (result.pictures) {
             const basePath = result.pictures;
@@ -299,11 +302,9 @@ const getAllInfoKit = async (req, res) => {
         }
         return res.json(result);
     }
-    else if (result === -1)
-        return res.sendStatus(500)
     else {
-        await logInfo(`ModelController.getAllInfoKit : something strange happen`);
-        return res.sendStatus(418)
+        await logInfo(`ModelController.getAllInfoKit : ${result}`);
+        return res.sendStatus(500)
     };
 }
 
@@ -316,16 +317,12 @@ const addUserPictures = async (req, res) => {
             const id = parseInt(req.params.id);
             //Si on rencontre un souci, alors on fait marche arrière sur le répertoire créé
             const dbResult = await modelModel.updatePictures(filesPath, id);
-            if (dbResult && dbResult != -1) {
+            if (dbResult.error === 0) {
                 return res.sendStatus(204);
             }
-            else if (dbResult === -1) {
-                res.sendStatus(500)
-            }
             else {
-                //On supprime le répertoire
                 deletePath(filesPath);
-                return res.sendStatus(422)
+                res.sendStatus(500)
             }
         }
         else
@@ -423,13 +420,11 @@ const getStat = async (req, res) => {
 const getRandom = async (req, res) => {
     const idUser = req.user.user_id;
     const result = await modelModel.getRandomKit(idUser);
-    if (result && result !== -1) {
-        return res.json(result)
+    if (result.error === 0) {
+        return res.json(result.result[0])
     }
-    else if (result === -1) {
-        return res.sendStatus(404)
-    }
-    return res.sendStatus(500);
+    else
+        return res.sendStatus(500);
 }
 
 
@@ -442,10 +437,10 @@ module.exports = {
     setFavorite, //OK
     getFavorite, //OK 
     getStock, //OK
-    updateStock,
-    getAllInfoKit,
-    addUserPictures,
-    deleteUserPicture,
+    updateStock, //OK
+    getAllInfoKit, //OK
+    addUserPictures, //OK
+    deleteUserPicture, //OK
     getStat,
-    getRandom,
+    getRandom, //OK
 }

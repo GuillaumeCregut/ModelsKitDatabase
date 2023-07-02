@@ -131,11 +131,11 @@ const updateStock=async(id,owner,state)=>{
 
 const getAllDetailsKit=async(id)=>{
     const dbResult=await dbquery('get','SELECT * FROM all_info_model WHERE id=?',[id]);
-    if(dbResult && dbResult!==-1){
-        return dbResult[0];
+    if(dbResult.error===0){
+        return dbResult.result[0];
     }
     else 
-        return dbResult;
+        return dbResult.result;
 }
 
 const updatePictures=async(filePath,id)=>{
@@ -179,17 +179,17 @@ const getStatModelBrand=async(id)=>{
 
 const getLikedElementByIdKit=async(id)=>{
     const dbResult=await dbquery('get','SELECT model from model_user WHERE id=?',[id]);
-    return dbResult[0];
+    return dbResult;
 }
 
 const getCountLikedIdUser=async(id, owner)=>{
     const dbResult=await dbquery('get', 'SELECT count(*) as count FROM  model_user WHERE model=? AND owner=? AND state=4',[id,owner]);
-    return dbResult[0];
+    return dbResult;
 }
 
 const getRandomKit=async(userId)=>{
     const dbResult=await dbquery('get','SELECT id,modelName,reference,boxPicture,builderName,scaleName,brandName FROM `mymodels` WHERE owner=? AND state=1 ORDER BY RAND() LIMIT 1;',[userId]);
-    return dbResult[0];
+    return dbResult;
 }
 
 module.exports = {
@@ -202,8 +202,8 @@ module.exports = {
     setFavorite, //OK
     unsetFavorite, //OK
     getAllKitsUser, //OK
-    updateStock,
-    getAllDetailsKit,
+    updateStock,//OK
+    getAllDetailsKit, //OK
     updatePictures,
     getStateModelState,
     getStatModelPeriod,
@@ -212,7 +212,7 @@ module.exports = {
     getStatModelScale,
     getStatModelPrice,
     getStatModelBrand,
-    getLikedElementByIdKit,
-    getCountLikedIdUser,
-    getRandomKit,
+    getLikedElementByIdKit, //OK
+    getCountLikedIdUser, //OK
+    getRandomKit, //OK
 }
