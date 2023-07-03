@@ -8,6 +8,8 @@
     }
 
     @media screen and (max-width: 768px) {
+        grid-area: 1 / 2 / 1/ 1;
+        
         .list-kit-in-stock{
             align-items: center;
             justify-content: center;
