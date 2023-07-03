@@ -27,6 +27,7 @@ const storageUserPictures=multer.diskStorage(
                     ext = '.jpg';
                 const filename = file.originalname.slice(0, -4).replace(/[^a-zA-Z0-9]/g, '') + ext;
                 req.fileOk=true;
+                req.fileName=filename;
                 cb(null, filename)
             }
             else{
