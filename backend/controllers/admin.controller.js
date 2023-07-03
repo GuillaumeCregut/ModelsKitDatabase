@@ -20,7 +20,7 @@ const getWarnings = async (req, res) => {
         res.sendFile( pathFile, function (err) {
             if (err) {
                 logError(`AdminController.logs : ${err}`)
-                console.log(err);
+                console.error(err);
             }
         });
     }

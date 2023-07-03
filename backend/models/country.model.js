@@ -3,44 +3,43 @@ const { dbquery } = require('../utils/dbutils');
 
 const findAll = async () => {
     const dbResult = await dbquery('get', 'SELECT * FROM country ORDER BY name');
-    if (dbResult && dbResult !== -1) {
-        const resultat = dbResult.map(element => {
+    if (dbResult.error === 0) {
+        const resultArray = dbResult.result;
+        const resultat = resultArray.map(element => {
             const item = new Country(element.id, element.name);
             return item;
         });
         return resultat;
     }
-    else if(dbResult===-1)
-    {
-        return undefined;
+    else {
+        return dbResult.result;
     }
-    else
-        return -1;
 
 }
 
 const findOne = async (id) => {
     const dbResult = await dbquery('get', 'SELECT * FROM country WHERE id=?', [id]);
-    if (dbResult !== -1) {
-        if (dbResult.length > 0) {
-            const country = new Country(dbResult[0].id, dbResult[0].name)
+    if (dbResult.error === 0) {
+        const resultArray = dbResult.result;
+        if (resultArray.length > 0) {
+            const country = new Country(resultArray[0].id, resultArray[0].name)
             return country;
         }
         else
-            return false;
+            return {};
     }
     else
-        return -1;
+        return dbResult.result;
 }
 
 const addOne = async (country) => {
     const dbResult = await dbquery('add', 'INSERT INTO country (name) VALUES(?)', [country.name]);
-    if (dbResult != -1) {
-        country.setId(dbResult);
+    if (dbResult.error === 0) {
+        country.setId(dbResult.result);
         return country;
     }
     else {
-        return undefined;
+        return dbResult.result;
     }
 }
 

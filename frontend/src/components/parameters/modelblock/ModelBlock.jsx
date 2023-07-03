@@ -134,6 +134,9 @@ const ModelBlock = ({ model, setReload }) => {
                 setReload(prev => !prev);
             })
             .catch((err) => {
+                if(err?.response?.status===423)
+                    toast.warn('La suppression de ce modèle est impossible');
+                else
                 toast.error('Une erreur est survenue');
             })
         setOpenModal(false);

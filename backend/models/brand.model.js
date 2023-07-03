@@ -3,44 +3,44 @@ const Brand=require('../classes/Brand.class');
 
 const findAll=async()=>{
     const dbResult = await dbquery('get', 'SELECT * FROM brand ORDER BY name');
-    if (dbResult && dbResult !== -1) {
-        const resultat = dbResult.map(element => {
+    if(dbResult.error===0){
+        const resultArray=dbResult.result;
+        const resultat = resultArray.map(element => {
             const item = new Brand(element.id, element.name);
             return item;
         });
         return resultat;
     }
-    else if(dbResult===-1)
-    {
-        return undefined;
-    }
     else
-        return -1;
+    {
+        return dbResult.result;
+    }
 
 }
 
 const findOne=async(id)=>{
     const dbResult = await dbquery('get', 'SELECT * FROM brand WHERE id=?', [id]);
-    if (dbResult !== -1) {
-        if (dbResult.length > 0) {
-            const brand = new Brand(dbResult[0].id, dbResult[0].name)
+    if (dbResult.error===0) {
+        const resultArray=dbResult.result;
+        if (resultArray.length > 0) {
+            const brand = new Brand(resultArray[0].id, resultArray[0].name)
             return brand;
         }
         else
-            return false;
+            return{};
     }
     else
-        return -1;
+        return dbResult.result;
 }
 
 const addOne=async(brand)=>{
     const dbResult = await dbquery('add', 'INSERT INTO brand (name) VALUES(?)', [brand.name]);
-    if (dbResult != -1) {
-       brand.setId(dbResult);
+    if (dbResult.error === 0) {
+       brand.setId(dbResult.result);
         return brand;
     }
     else {
-        return undefined;
+        return dbResult.result;
     }
 }
 
