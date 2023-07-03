@@ -53,7 +53,7 @@ const OrderModel = ({ addModel, setCloseModel }) => {
 
     useEffect(() => {
         const getFavorites = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}model/favorite/${idUser}`;
+            const url = `${import.meta.env.VITE_APP_API_URL}models/favorite/${idUser}`;
             axiosPrivate
                 .get(url)
                 .then((resp) => {
@@ -70,7 +70,7 @@ const OrderModel = ({ addModel, setCloseModel }) => {
     useEffect(() => {
 
         const getModels = async () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}model`;
+            const url = `${import.meta.env.VITE_APP_API_URL}models`;
             await axiosPrivate
                 .get(url)
                 .then((resp) => {

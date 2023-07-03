@@ -17,7 +17,7 @@ const ProviderSelector = ({id, provider, setProvider}) => {
     }
     useEffect(()=>{
         const getProviders=()=>{
-            const url = `${import.meta.env.VITE_APP_API_URL}supplier/user/${idUser}`;
+            const url = `${import.meta.env.VITE_APP_API_URL}suppliers/user/${idUser}`;
             axiosPrivate
                 .get(url)
                 .then((resp)=>{

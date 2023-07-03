@@ -15,7 +15,7 @@ const CountrySelector = ({ selectedCountry, setSelectedCountry, id }) => {
     useEffect(() => {
         //Loading countries if null
         const getCountries = () => {
-            const urlCountry = `${import.meta.env.VITE_APP_API_URL}country`;
+            const urlCountry = `${import.meta.env.VITE_APP_API_URL}countries`;
             axios.get(urlCountry)
                 .then((res) => {
                     dispatch(setCountry(res.data))

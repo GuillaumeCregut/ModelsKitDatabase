@@ -16,7 +16,7 @@ import BuilderTable from './BuilderTable';
 import { Input } from '@mui/material';
 
 const BuilderContainer = () => {
-    const url = `${import.meta.env.VITE_APP_API_URL}builder`;
+    const url = `${import.meta.env.VITE_APP_API_URL}builders`;
     const [isLoaded, setIsLoaded] = useState(false);
     const [findElement, setFindElement] = useState('');
     const [filteredBuiler, setFilteredBuilder] = useState([]);

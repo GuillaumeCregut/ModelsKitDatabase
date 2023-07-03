@@ -14,7 +14,7 @@ const BrandContainer = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const dispatch = useDispatch();
     const brandsData = useSelector((state) => state.brands.brand);
-    const url = `${import.meta.env.VITE_APP_API_URL}brand`;
+    const url = `${import.meta.env.VITE_APP_API_URL}brands`;
     const axiosPrivate = useAxiosPrivate();
 
     const addAction = (newData) => {

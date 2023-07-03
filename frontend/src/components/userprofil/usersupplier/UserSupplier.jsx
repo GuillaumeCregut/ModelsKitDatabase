@@ -26,7 +26,7 @@ const UserSupplier2 = () => {
 
     useEffect(() => {
         const getSuppliers = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}supplier/user/${idUser}`;
+            const url = `${import.meta.env.VITE_APP_API_URL}suppliers/user/${idUser}`;
             axiosPrivate
                 .get(url)
                 .then((resp) => {
@@ -46,7 +46,7 @@ const UserSupplier2 = () => {
                 name: nameSupplier,
                 owner: idUser
             }
-            const url = `${import.meta.env.VITE_APP_API_URL}supplier/`;
+            const url = `${import.meta.env.VITE_APP_API_URL}suppliers/`;
             axiosPrivate
                 .post(url, newSupplier)
                 .then((resp) => {

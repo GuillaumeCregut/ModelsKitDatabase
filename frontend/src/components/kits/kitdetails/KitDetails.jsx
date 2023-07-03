@@ -35,13 +35,12 @@ const KitDetails = () => {
 
     useEffect(() => {
         const getModel = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}model/info/${id}/user/${idUser}`;
+            const url = `${import.meta.env.VITE_APP_API_URL}models/info/${id}/user/${idUser}`;
             axiosPrivate
                 .get(url)
                 .then((resp) => {
                     setModelDetail(resp.data);
                     let count = resp.data.pictures?.files.length;
-                    console.log('count : ',count);
                     if (count) {
                         setMaxCount(count);
                     }
@@ -55,7 +54,7 @@ const KitDetails = () => {
     }, [reload]);
 
     const handleFiles = (files) => {
-        const url = `${import.meta.env.VITE_APP_API_URL}model/user/picture/${id}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}models/user/picture/${id}`;
         const formData = new FormData();
         for (let i = 0; i < files.length; i++) {
             formData.append('file', files[i])
@@ -73,7 +72,7 @@ const KitDetails = () => {
     }
 
     const handleDelete = (file) => {
-        const url = `${import.meta.env.VITE_APP_API_URL}model/user/picture/${id}?file=${file}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}models/user/picture/${id}?file=${file}`;
         axiosPrivate
             .delete(url)
             .then((resp) => {
