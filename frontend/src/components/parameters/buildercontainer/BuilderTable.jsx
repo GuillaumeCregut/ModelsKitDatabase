@@ -25,7 +25,7 @@ const BuilderTable = ({ builder }) => {
 
     useEffect(() => {
         const getCountries = () => {
-            const urlCountry = `${import.meta.env.VITE_APP_API_URL}country`;
+            const urlCountry = `${import.meta.env.VITE_APP_API_URL}countries`;
             axiosPrivate.get(urlCountry)
                 .then((res) => {
                     dispatch(setCountry(res.data))
@@ -41,7 +41,7 @@ const BuilderTable = ({ builder }) => {
 
     const updateData = async (newRow, countryId, countryName, old) => {
         const newItem = { name: newRow.name, country: countryId };
-        const urlApi = `${import.meta.env.VITE_APP_API_URL}builder/${newRow.id}`;
+        const urlApi = `${import.meta.env.VITE_APP_API_URL}builders/${newRow.id}`;
         return axiosPrivate
             .put(urlApi, newItem)
             .then(() => {
@@ -83,7 +83,7 @@ const BuilderTable = ({ builder }) => {
     }, []);
 
     const handleDelete = (rowData) => {
-        const url = `${import.meta.env.VITE_APP_API_URL}builder/${rowData.id}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}builders/${rowData.id}`;
         axiosPrivate
             .delete(url)
             .then((resp) => {
@@ -102,7 +102,7 @@ const BuilderTable = ({ builder }) => {
             name: paramsRow.name,
             country: newValue
         }
-        const urlApi = `${import.meta.env.VITE_APP_API_URL}builder/${paramsRow.id}`;
+        const urlApi = `${import.meta.env.VITE_APP_API_URL}builders/${paramsRow.id}`;
         axiosPrivate
             .put(urlApi, newItem)
             .then((res) => {

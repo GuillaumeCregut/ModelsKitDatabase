@@ -14,7 +14,7 @@ const BrandSelector = ({ selectedBrand, setSelectedBrand,id }) => {
 
     useEffect(() => {
         const getBrands = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}brand`;
+            const url = `${import.meta.env.VITE_APP_API_URL}brands`;
             axios.get(url)
                 .then((res) => {
                     dispatch(setBrand(res.data))

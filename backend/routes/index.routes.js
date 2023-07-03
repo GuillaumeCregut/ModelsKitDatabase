@@ -26,17 +26,17 @@ router.use('/refresh',refresAuth);
 
 /* Routes*/
 router.use('/admin',userCheck,checkLevel,admin);
-router.use('/brand',brand);
-router.use('/builder',builder);
-router.use('/country',country);
-router.use('/category',category);
-router.use('/model',model);
-router.use('/order',order);
-router.use('/period',period);
-router.use('/scale',scale);
-router.use('/state',state);
+router.use('/brands',brand);
+router.use('/builders',builder);
+router.use('/countries',country);
+router.use('/categories',category);
+router.use('/models',model);
+router.use('/orders',order);
+router.use('/periods',period);
+router.use('/scales',scale);
+router.use('/states',state);
 router.use('/stats',stats);
-router.use('/supplier',supplier);
+router.use('/suppliers',supplier);
 router.use('/users',users);
 
 /* Default routes */

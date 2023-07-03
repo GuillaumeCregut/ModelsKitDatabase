@@ -15,7 +15,7 @@ const PeriodSelector = ({ selectedPeriod, setSelectedPeriod, id }) => {
 
     useEffect(() => {
         const getPeriods = async () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}period`;
+            const url = `${import.meta.env.VITE_APP_API_URL}periods`;
             await axios
                 .get(url)
                 .then((resp) => {

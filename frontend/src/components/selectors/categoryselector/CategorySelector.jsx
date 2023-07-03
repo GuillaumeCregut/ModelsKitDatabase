@@ -15,7 +15,7 @@ const CategorySelector = ({ id, selectedCategory, setSelectedCategory }) => {
 
     useEffect(() => {
         const getCategories = async () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}category`;
+            const url = `${import.meta.env.VITE_APP_API_URL}categories`;
             await axios
                 .get(url)
                 .then((resp) => {

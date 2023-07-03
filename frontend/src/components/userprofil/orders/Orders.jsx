@@ -54,7 +54,7 @@ const Orders = () => {
 
     useEffect(() => {
         const getOrders = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}order/user/${idUser}`;
+            const url = `${import.meta.env.VITE_APP_API_URL}orders/user/${idUser}`;
             axiosPrivate
                 .get(url)
                 .then((resp) => {
@@ -101,7 +101,7 @@ const Orders = () => {
                     reference: orderRefRef.current.value,
                     list: list
                 }
-                const url = `${import.meta.env.VITE_APP_API_URL}order/`;
+                const url = `${import.meta.env.VITE_APP_API_URL}orders/`;
                 axiosPrivate
                     .post(url, dataSend)
                     .then((resp) => {

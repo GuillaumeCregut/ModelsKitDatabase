@@ -15,7 +15,7 @@ const BuilderSelector = ({id,selectedBuilder, setSelectedBuilder}) => {
 
     useEffect(()=>{
         const getBuilders=async()=>{
-            const url = `${import.meta.env.VITE_APP_API_URL}builder`;
+            const url = `${import.meta.env.VITE_APP_API_URL}builders`;
             axios
                 .get(url)
                 .then((resp)=>{

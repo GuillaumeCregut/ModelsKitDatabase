@@ -23,7 +23,7 @@ const KitDetailsPage = (props) => {
 
     useEffect(() => {
         const getModel = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}model/${params.id}`;
+            const url = `${import.meta.env.VITE_APP_API_URL}models/${params.id}`;
             axiosPrivate
                 .get(url)
                 .then((resp) => {

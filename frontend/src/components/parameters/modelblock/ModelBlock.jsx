@@ -56,7 +56,7 @@ const ModelBlock = ({ model, setReload }) => {
         idUser = 0;
 
     const getModelsUser = (id) => {
-        const url = `${import.meta.env.VITE_APP_API_URL}model/user/${id}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}models/user/${id}`;
         axiosPrivate
             .get(url)
             .then((resp) => {
@@ -110,7 +110,7 @@ const ModelBlock = ({ model, setReload }) => {
         formData.append('period', selectedPeriod);
         if (newLink !== '')
             formData.append('scalemates', newLink);
-        const urlApi = `${import.meta.env.VITE_APP_API_URL}model/${model.id}`;
+        const urlApi = `${import.meta.env.VITE_APP_API_URL}models/${model.id}`;
         axiosMulti
             .put(urlApi, formData)
             .then((resp) => {
@@ -126,7 +126,7 @@ const ModelBlock = ({ model, setReload }) => {
     }
 
     const handleDelete = () => {
-        const urlApi = `${import.meta.env.VITE_APP_API_URL}model/${model.id}`
+        const urlApi = `${import.meta.env.VITE_APP_API_URL}models/${model.id}`
         axiosPrivate
             .delete(urlApi)
             .then(() => {
@@ -150,7 +150,7 @@ const ModelBlock = ({ model, setReload }) => {
             owner: idUser,
             like: !isLiked
         }
-        const url = `${import.meta.env.VITE_APP_API_URL}model/favorite/`;
+        const url = `${import.meta.env.VITE_APP_API_URL}models/favorite/`;
         axiosPrivate
             .post(url, data)
             .then((resp) => {

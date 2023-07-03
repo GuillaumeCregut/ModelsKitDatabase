@@ -12,7 +12,7 @@ const Random = () => {
     const [model, setModel] = useState(null);
 
     const handleClick = () => {
-        const url = `${import.meta.env.VITE_APP_API_URL}model/user/random`;
+        const url = `${import.meta.env.VITE_APP_API_URL}models/user/random`;
         axiosPrivate
             .get(url)
             .then((resp)=>{

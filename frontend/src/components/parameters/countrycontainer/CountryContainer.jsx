@@ -13,7 +13,7 @@ const CountryContainer = () => {
     const dispatch = useDispatch();
     const countriesData = useSelector((state) => state.countries.country);
     const [isLoaded, setIsLoaded] = useState(false);
-    const url = `${import.meta.env.VITE_APP_API_URL}country`;
+    const url = `${import.meta.env.VITE_APP_API_URL}countries`;
     const axiosPrivate = useAxiosPrivate();
 
     const addAction = (newData) => {

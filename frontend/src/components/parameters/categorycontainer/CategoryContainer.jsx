@@ -13,7 +13,7 @@ const CategoryContainer = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const dispatch = useDispatch();
     const categoriesData = useSelector((state) => state.categories.category);
-    const url = `${import.meta.env.VITE_APP_API_URL}category`;
+    const url = `${import.meta.env.VITE_APP_API_URL}categories`;
     const axiosPrivate = useAxiosPrivate();
 
 

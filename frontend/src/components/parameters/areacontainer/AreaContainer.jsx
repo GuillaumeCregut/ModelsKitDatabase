@@ -13,7 +13,7 @@ const AreaContainer = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const dispatch = useDispatch();
     const periodsData = useSelector((state) => state.periods.period);
-    const url = `${import.meta.env.VITE_APP_API_URL}period`;
+    const url = `${import.meta.env.VITE_APP_API_URL}periods`;
     const axiosPrivate = useAxiosPrivate();
 
     const addAction = (newData) => {

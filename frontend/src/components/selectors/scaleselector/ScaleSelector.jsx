@@ -14,7 +14,7 @@ const ScaleSelector = ({ id, selectedScale, setSelectedScale }) => {
 
     useEffect(() => {
         const getScales = async () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}scale`;
+            const url = `${import.meta.env.VITE_APP_API_URL}scales`;
             axios
                 .get(url)
                 .then((resp) => {

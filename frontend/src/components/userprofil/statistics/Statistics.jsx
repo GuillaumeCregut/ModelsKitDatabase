@@ -16,7 +16,7 @@ const Statistics = () => {
         userId = 0;
     useEffect(() => {
         const getStats = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}model/info/user/${userId}`;
+            const url = `${import.meta.env.VITE_APP_API_URL}models/info/user/${userId}`;
             axiosPrivate
                 .get(url)
                 .then((resp) => {

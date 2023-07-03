@@ -18,7 +18,7 @@ const FinishedModel = () => {
 
     useEffect(() => {
         const getModelsUSer = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}model/user/${userId}`;
+            const url = `${import.meta.env.VITE_APP_API_URL}models/user/${userId}`;
             axiosPrivate
                 .get(url)
                 .then((resp) => {

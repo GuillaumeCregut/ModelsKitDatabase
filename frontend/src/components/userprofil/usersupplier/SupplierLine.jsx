@@ -22,7 +22,7 @@ const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
     /* */
     const handleDelete = () => {
         const id = supplier.id;
-        const url = `${import.meta.env.VITE_APP_API_URL}supplier/${supplier.id}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}suppliers/${supplier.id}`;
         axiosPrivate
             .delete(url)
             .then((resp) => {
@@ -42,7 +42,7 @@ const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
             name: newName,
             owner: supplier.owner
         }
-        const url = `${import.meta.env.VITE_APP_API_URL}supplier/${supplier.id}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}suppliers/${supplier.id}`;
         axiosPrivate
             .put(url, newSupplier)
             .then((resp) => {
