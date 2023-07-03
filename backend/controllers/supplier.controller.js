@@ -49,10 +49,10 @@ const getUser = async (req, res) => {
     else {
         result = await supplierModel.findAllUser(userId);
     }
-    if (typeof result==='object') {
+    if (typeof result === 'object') {
         return res.json(result)
     }
-    else 
+    else
         return res.sendStatus(500);
 }
 
@@ -66,7 +66,7 @@ const addOne = async (req, res) => {
     }
     const newSupplier = new Supplier(null, name, owner);
     const result = await supplierModel.addOne(newSupplier);
-    if (typeof result==='object') {
+    if (typeof result === 'object') {
         return res.status(201).json(result);
     }
     else
@@ -111,8 +111,14 @@ const deleteOne = async (req, res) => {
             return res.sendStatus(404);
     }
     else {
-
-        res.sendStatus(500);
+        const errorCode = result.result;
+        let sendCode = 500;
+        switch (errorCode) {
+            case 1451: sendCode = 423;
+                break;
+            default: sendCode = 500;
+        }
+        res.sendStatus(sendCode);
     }
 }
 

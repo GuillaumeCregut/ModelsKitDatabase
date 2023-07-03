@@ -29,7 +29,10 @@ const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
                 setSuppliers(suppliers.filter((item) => item.id !== id))
             })
             .catch((err) => {
-                toast.error('Une erreur est survenue');
+                if (err?.response?.status === 423)
+                    toast.warn('La suppression de ce fournisseur est impossible.');
+                else
+                    toast.error('Une erreur est survenue');
             })
     }
 
