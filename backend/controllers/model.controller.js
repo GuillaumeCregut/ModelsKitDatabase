@@ -1,4 +1,4 @@
-const { logError, logInfo } = require('../utils/logEvent');
+const { logError, logInfo, logWarning } = require('../utils/logEvent');
 const Model = require('../classes/model.class');
 const modelModel = require('../models/model.model');
 const Joi = require('joi');
@@ -325,10 +325,25 @@ const addUserPictures = async (req, res) => {
             //Si on rencontre un souci, alors on fait marche arrière sur le répertoire créé
             const dbResult = await modelModel.updatePictures(filesPath, id);
             if (dbResult.error === 0) {
-                return res.sendStatus(204);
+                if(dbResult.result)
+                    return res.sendStatus(204);
+                else{
+                    try{
+                        fs.unlinkSync(path.join(filesPath,req.fileName));
+                    }
+                    catch{
+                        await logWarning(`Suppression de ${filesPath}/${req.fileName} impossible`)
+                    }
+                    return res.sendStatus(404);
+                }
             }
             else {
-                deletePath(filesPath);
+                try{
+                    fs.unlinkSync(path.join(filesPath,req.fileName));
+                }
+                catch{
+                    await logWarning(`Suppression de ${filesPath}/${req.fileName} impossible`)
+                }
                 res.sendStatus(500)
             }
         }

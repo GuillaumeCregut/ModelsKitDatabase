@@ -140,7 +140,7 @@ const getAllDetailsKit=async(id)=>{
 
 const updatePictures=async(filePath,id)=>{
     const dbResult=await dbquery('update', 'UPDATE model_user SET pictures=? WHERE id=?',[filePath,id]);
-    return dbResult.result;
+    return dbResult;
 }
 
 const getStateModelState=async(id)=>{

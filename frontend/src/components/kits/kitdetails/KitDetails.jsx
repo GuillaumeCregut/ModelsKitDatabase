@@ -20,6 +20,7 @@ const KitDetails = () => {
     const { id } = useParams();
     const axiosPrivate = useAxiosPrivate();
     const [modelDetail, setModelDetail] = useState({});
+    const [files, setFiles] = useState({});
     const [isLoaded, setIsLoaded] = useState(false);
     const [isError, setIsError] = useState(false);
     const [maxCount, setMaxCount] = useState(0);
@@ -40,6 +41,7 @@ const KitDetails = () => {
                 .then((resp) => {
                     setModelDetail(resp.data);
                     let count = resp.data.pictures?.files.length;
+                    console.log('count : ',count);
                     if (count) {
                         setMaxCount(count);
                     }
@@ -61,6 +63,8 @@ const KitDetails = () => {
         axiosPrivateMulti
             .post(url, formData)
             .then((resp) => {
+                //Clear
+                setFiles({});
                 setReload(!reload)
             })
             .catch((err) => {
@@ -108,11 +112,12 @@ const KitDetails = () => {
                             </div>
                             <div className="picturebox">
                                 {
-                                    modelDetail.pictures
+                                    (modelDetail.pictures&&(modelDetail.pictures.files.length>0))
                                         ? <ul className='picture-container'>
                                             {modelDetail.pictures.files.map((file) => (
                                                 <li key={file} className='picture-item'>
                                                     <div>
+                                                        
                                                         <Zoom>
                                                             <img
                                                                 src={`${urlDetail}${modelDetail.pictures.baseFolder}/${file}`}
@@ -136,6 +141,8 @@ const KitDetails = () => {
                                     updateFilesCb={handleFiles}
                                     multiple={true}
                                     maxFile={MAX_FILE_UPLOAD}
+                                    files={files}
+                                    setFiles={setFiles}
                                 />
                                 : null}
                         </div>
