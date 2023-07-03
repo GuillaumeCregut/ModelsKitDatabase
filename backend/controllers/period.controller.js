@@ -84,8 +84,14 @@ const deleteOne = async (req, res) => {
             return res.sendStatus(404);
     }
     else {
-
-        res.sendStatus(500);
+        const errorCode = result.result;
+        let sendCode = 500;
+        switch (errorCode) {
+            case 1451: sendCode = 423;
+                break;
+            default: sendCode = 500;
+        }
+        res.sendStatus(sendCode);
     }
 
 }

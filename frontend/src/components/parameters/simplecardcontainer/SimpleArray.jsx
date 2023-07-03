@@ -45,13 +45,16 @@ const SimpleArray = ({ item, wrapper }) => {
                 dispatch(deleteAction(id))
             })
             .catch((err) => {
-                if (err.response.status === 404) {
-                    toast.warn("L'élément n'existe pas")
+                if (err?.response?.status === 404) {
+                    toast.warn("L'élément n'existe pas");
                 }
-                if (err.response.status < 404) {
-                    toast.warn("Vous n'êtes pas autoriser à supprimer")
+                if (err?.response?.status < 404) {
+                    toast.warn("Vous n'êtes pas autoriser à supprimer");
                 }
-                if (err.response.status === 500) {
+                if(err?.response?.status===423){
+                    toast.warn("La suppression de cet élément est impossible");
+                }
+                if (err?.response?.status === 500) {
                     toast.error("Une erreur serveur est survenue")
                 }
             })
