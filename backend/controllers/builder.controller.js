@@ -72,7 +72,7 @@ const updateOne = async (req, res) => {
         if (!result.result)
             return res.sendStatus(404);
         const countryName = await countryModel.findOne(country);
-        if (typeof countryName === 'object' && typeof countryName?.name!=='undefined') {
+        if (typeof countryName === 'object' && typeof countryName?.name !== 'undefined') {
             return res.json(countryName);
         }
         else
@@ -97,8 +97,14 @@ const deleteOne = async (req, res) => {
             return res.sendStatus(404);
     }
     else {
-
-        res.sendStatus(500);
+        const errorCode = result.result;
+        let sendCode = 500;
+        switch (errorCode) {
+            case 1451: sendCode = 423;
+                break;
+            default: sendCode = 500;
+        }
+        res.sendStatus(sendCode);
     }
 }
 
