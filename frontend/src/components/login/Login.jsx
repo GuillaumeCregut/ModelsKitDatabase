@@ -60,7 +60,7 @@ const Login = () => {
                 })
                 .catch((err) => {
                     let errorMessage = '';
-                    switch (err.response.status) {
+                    switch (err?.response?.status) {
                         case 401: errorMessage = "Login ou mot de passe invalide";
                             break;
                         case 404: errorMessage = "Utilisateur inexistant";
