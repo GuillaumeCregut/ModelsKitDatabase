@@ -2,15 +2,15 @@ import { useRef, useState } from 'react'
 import { FaFileUpload } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { toast } from 'react-toastify';
+import { Dialog, DialogActions, DialogContent, DialogContentText, IconButton } from '@mui/material';
 
 import './FileUploader.scss';
-import { Dialog, DialogActions, DialogContent, DialogContentText, IconButton } from '@mui/material';
 
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
 const KILO_BYTES_PER_BYTE = 1000;
 
-const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES }) => {
-    const [files, setFiles] = useState({});
+const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES,files, setFiles }) => {
+   // const [files, setFiles] = useState({});
     const fileInputField = useRef(null);
     const [openModal, setOpenModal] = useState(false);
     const [fileNameRemove, setFileNameRemove] = useState('');
@@ -66,7 +66,6 @@ const FileUploader = ({ label, updateFilesCb, multiple = true, maxFile, maxFileS
     const removeFile = () => {
         delete files[fileNameRemove];
         setFiles({ ...files });
-        //}
         setOpenModal(false);
     }
 
