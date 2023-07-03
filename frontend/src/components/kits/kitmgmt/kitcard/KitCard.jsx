@@ -14,7 +14,7 @@ const KitCard = ({ kitDetails, refresh = false, setRefresh = null, displayImage 
     const [openModal, setOpenModal] = useState(false);
     const url = `${import.meta.env.VITE_APP_URL}`;
     const axiosPrivate = useAxiosPrivate();
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleClose = () => {
@@ -26,7 +26,7 @@ const KitCard = ({ kitDetails, refresh = false, setRefresh = null, displayImage 
             .delete(urlStock)
             .then(() => {
                 dispatch(deleteStock(kitDetails.id));
-                setRefresh(!refresh); 
+                setRefresh(!refresh);
             })
             .catch((err) => {
                 toast.error('Une erreur est survenue');
@@ -34,13 +34,13 @@ const KitCard = ({ kitDetails, refresh = false, setRefresh = null, displayImage 
         setOpenModal(false);
     }
 
-    const handleShowDetails=()=>{
+    const handleShowDetails = () => {
         //id: kitDetails.idModel
-        navigate(`../detailskit/${kitDetails.idModel}`, {state:kitDetails})
+        navigate(`../detailskit/${kitDetails.idModel}`, { state: kitDetails })
     }
 
     return (
-        <div className='kit-card' onClick={handleShowDetails}>
+        <div className='kit-card'>
             <Dialog
                 open={openModal}
                 onClose={handleClose}
@@ -56,10 +56,12 @@ const KitCard = ({ kitDetails, refresh = false, setRefresh = null, displayImage 
                     <IconButton onClick={deleteKit}>Oui</IconButton>
                 </DialogActions>
             </Dialog>
-            <h4>{kitDetails.modelName} - {kitDetails.builderName}</h4>
-            {displayImage &&kitDetails.boxPicture&& <img src={`${url}${kitDetails.boxPicture}`} alt={kitDetails.modelName} />}
-            <p>{kitDetails.brandName} - {kitDetails.scaleName} </p>
-            <p>Référence : {kitDetails.reference} </p>
+            <div className="container-details-card" onClick={handleShowDetails}>
+                <h4>{kitDetails.modelName} - {kitDetails.builderName}</h4>
+                {displayImage && kitDetails.boxPicture && <img src={`${url}${kitDetails.boxPicture}`} alt={kitDetails.modelName} />}
+                <p>{kitDetails.brandName} - {kitDetails.scaleName} </p>
+                <p>Référence : {kitDetails.reference} </p>
+            </div>
             <div className="delete-btn-container">
                 {inMgmt
                     ? null
