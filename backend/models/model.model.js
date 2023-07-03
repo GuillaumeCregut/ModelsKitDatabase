@@ -140,41 +140,41 @@ const getAllDetailsKit=async(id)=>{
 
 const updatePictures=async(filePath,id)=>{
     const dbResult=await dbquery('update', 'UPDATE model_user SET pictures=? WHERE id=?',[filePath,id]);
-    return dbResult;
+    return dbResult.result;
 }
 
 const getStateModelState=async(id)=>{
     const dbResult=await dbquery('get', 'SELECT count(*) as count, s.name FROM all_info_model ai  INNER JOIN state s on ai.state=s.id WHERE ai.owner=? GROUP BY ai.state;',[id]);
-    return dbResult;
+    return dbResult.result;
 }
 
 const getStatModelPeriod=async(id)=>{
     const dbResult=await dbquery('get', 'SELECT count(*) as count, periodName as name FROM all_info_model WHERE owner=? GROUP BY periodName;',[id]);
-    return dbResult;
+    return dbResult.result;
 }
 
 const getStatModelType=async(id)=>{
     const dbResult=await dbquery('get', 'SELECT count(*) as count, categoryName as name FROM all_info_model WHERE owner=? GROUP BY categoryName;',[id]);
-    return dbResult;
+    return dbResult.result;
 }
 
 const getStatModelProvider=async(id)=>{
     const dbResult=await dbquery('get','SELECT count(*) as count, providerName as name FROM all_info_model WHERE owner=? GROUP BY provider;',[id]);
-    return dbResult;
+    return dbResult.result;
 }
 const getStatModelScale=async(id)=>{
     const dbResult=await dbquery('get','SELECT count(*) as count, scaleName as name FROM all_info_model WHERE owner=? GROUP BY scaleName;',[id]);
-    return dbResult;
+    return dbResult.result;
 }
 
 const getStatModelPrice=async(id)=>{
     const dbResult=await dbquery('get','SELECT SUM(price) as sum FROM `all_info_model` WHERE owner=?;',[id]);
-    return dbResult;
+    return dbResult.result;
 }
 
 const getStatModelBrand=async(id)=>{
     const dbResult=await dbquery('get','SELECT count(*) as count, brandName as name FROM all_info_model WHERE owner=? GROUP BY brandName;',[id]);
-    return dbResult;
+    return dbResult.result;
 }
 
 const getLikedElementByIdKit=async(id)=>{

@@ -188,7 +188,7 @@ const doStats = async (req, res) => {
     const allModels = await modelModel.getAllKitsUser(id);
     //Générer le PDF
     try {
-       await  createPDF(res, pathTemp, priceResult[0].sum, userName, stateResult, allModels, id,dataUser);
+       await  createPDF(res, pathTemp, priceResult[0].sum, userName, stateResult, allModels.result, id,dataUser);
        
     }
     catch (err){
