@@ -4,6 +4,8 @@ import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { Link } from 'react-router-dom';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import { toast } from 'react-toastify';
+import {MdPhotoCamera} from "react-icons/md";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 import './FinishedModel.scss';
 
@@ -38,13 +40,43 @@ const FinishedModel = () => {
             <div className="finished-top-page">
                 <h2>Modèles finis</h2>
                 <div className="list-finished-model-container">
-                    <ul className='list-finished-model'>
-                        {isLoaded
-                        ?listModel.filter(item => item.state === 3).map((item) => (
-                            <Link to={`details/${item.id}`} key={item.id}> <li className='list-finished-item'>{item.modelName}</li></Link>
-                        ))
-                        :<AwaitLoad />}
-                    </ul>
+                    {isLoaded
+                        ? (
+                            <TableContainer>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Nom</TableCell>
+                                            <TableCell>Marque</TableCell>
+                                            <TableCell>Echelle</TableCell>
+                                            <TableCell>Photos</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {
+                                            listModel.filter(item => item.state === 3).map((item) => (
+                                                <TableRow key={item.id}>
+                                                    <TableCell><Link to={`details/${item.id}`}><span className="finished-item-name">{item.builderName} {item.modelName}</span></Link></TableCell>
+                                                    <TableCell>{item.brandName}</TableCell>
+                                                    <TableCell>{item.scaleName}</TableCell>
+                                                    <TableCell>{item.pictures?<MdPhotoCamera className='icon-photo-finished' />:''}</TableCell>
+                                                </TableRow>
+
+                                            ))
+                                        }
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        )
+                        /* <ul className='list-finished-model'>
+                            {isLoaded
+                            ?listModel.filter(item => item.state === 3).map((item) => (
+                                <Link to={`details/${item.id}`} key={item.id}> <li className='list-finished-item'>{item.modelName}</li></Link>
+                            
+                                ))
+                            :<AwaitLoad />}
+                        </ul> */
+                        : <AwaitLoad />}
                 </div>
             </div>
         </div>
