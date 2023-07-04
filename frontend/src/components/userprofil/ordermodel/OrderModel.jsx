@@ -135,7 +135,7 @@ const OrderModel = ({ addModel, setCloseModel }) => {
                 </div>
                 <div className="order-model-all-models-container">
                     <h3>Liste des modèles</h3>
-                    <p>Filtre : <Input type="text" value={filter} onChange={(e) => setFilter(e.target.value)} /></p>
+                    <div>Filtre : <Input type="text" value={filter} onChange={(e) => setFilter(e.target.value)} /></div>
                     <div className="order-model-list-all-models all-models-list">
                         {isLoaded
                             ? filteredModel.map((model) => (
