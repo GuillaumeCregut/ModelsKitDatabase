@@ -185,13 +185,13 @@ const deleteOne = async (req, res) => {
             return res.sendStatus(204);
     }
     else {
-        const errorCode=result.result;
-       let sendCode=500;
-       switch(errorCode){
-        case 1451 : sendCode=423;
-            break;
-        default : sendCode=500;
-       }
+        const errorCode = result.result;
+        let sendCode = 500;
+        switch (errorCode) {
+            case 1451: sendCode = 423;
+                break;
+            default: sendCode = 500;
+        }
         res.sendStatus(sendCode);
     }
 }
@@ -325,23 +325,23 @@ const addUserPictures = async (req, res) => {
             //Si on rencontre un souci, alors on fait marche arrière sur le répertoire créé
             const dbResult = await modelModel.updatePictures(filesPath, id);
             if (dbResult.error === 0) {
-                if(dbResult.result)
+                if (dbResult.result)
                     return res.sendStatus(204);
-                else{
-                    try{
-                        fs.unlinkSync(path.join(filesPath,req.fileName));
+                else {
+                    try {
+                        fs.unlinkSync(path.join(filesPath, req.fileName));
                     }
-                    catch{
+                    catch {
                         await logWarning(`Suppression de ${filesPath}/${req.fileName} impossible`)
                     }
                     return res.sendStatus(404);
                 }
             }
             else {
-                try{
-                    fs.unlinkSync(path.join(filesPath,req.fileName));
+                try {
+                    fs.unlinkSync(path.join(filesPath, req.fileName));
                 }
-                catch{
+                catch {
                     await logWarning(`Suppression de ${filesPath}/${req.fileName} impossible`)
                 }
                 res.sendStatus(500)
@@ -365,10 +365,21 @@ const deleteUserPicture = async (req, res) => {
     const filePath = path.join(__dirname, '..', 'assets', 'uploads', 'users', `${userId}`, id, filename);
     try {
         fs.unlinkSync(filePath);
+        const pathUser = path.join(__dirname, '..', 'assets', 'uploads', 'users', `${userId}`, id);
+        try {
+            if (fs.readdirSync(pathUser).length === 0) {
+                fs.rmdirSync(pathUser);
+                await modelModel.updatePictures(null,id)
+            }
+        }
+        catch(err){
+            logError(`ModelController.deleteUserPicture :${err}`);
+            console.log(err)
+        }
         return res.sendStatus(204);
     }
     catch (err) {
-        logError(`ModelController.feleteUserPicture :${err}`);
+        logError(`ModelController.deleteUserPicture :${err}`);
         console.error(err);
         res.sendStatus(500);
     }
