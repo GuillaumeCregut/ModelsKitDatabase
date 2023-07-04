@@ -10,3 +10,5 @@ model_user mu inner join state s on mu.state = s.id
  inner join scale st on m.scale = st.id 
  inner join brand br on m.brand = br.id
  left join provider p ON mu.provider=p.id;
+
+ ALTER TABLE `orders` ADD `dateOrder` DATE NULL DEFAULT NULL AFTER `reference`;

@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `owner` int NOT NULL,
   `provider` int NOT NULL,
   `reference` varchar(50) NOT NULL,
+  `dateOrder` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`reference`),
   KEY `c_order_owner` (`owner`),
   KEY `c_order_provider` (`provider`)

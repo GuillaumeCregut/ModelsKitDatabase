@@ -6,6 +6,7 @@ const OrderDetails = ({details}) => {
         <div className='inner-popup'>
             <p>Fournisseur : {details.providerName}</p>
             <p>Référence : {details.reference}</p>
+            <p>Date : {details.dateOrder?details.dateOrder:'-'}</p>
             <p>Détails</p>
             <ul>
                 {details.models.map((model)=>(

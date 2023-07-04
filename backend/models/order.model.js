@@ -42,7 +42,11 @@ const findAll=async()=>{
     const dbOrders = await dbquery('get', 'SELECT o.provider, o.owner,o.reference, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id');
     if (dbOrders.error===0) {
         const orderList = dbOrders.result.map((order) => {
-            const newOrder = new Order(order.provider,  order.owner, order.reference);
+            let dateLine=null;
+            if(order.dateOrder){
+                dateLine=`${order.dateOrder.getDate()}/${order.dateOrder.getMonth()+1}/${order.dateOrder.getFullYear()}`;
+            }
+            const newOrder = new Order(order.provider,  order.owner, order.reference,dateLine);
             newOrder.setProviderName(order.name);
             return newOrder;
         })
@@ -69,12 +73,16 @@ const findAll=async()=>{
 
 const findAllUser = async (id) => {
     //Get all orders
-    const dbOrders = await dbquery('get', 'SELECT o.provider,o.reference, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.owner=?', [id]);
+    const dbOrders = await dbquery('get', 'SELECT o.provider,o.reference,o.dateOrder, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.owner=?', [id]);
     if (dbOrders.error===0) {
         if (dbOrders.result.length===0)
             return [];
         const orderList = dbOrders.result.map((order) => {
-            const newOrder = new Order(order.provider, id, order.reference);
+            let dateLine=null;
+            if(order.dateOrder){
+                dateLine=`${order.dateOrder.getDate()}/${order.dateOrder.getMonth()+1}/${order.dateOrder.getFullYear()}`;
+            }
+            const newOrder = new Order(order.provider, id, order.reference,dateLine);
             newOrder.setProviderName(order.name);
             return newOrder;
         })
@@ -103,11 +111,16 @@ const findAllUser = async (id) => {
 }
 
 const findOne=async(id)=>{
-    const dbOrders = await dbquery('get', 'SELECT o.provider, o.owner,o.reference, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.reference=?',[id]);
+    const dbOrders = await dbquery('get', 'SELECT o.provider, o.owner,o.reference,od.dateOrder, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.reference=?',[id]);
     if (dbOrders.error===0) {
         const orderList = dbOrders.result.map((order) => {
-            const newOrder = new Order(order.provider,  order.owner, order.reference);
+            let dateLine=null;
+            if(order.dateOrder){
+                dateLine=`${order.dateOrder.getDate()}/${order.dateOrder.getMonth()+1}/${order.dateOrder.getFullYear()}`;
+            }
+            const newOrder = new Order(order.provider,  order.owner, order.reference,dateLine);
             newOrder.setProviderName(order.name);
+            console.log(newOrder)
             return newOrder;
         })
         //Get All items from orders.
@@ -140,7 +153,7 @@ const addOne = async (order) => {
     await connectionPromise.query('START TRANSACTION');
     try {
         //Create Order in DB
-        await connectionPromise.execute("INSERT INTO orders (owner,provider,reference) VALUES(?,?,?)", [order.ownerId, order.providerId, order.reference])
+        await connectionPromise.execute("INSERT INTO orders (owner,provider,reference,dateOrder) VALUES(?,?,?,?)", [order.ownerId, order.providerId, order.reference,order.dateOrder])
         //check models
         const { models } = order;
         try {
