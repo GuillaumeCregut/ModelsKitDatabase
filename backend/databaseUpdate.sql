@@ -14,3 +14,5 @@ model_user mu inner join state s on mu.state = s.id
  ALTER TABLE `orders` ADD `dateOrder` DATE NULL DEFAULT NULL AFTER `reference`;
 
  ALTER TABLE `user` ADD `isVisible` BOOLEAN NOT NULL DEFAULT FALSE AFTER `refreshToken`;
+
+ ALTER TABLE `user` ADD `pwdtoken` VARCHAR(255) NULL AFTER `isVisible`;

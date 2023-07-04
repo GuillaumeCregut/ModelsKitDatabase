@@ -235,6 +235,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) NOT NULL,
   `refreshToken` varchar(255) DEFAULT NULL,
   `isVisible` BOOLEAN NOT NULL DEFAULT FALSE,
+  `pwdtoken` VARCHAR(255) NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`),
   UNIQUE KEY `email` (`email`)
