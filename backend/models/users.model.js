@@ -2,10 +2,23 @@ const { dbquery } = require('../utils/dbutils');
 const User = require('../classes/User.class');
 
 const findAll = async () => {
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, email FROM user');
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login,isVisible, email FROM user');
     if (dbResult.error === 0) {
         const resultat = dbResult.result.map(element => {
-            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email, element.id);
+            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible, element.id);
+            return item;
+        });
+        return resultat;
+    }
+    else
+        return dbResult.result;
+
+}
+const findVisible = async () => {
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname FROM user WHERE isVisible=true');
+    if (dbResult.error === 0) {
+        const resultat = dbResult.result.map(element => {
+            const item ={firstname:element.firstname, lastanme:element.lastname, id:element.id};
             return item;
         });
         return resultat;
@@ -16,11 +29,11 @@ const findAll = async () => {
 }
 
 const findOne = async (id) => {
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, email FROM user WHERE id=?', [id]);
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, email,isVisible FROM user WHERE id=?', [id]);
     if (dbResult.error === 0) {
         const dbArray = dbResult.result;
         const resultat = dbArray.map(element => {
-            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email, element.id);
+            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible ,element.id);
             return item;
         });
         return resultat;
@@ -163,6 +176,7 @@ const deleteModelStock = async (id) => {
 module.exports = {
     addUser, //OK
     findAll, //OK
+    findVisible,
     findOne, //OK
     deleteUser, //OK
     updateUser, //OK

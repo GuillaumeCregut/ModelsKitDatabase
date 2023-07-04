@@ -37,6 +37,15 @@ const getAll = async (req, res) => {
     }
 }
 
+const getAllVisible = async (req, res) => {
+    const result = await userModel.findVisible();
+    if (typeof result === 'object')
+        res.json(result);
+    else {
+        res.sendStatus(500)
+    }
+}
+
 const getOne = async (req, res) => {
     const id = req.params.id;
     const result = await userModel.findOne(id);
@@ -237,6 +246,7 @@ const deleteModel = async (req, res) => {
 
 module.exports = {
     getAll,  //OK
+    getAllVisible,
     getOne, //OK
     addOne, //OK
     updateUser, //OK

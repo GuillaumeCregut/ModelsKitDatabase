@@ -6,6 +6,7 @@ const {createSubUpload}=require('../utils/fs');
 createSubUpload('users');
 
 router.get('/',userCheck,checkLevel,usersController.getAll);
+router.get('/visible', userCheck,usersController.getAllVisible);
 router.get('/:id',userCheck,usersController.getOne);
 router.post('/',usersController.addOne);
 router.post('/model',userCheck,usersController.addModelStock);

@@ -6,7 +6,8 @@ class User{
     password;
     rank;
     email;
-    constructor(firstname,lastname,login, password,rank,email,id=0){
+    isvisible;
+    constructor(firstname,lastname,login, password,rank,email,isVisible,id=0){
         this.firstname=firstname;
         this.lastname=lastname;
         this.email=email;
@@ -14,6 +15,7 @@ class User{
         this.password=password;
         this.login=login;
         this.id=id
+        this.isVisible=isVisible;
     }
 
     setId(id){
