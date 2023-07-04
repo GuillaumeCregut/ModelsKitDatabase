@@ -29,6 +29,7 @@ const Orders = () => {
     const [closeModel, setCloseModel] = useState(false);
     const axiosPrivate = useAxiosPrivate();
     const orderRefRef = useRef();
+    const orderDate=useRef();
     const { auth } = useAuth();
     let idUser = auth?.id;
     if (!idUser) {
@@ -82,15 +83,17 @@ const Orders = () => {
         setProvider(0);
         setListModel([]);
         orderRefRef.current.value = '';
+        orderDate.current.value='';
         window.localStorage.removeItem("myOrder")
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (orderRefRef.current.value === '') {
-            toast.warn('Veuillez saisir la référence')
+        if (orderRefRef.current.value === '' || orderDate.current.value==='') {
+            toast.warn('Veuillez remplir les champs')
         }
         else {
+            console.log(orderDate.current.value);
             if (parseInt(provider) !== 0) { //penser à tester si la liste est vide.
                 const list = listModel.map((model) => {
                     return { idModel: model.idModel, qtty: model.qtty, price: model.price }
@@ -99,6 +102,7 @@ const Orders = () => {
                     owner: idUser,
                     supplier: parseInt(provider),
                     reference: orderRefRef.current.value,
+                    dateOrder: orderDate.current.value,
                     list: list
                 }
                 const url = `${import.meta.env.VITE_APP_API_URL}orders/`;
@@ -206,12 +210,17 @@ const Orders = () => {
                         <label htmlFor="ref-order">Référence de la commande :
                             <input placeholder="Référence" id="ref-order" className="input-ref-order" ref={orderRefRef} />
                         </label>
-                        <label htmlFor="provider">Fournisseur :
-                            <ProviderSelector
-                                id="provider"
-                                provider={provider}
-                                setProvider={setProvider} />
-                        </label>
+                        <div className="order-details">
+                            <label htmlFor="provider">Fournisseur :
+                                <ProviderSelector
+                                    id="provider"
+                                    provider={provider}
+                                    setProvider={setProvider} />
+                            </label>
+                            <label htmlFor="date_order">Date : 
+                                <input type="date" id="date_order" className='order-date' ref={orderDate}/>
+                            </label>
+                        </div>
                     </div>
                     <Popup trigger={<Button type="button" variant='contained'>Ajouter un modèle à la commande</Button>} open={closeModel} position="center center" modal className='popupmodel'>
                         <OrderModel
