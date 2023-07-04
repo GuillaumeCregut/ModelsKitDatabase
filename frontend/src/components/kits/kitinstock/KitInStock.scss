@@ -48,6 +48,24 @@
         width: 230px;
     }
 
+    .btn-delete-kit{
+        border: none;
+    }
+
+    .icon-delete-kit{
+        width: 30px;
+        height: 30px;
+        border: 0;
+    }
+
+    .icon-delete-kit:hover{
+        color: red;
+    }    
+
+    .icon-delete-kit:active{
+        transform: scale(80%);
+    }
+
     @media screen and (max-width: 768px) {
         grid-area: 1 / 2 / 1/ 1;
 

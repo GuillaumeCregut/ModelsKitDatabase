@@ -124,11 +124,11 @@ const KitInStock = ({ keySearch, title }) => {
                                     {filteredKits.map((kit) => (
                                         <TableRow key={kit.id}>
                                             <TableCell className="name-kit-stock-column"><Link to={`../detailskit/${kit.idModel}`}   state={kit} ><span className="inner-array-text">{kit.modelName} - {kit.builderName}</span></Link></TableCell>
-                                            <TableCell className="brand-kit-stock-column"><span className="inner-array-text">{kit.brandName} - {kit.scaleName}</span></TableCell>
-                                            <TableCell className="ref-kit-stock-column"><span className="inner-array-text">{kit.reference}</span></TableCell>
+                                            <TableCell className="brand-kit-stock-column">{kit.brandName} - {kit.scaleName}</TableCell>
+                                            <TableCell className="ref-kit-stock-column">{kit.reference}</TableCell>
                                             <TableCell className="picture-kit-stock-column"><img src={kit.boxPicture ? `${urlPicture}${kit.boxPicture}` : noPicture} alt={kit.modelName} className="kit-stock-picture" /></TableCell>
                                             <TableCell className="action-kit-stock-column">
-                                                <button className='btn' onClick={() => showModal(kit.id)}><FaRegTrashAlt className='icon' /></button>
+                                                <button className='btn-delete-kit' onClick={() => showModal(kit.id)}><FaRegTrashAlt className='icon-delete-kit' /></button>
                                             </TableCell>
                                         </TableRow>
                                     ))}
