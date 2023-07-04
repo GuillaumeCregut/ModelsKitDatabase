@@ -37,6 +37,11 @@
 
     .inner-array-text {
         text-align: center;
+        color: black;
+    }
+    .inner-array-text:hover{
+        color : blue;
+        cursor : zoom-in;
     }
 
     .kit-stock-picture {

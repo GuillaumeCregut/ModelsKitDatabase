@@ -11,6 +11,7 @@ import { Input, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import noPicture from '../../../assets/pictures/noPicture.png';
 
 import './KitInStock.scss';
+import { Link } from "react-router-dom";
 
 const KitInStock = ({ keySearch, title }) => {
     const [refresh, setRefresh] = useState(false);
@@ -122,7 +123,7 @@ const KitInStock = ({ keySearch, title }) => {
                                 <TableBody>
                                     {filteredKits.map((kit) => (
                                         <TableRow key={kit.id}>
-                                            <TableCell className="name-kit-stock-column"><span className="inner-array-text">{kit.modelName} - {kit.builderName}</span></TableCell>
+                                            <TableCell className="name-kit-stock-column"><Link to={`../detailskit/${kit.idModel}`}   state={kit} ><span className="inner-array-text">{kit.modelName} - {kit.builderName}</span></Link></TableCell>
                                             <TableCell className="brand-kit-stock-column"><span className="inner-array-text">{kit.brandName} - {kit.scaleName}</span></TableCell>
                                             <TableCell className="ref-kit-stock-column"><span className="inner-array-text">{kit.reference}</span></TableCell>
                                             <TableCell className="picture-kit-stock-column"><img src={kit.boxPicture ? `${urlPicture}${kit.boxPicture}` : noPicture} alt={kit.modelName} className="kit-stock-picture" /></TableCell>
