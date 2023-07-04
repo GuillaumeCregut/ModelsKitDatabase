@@ -140,7 +140,7 @@ const addOne = async (order) => {
     await connectionPromise.query('START TRANSACTION');
     try {
         //Create Order in DB
-        await connectionPromise.execute("INSERT INTO orders (owner,provider,reference) VALUES(?,?,?)", [order.ownerId, order.providerId, order.reference])
+        await connectionPromise.execute("INSERT INTO orders (owner,provider,reference,dateOrder) VALUES(?,?,?,?)", [order.ownerId, order.providerId, order.reference,order.dateOrder])
         //check models
         const { models } = order;
         try {

@@ -9,6 +9,7 @@ const validate = (data, option = true) => {
         reference: Joi.string().max(200).presence(presence),
         supplier: Joi.number().integer().presence(presence),
         owner: Joi.number().integer().presence(presence),
+        dateOrder:Joi.date().presence(presence),
     }).validate(data, { abortEarly: false }).error;
 }
 
@@ -58,8 +59,8 @@ const getOne = async (req, res) => {
 
 const addOne = async (req, res) => {
     //check if datas OK
-    const { owner, reference, supplier, list } = req.body;
-    const errors = validate({ owner, reference, supplier });
+    const { owner, reference, supplier, list, dateOrder } = req.body;
+    const errors = validate({ owner, reference, supplier,dateOrder });
     if (errors) {
         const error = errors.details[0].message;
         return res.status(422).send(error);
@@ -70,7 +71,7 @@ const addOne = async (req, res) => {
         const errorList = errorsList.details[0].message;
         return res.status(422).send(errorList);
     }
-    const order = new Order(supplier, owner, reference);
+    const order = new Order(supplier, owner, reference,dateOrder);
     list.forEach((item) => {
         order.addModels(item);
     })
