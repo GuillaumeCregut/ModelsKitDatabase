@@ -93,11 +93,14 @@ const Orders = () => {
             toast.warn('Veuillez remplir les champs')
         }
         else {
-            console.log(orderDate.current.value);
             if (parseInt(provider) !== 0) { //penser à tester si la liste est vide.
                 const list = listModel.map((model) => {
                     return { idModel: model.idModel, qtty: model.qtty, price: model.price }
                 })
+                if(list.length===0){
+                    toast.warn('La commande est vide');
+                    return
+                }
                 const dataSend = {
                     owner: idUser,
                     supplier: parseInt(provider),
@@ -109,6 +112,7 @@ const Orders = () => {
                 axiosPrivate
                     .post(url, dataSend)
                     .then((resp) => {
+                        toast.info('Votre commande a bien été enregistrée');
                         resetForm();
                         setRefresh(!refresh)
                     })
