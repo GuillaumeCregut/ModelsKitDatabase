@@ -12,3 +12,5 @@ model_user mu inner join state s on mu.state = s.id
  left join provider p ON mu.provider=p.id;
 
  ALTER TABLE `orders` ADD `dateOrder` DATE NULL DEFAULT NULL AFTER `reference`;
+
+ ALTER TABLE `user` ADD `isVisible` BOOLEAN NOT NULL DEFAULT FALSE AFTER `refreshToken`;

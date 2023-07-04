@@ -234,6 +234,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `login` varchar(200) NOT NULL,
   `email` varchar(255) NOT NULL,
   `refreshToken` varchar(255) DEFAULT NULL,
+  `isVisible` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`),
   UNIQUE KEY `email` (`email`)
