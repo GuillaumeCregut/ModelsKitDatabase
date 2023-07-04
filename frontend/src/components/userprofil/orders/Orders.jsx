@@ -178,6 +178,7 @@ const Orders = () => {
                             <TableRow>
                                 <TableCell className='ref-column'>Référence</TableCell>
                                 <TableCell className='supplier-column'>Fournisseur</TableCell>
+                                <TableCell className='ref-column'>Date</TableCell>
                                 <TableCell className='detail-column'>Détails</TableCell>
                             </TableRow>
                         </TableHead>
@@ -189,6 +190,9 @@ const Orders = () => {
                                     </TableCell>
                                     <TableCell>
                                         {order.providerName}
+                                    </TableCell>
+                                    <TableCell>
+                                        {order.dateOrder?order.dateOrder:'-'}
                                     </TableCell>
                                     <TableCell>
                                         <Popup trigger={<Button variant='contained'> Détails</Button>} position="right center" modal className='popup'>
