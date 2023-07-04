@@ -1,19 +1,67 @@
-.kit-instock{
+.kit-instock {
 
-    .list-kit-in-stock{
+    .list-kit-in-stock {
         margin-top: 30px;
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
     }
+    
+    .table-kit-stock{
+        max-width: 80%;
+    }
+
+    .table-kit-container {
+        max-width: 100%;
+    }
+
+    .name-kit-stock-column {
+        max-width: 250px;
+    }
+
+    .brand-kit-stock-column {
+        max-width: 200px;
+    }
+
+    .ref-kit-stock-column {
+        max-width: 120px;
+    }
+
+    .picture-kit-stock-column {
+        max-width: 240px;
+    }
+
+    .action-kit-stock-column {
+        max-width: 90px;
+    }
+
+    .inner-array-text {
+        text-align: center;
+    }
+
+    .kit-stock-picture {
+        width: 230px;
+    }
 
     @media screen and (max-width: 768px) {
         grid-area: 1 / 2 / 1/ 1;
-        
-        .list-kit-in-stock{
+
+        .table-kit-container {
+            width: 100vw;
+        }
+
+        .list-kit-in-stock {
             align-items: center;
             justify-content: center;
             flex-direction: column;
+        }
+
+        .kit-stock-picture {
+            width: 90px;
+        }
+
+        .inner-array-text {
+            font-size: 0.7rem;
         }
     }
 }
