@@ -87,3 +87,11 @@ You should change them. To do so, go to ` common.js` and change values in `userR
 You'll have to do the same in front end configuration (frontend/src/feature/ranks.js).
 
 To have more security, you should have string instead of integer. This means you have also to change verifications in `user.controller.js`
+
+## Migrating from previous version (1.0,1.1) to 1.2
+
+When migrating from previous versions (1.0 or 1.1), go to backend directory and run `npm run updateDB` to update database. 
+
+This will keep all your datas i DB and update this one to new version.
+
+**Warning** If you have a previous version, do not run  `npm run migrate`, this will cause you the loss of all your datas.
