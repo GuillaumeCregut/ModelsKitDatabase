@@ -32,13 +32,6 @@ export const Home = () => {
       </main>
       <section className="screen-container">
           <article className="sreen-app">
-            {/* <section className="step-item">
-              <div className="text-item">
-              </div>
-              <div className="picture-item">
-                <img src={} alt="" className="screen-picture" />
-              </div>
-            </section> */}
             <section className="step-item">
               <div className="text-item">
                 Notre système vous propose de gérer une liste de kits partagée, à partir de laquelle vous pouvez gérer votre propre stock.<br />

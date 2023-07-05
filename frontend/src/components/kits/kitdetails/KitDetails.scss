@@ -39,8 +39,7 @@
     }
 
     @media screen and (max-width: 768px) {
-        position: relative;
-        top: -150px;
+        grid-area: 1 / 2 / 1/ 1;
 
         .details-zone-flex{
             flex-direction: column;
