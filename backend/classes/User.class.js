@@ -6,8 +6,9 @@ class User{
     password;
     rank;
     email;
-    isvisible;
-    constructor(firstname,lastname,login, password,rank,email,isVisible,id=0){
+    isVisible;
+    avatar;
+    constructor(firstname,lastname,login, password,rank,email,isVisible,avatar,id=0){
         this.firstname=firstname;
         this.lastname=lastname;
         this.email=email;
@@ -16,12 +17,13 @@ class User{
         this.login=login;
         this.id=id
         this.isVisible=isVisible;
+        this.avatar=avatar;
     }
 
     setId(id){
         this.id=id;
     }
-    update(firstname,lastname,login, password,rank,email){
+    update(firstname,lastname,login, password,rank,email,isVisible,avatar){
         if(!this.firstname)
             this.firstname=firstname;
         if(!this.lastname)
@@ -34,6 +36,10 @@ class User{
             this.rank=rank;
         if(!this.email)
             this.email=email;
+        if(!this.isVisible)
+            this.isVisible=isVisible;
+        if(!this.avatar)
+            this.avatar=avatar;
     }
 }
 

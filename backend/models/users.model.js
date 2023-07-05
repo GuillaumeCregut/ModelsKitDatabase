@@ -2,10 +2,10 @@ const { dbquery } = require('../utils/dbutils');
 const User = require('../classes/User.class');
 
 const findAll = async () => {
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login,isVisible, email FROM user');
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login,isVisible,avatar, email FROM user');
     if (dbResult.error === 0) {
         const resultat = dbResult.result.map(element => {
-            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible, element.id);
+            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible,element.avatar ,element.id);
             return item;
         });
         return resultat;
@@ -15,10 +15,10 @@ const findAll = async () => {
 
 }
 const findVisible = async () => {
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname FROM user WHERE isVisible=true');
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,avatar FROM user WHERE isVisible=true');
     if (dbResult.error === 0) {
         const resultat = dbResult.result.map(element => {
-            const item ={firstname:element.firstname, lastanme:element.lastname, id:element.id};
+            const item ={firstname:element.firstname, lastanme:element.lastname,avatar:element.avatar ,id:element.id};
             return item;
         });
         return resultat;
@@ -29,11 +29,11 @@ const findVisible = async () => {
 }
 
 const findOne = async (id) => {
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, email,isVisible FROM user WHERE id=?', [id]);
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, email,isVisible,avatar FROM user WHERE id=?', [id]);
     if (dbResult.error === 0) {
         const dbArray = dbResult.result;
         const resultat = dbArray.map(element => {
-            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible ,element.id);
+            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible,element.avatar ,element.id);
             return item;
         });
         return resultat;
@@ -43,11 +43,11 @@ const findOne = async (id) => {
 }
 
 const findOneByLogin = async (login) => {
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,passwd FROM user WHERE login=?', [login]);
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,passwd,avatar FROM user WHERE login=?', [login]);
     if (dbResult.error === 0) {
         const dbArray = dbResult.result;
         const resultat = dbArray.map(element => {
-            const item = new User(element.firstname, element.lastname, login, element.passwd, element.rankUser, null, element.id);
+            const item = new User(element.firstname, element.lastname, login, element.passwd, element.rankUser, null,null,element.avatar ,element.id);
             return item;
         });
         return resultat;
@@ -82,18 +82,20 @@ const addUser = async (user) => {
 
 const updateUser = async (user) => {
     const { id } = user;
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, passwd, email FROM user WHERE id=?', [id]);
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, passwd,isVisible,avatar, email FROM user WHERE id=?', [id]);
     if (dbResult.error=== 0) {
         if (dbResult.result.length > 0) {
-            const { firstname, lastname, login, passwd, rankUser, email } = dbResult.result[0];
-            user.update(firstname, lastname, login, passwd, rankUser, email, id);
-            const dbUpdate = await dbquery('update', 'UPDATE user SET firstname=?,lastname=?,rankUser=?,login=?,email=?,passwd=?  WHERE id=?', [
+            const { firstname, lastname, login, passwd, rankUser, email,isVisible,avatar } = dbResult.result[0];
+            user.update(firstname, lastname, login, passwd, rankUser, email,isVisible,avatar);
+            const dbUpdate = await dbquery('update', 'UPDATE user SET firstname=?,lastname=?,rankUser=?,login=?,email=?,passwd=?,isVisible=?,avatar=?  WHERE id=?', [
                 user.firstname,
                 user.lastname,
                 user.rank,
                 user.login,
                 user.email,
                 user.password,
+                user.isVisible,
+                user.avatar,
                 id]);
             return dbUpdate;
         }

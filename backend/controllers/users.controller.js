@@ -16,7 +16,8 @@ const validate = (data, forCreation = true) => {
         password: Joi.string().max(200).presence(presence),
         login: Joi.string().max(200).presence(presence),
         email: Joi.string().email().presence(presence),
-        rank: Joi.number().integer().presence('optional')
+        rank: Joi.number().integer().presence('optional'),
+        isVisible:Joi.boolean().presence('optional')
     }).validate(data, { abortEarly: false }).error;
 }
 
@@ -99,6 +100,7 @@ const addOne = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
+    const avatar=null; //will come from multer
     const errors = validate(req.body, false);
     if (errors) {
         const error = errors.details[0].message;
@@ -108,7 +110,7 @@ const updateUser = async (req, res) => {
     if (id === 0 || isNaN(id)) {
         return res.status(422).send('bad Id');
     }
-    const { password, firstname, lastname, email, login, rank } = req.body;
+    const { password, firstname, lastname, email, login, rank,isVisible } = req.body;
     let encryptedPassword = '';
     if (password) {
         encryptedPassword = await encrypt(password);
@@ -123,6 +125,8 @@ const updateUser = async (req, res) => {
         encryptedPassword,
         rank,
         email,
+        isVisible,
+        avatar,
         id
     )
     const result = await userModel.updateUser(payload);
