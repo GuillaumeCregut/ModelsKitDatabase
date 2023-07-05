@@ -70,7 +70,7 @@ DROP TABLE IF EXISTS `friend`;
 CREATE TABLE IF NOT EXISTS `friend` (
   `id_friend1` int NOT NULL,
   `id_friend2` int NOT NULL,
-  `is_ok` tinyint(1) NOT NULL DEFAULT '0',
+  `is_ok` SMALLINT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_friend1`,`id_friend2`),
   KEY `id2_friend` (`id_friend2`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -237,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `isVisible` BOOLEAN NOT NULL DEFAULT FALSE,
   `pwdtoken` VARCHAR(255) NULL,
   `avatar` VARCHAR(255) NULL,
+  `allow` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`),
   UNIQUE KEY `email` (`email`)
