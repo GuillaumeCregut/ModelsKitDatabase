@@ -8,7 +8,6 @@
         margin: 7px;
     }
     @media screen and (max-width: 768px) {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 5fr;
+        grid-area: 1/1/2/2;
     }
 }
