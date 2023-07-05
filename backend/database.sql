@@ -236,6 +236,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `refreshToken` varchar(255) DEFAULT NULL,
   `isVisible` BOOLEAN NOT NULL DEFAULT FALSE,
   `pwdtoken` VARCHAR(255) NULL,
+  `avatar` VARCHAR(255) NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`),
   UNIQUE KEY `email` (`email`)
@@ -335,3 +336,7 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `provider`
   ADD CONSTRAINT `c_user_provider` FOREIGN KEY (`owner`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+CREATE TABLE model_message (`id` INT NOT NULL AUTO_INCREMENT , `fk_model` INT NOT NULL , `fk_author` INT NOT NULL , `date_message` DATE NOT NULL , `message` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `model_message` ADD CONSTRAINT `c_model_com` FOREIGN KEY (`fk_model`) REFERENCES `model_user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `model_message` ADD CONSTRAINT `c_author_com` FOREIGN KEY (`fk_author`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
