@@ -3,7 +3,8 @@ import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import Button from '@mui/material/Button';
 import { IconButton, Input, InputAdornment } from '@mui/material';
 import {MdVisibilityOff,MdVisibility} from "react-icons/md";
-
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import './UpdateData.scss';
 
@@ -22,8 +23,10 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
     const [pwd1Focus, setPwd1Focus] = useState(false);
     const [loginFocus, setLoginFocus] = useState(false);
     const [showPassword, setShowPassword]=useState(false);
-
+    const [visible, setVisible]=useState(user.isVisible===1);
+    const [allow, setAllow]=useState(user.allow===1);
     const errRef = useRef();
+    
 
     const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -53,7 +56,9 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                 login,
                 firstname,
                 lastname,
-                email
+                email,
+                isVisible: visible,
+                allow
             }
             if(isPwdChecked)
             {
@@ -123,6 +128,10 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                         className='input-user'
                     />
                 </label>
+                <div className="user-options">
+                <FormControlLabel control={<Checkbox checked={visible}  onChange={()=>setVisible(!visible)}/>} label="Les autres utilisateurs peuvent me contacter" />
+                <FormControlLabel control={<Checkbox checked={allow}  onChange={()=>setAllow(!allow)}/>} label="Autoriser la visibilité des commentaires" />
+                </div>
                 <label htmlFor='change-password'>Modifier le mot de passe ? <input type="checkbox" id="change-password" checked={isPwdChecked} onChange={e => setIsPwdChecked(!isPwdChecked)} /> </label>
                 {isPwdChecked
                     ? <><label htmlFor='pass1'><span>Nouveau Mot de passe :
