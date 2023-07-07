@@ -28,10 +28,7 @@
     .my-friends {
         grid-area: my-friends;
         border: 1px solid black;
-        display: flex;
-        flex-wrap: wrap;
-        padding: 5px;
-        gap: 15px;
+     
     }
 
     .list-users-container {
@@ -55,10 +52,6 @@
         
         .social-block{
             margin: 10px 0;
-        }
-
-        .my-friends{
-            justify-content: center;
         }
     }
 }
