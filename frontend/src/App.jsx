@@ -46,11 +46,12 @@ import Logs from './components/admin/logs/Logs';
 import UserMgmt from './components/admin/usersmgmt/UserMgmt';
 import { ToastContainer, toast } from 'react-toastify';
 
-import './App.css';
+import './App.scss';
 import './LeftMenu.scss';
 import "react-toastify/dist/ReactToastify.css";
 import Random from './components/kits/random/Random';
 import KitDetailsPage from './components/kits/kitmgmt/kitcard/kitdetailspage/KitDetailsPage';
+import Users from './components/userprofil/social/users/Users';
 
 //Version of front end 
 const LocalVersion="1.2";
@@ -138,6 +139,7 @@ function App() {
             <Route path="commandes" element={<Orders />} />
             <Route path='statistiques' element={<Statistics />} />
             <Route path="pdf" element={<PdfStats />} />
+            <Route path="amis" element={<Users />} />
             <Route path='*' element={<NotFound />} />
           </Route>
           <Route path='kits' element={<Kits />} >

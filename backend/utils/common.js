@@ -10,7 +10,15 @@ const logsType={
     error:3
 }
 
+const friendState={
+    unknonwn : 0,
+    waiting: 1,
+    friend :2,
+    refused:3,
+}
+
 module.exports={
     userRole,
     logsType,
+    friendState,
 }

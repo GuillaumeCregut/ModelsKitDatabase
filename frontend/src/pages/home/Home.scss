@@ -103,5 +103,32 @@
             padding-top: 25px;
             font-size: 1rem;
         }
+
+        .screen-container{
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .sreen-app{
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .step-item{
+            width: 100%;
+        }
+
+        .text-item{
+            font-size: 9px;
+            gap : 5px;
+        }
+
+        .picture-item{
+            width: 160px;
+        }
+
+        .screen-picture{
+            width: 150px;
+        }
     }
 }

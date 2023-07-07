@@ -70,7 +70,7 @@ DROP TABLE IF EXISTS `friend`;
 CREATE TABLE IF NOT EXISTS `friend` (
   `id_friend1` int NOT NULL,
   `id_friend2` int NOT NULL,
-  `is_ok` tinyint(1) NOT NULL DEFAULT '0',
+  `is_ok` SMALLINT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_friend1`,`id_friend2`),
   KEY `id2_friend` (`id_friend2`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -234,6 +234,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   `login` varchar(200) NOT NULL,
   `email` varchar(255) NOT NULL,
   `refreshToken` varchar(255) DEFAULT NULL,
+  `isVisible` BOOLEAN NOT NULL DEFAULT FALSE,
+  `pwdtoken` VARCHAR(255) NULL,
+  `avatar` VARCHAR(255) NULL,
+  `allow` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`),
   UNIQUE KEY `email` (`email`)
@@ -333,3 +337,7 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `provider`
   ADD CONSTRAINT `c_user_provider` FOREIGN KEY (`owner`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+CREATE TABLE model_message (`id` INT NOT NULL AUTO_INCREMENT , `fk_model` INT NOT NULL , `fk_author` INT NOT NULL , `date_message` DATE NOT NULL , `message` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `model_message` ADD CONSTRAINT `c_model_com` FOREIGN KEY (`fk_model`) REFERENCES `model_user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `model_message` ADD CONSTRAINT `c_author_com` FOREIGN KEY (`fk_author`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

@@ -1,0 +1,64 @@
+.social-page {
+
+    .social-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+            "new-social list"
+            "my-friends my-friends";
+    }
+
+    .social-block {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    .new-social {
+        grid-area: new-social;
+        border: 1px solid black;
+    }
+
+    .list {
+        grid-area: list;
+        border: 1px solid black;
+    }
+
+    .my-friends {
+        grid-area: my-friends;
+        border: 1px solid black;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px;
+        gap: 15px;
+    }
+
+    .list-users-container {
+        width: 50vw;
+        margin: 0 auto;
+        max-height: 350px;
+        overflow-y: scroll;
+    }
+
+    @media screen and (max-width: 768px) {
+        grid-area: 1/1/2/2;
+        width: 100vw;
+        .social-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-users-container{
+            width: 100%;
+        }
+        
+        .social-block{
+            margin: 10px 0;
+        }
+
+        .my-friends{
+            justify-content: center;
+        }
+    }
+}
