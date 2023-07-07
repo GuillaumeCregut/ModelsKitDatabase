@@ -2,10 +2,10 @@ const { dbquery } = require('../utils/dbutils');
 const User = require('../classes/User.class');
 
 const findAll = async () => {
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login,isVisible,avatar, email FROM user');
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login,isVisible,avatar,allow, email FROM user');
     if (dbResult.error === 0) {
         const resultat = dbResult.result.map(element => {
-            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible,element.avatar ,element.id);
+            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible,element.avatar,element.allow ,element.id);
             return item;
         });
         return resultat;
@@ -29,11 +29,11 @@ const findVisible = async () => {
 }
 
 const findOne = async (id) => {
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, email,isVisible,avatar FROM user WHERE id=?', [id]);
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, email,isVisible,avatar,allow FROM user WHERE id=?', [id]);
     if (dbResult.error === 0) {
         const dbArray = dbResult.result;
         const resultat = dbArray.map(element => {
-            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible,element.avatar ,element.id);
+            const item = new User(element.firstname, element.lastname, element.login, null, element.rankUser, element.email,element.isVisible,element.avatar, element.allow ,element.id);
             return item;
         });
         return resultat;
@@ -47,7 +47,7 @@ const findOneByLogin = async (login) => {
     if (dbResult.error === 0) {
         const dbArray = dbResult.result;
         const resultat = dbArray.map(element => {
-            const item = new User(element.firstname, element.lastname, login, element.passwd, element.rankUser, null,null,element.avatar ,element.id);
+            const item = new User(element.firstname, element.lastname, login, element.passwd, element.rankUser, null,null,element.avatar ,null,element.id);
             return item;
         });
         return resultat;
@@ -82,12 +82,13 @@ const addUser = async (user) => {
 
 const updateUser = async (user) => {
     const { id } = user;
-    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, passwd,isVisible,avatar, email FROM user WHERE id=?', [id]);
+    const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,rankUser,login, passwd,isVisible,avatar,allow, email FROM user WHERE id=?', [id]);
     if (dbResult.error=== 0) {
         if (dbResult.result.length > 0) {
-            const { firstname, lastname, login, passwd, rankUser, email,isVisible,avatar } = dbResult.result[0];
-            user.update(firstname, lastname, login, passwd, rankUser, email,isVisible,avatar);
-            const dbUpdate = await dbquery('update', 'UPDATE user SET firstname=?,lastname=?,rankUser=?,login=?,email=?,passwd=?,isVisible=?,avatar=?  WHERE id=?', [
+            const { firstname, lastname, login, passwd, rankUser, email,isVisible,avatar,allow } = dbResult.result[0];
+            user.update(firstname, lastname, login, passwd, rankUser, email,isVisible,avatar,allow);
+            console.log('new : ', user)
+            const dbUpdate = await dbquery('update', 'UPDATE user SET firstname=?,lastname=?,rankUser=?,login=?,email=?,passwd=?,isVisible=?,avatar=?,allow=?  WHERE id=?', [
                 user.firstname,
                 user.lastname,
                 user.rank,
@@ -96,6 +97,7 @@ const updateUser = async (user) => {
                 user.password,
                 user.isVisible,
                 user.avatar,
+                user.allow,
                 id]);
             return dbUpdate;
         }

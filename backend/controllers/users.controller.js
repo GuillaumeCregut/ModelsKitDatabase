@@ -17,7 +17,8 @@ const validate = (data, forCreation = true) => {
         login: Joi.string().max(200).presence(presence),
         email: Joi.string().email().presence(presence),
         rank: Joi.number().integer().presence('optional'),
-        isVisible:Joi.boolean().presence('optional')
+        isVisible:Joi.boolean().presence('optional'),
+        allow:Joi.boolean().presence('optional'),
     }).validate(data, { abortEarly: false }).error;
 }
 
@@ -110,7 +111,7 @@ const updateUser = async (req, res) => {
     if (id === 0 || isNaN(id)) {
         return res.status(422).send('bad Id');
     }
-    const { password, firstname, lastname, email, login, rank,isVisible } = req.body;
+    const { password, firstname, lastname, email, login, rank,isVisible,allow } = req.body;
     let encryptedPassword = '';
     if (password) {
         encryptedPassword = await encrypt(password);
@@ -118,6 +119,8 @@ const updateUser = async (req, res) => {
     else {
         encryptedPassword = undefined;
     }
+    const userVisible=(typeof isVisible==='undefined'?null:isVisible);
+    const userAllow=(typeof allow==='undefined'?null:allow);
     const payload = new User(
         firstname,
         lastname,
@@ -125,10 +128,12 @@ const updateUser = async (req, res) => {
         encryptedPassword,
         rank,
         email,
-        isVisible,
+        userVisible,
         avatar,
+        userAllow,
         id
     )
+    console.log(payload)
     const result = await userModel.updateUser(payload);
     if (typeof result === 'object') {
         if (result.result)
