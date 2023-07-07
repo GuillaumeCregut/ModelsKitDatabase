@@ -133,7 +133,6 @@ const updateUser = async (req, res) => {
         userAllow,
         id
     )
-    console.log(payload)
     const result = await userModel.updateUser(payload);
     if (typeof result === 'object') {
         if (result.result)
@@ -253,6 +252,17 @@ const deleteModel = async (req, res) => {
     }
 }
 
+const uploadAvatar=async(req,res)=>{
+    const setAvatar=await userModel.updateAvatar(req.fileName,req.user.user_id);
+    if(setAvatar.error===0){
+        if(setAvatar.result)
+            return res.sendStatus(204);
+        else
+            return res.sendStatus(404);
+    }
+    return res.sendStatus(500);
+}
+
 module.exports = {
     getAll,  //OK
     getAllVisible,
@@ -263,4 +273,5 @@ module.exports = {
     addModelStock, //OK
     updateRank, //OK
     deleteModel, //A tester
+    uploadAvatar,
 }

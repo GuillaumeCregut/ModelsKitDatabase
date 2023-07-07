@@ -87,7 +87,6 @@ const updateUser = async (user) => {
         if (dbResult.result.length > 0) {
             const { firstname, lastname, login, passwd, rankUser, email,isVisible,avatar,allow } = dbResult.result[0];
             user.update(firstname, lastname, login, passwd, rankUser, email,isVisible,avatar,allow);
-            console.log('new : ', user)
             const dbUpdate = await dbquery('update', 'UPDATE user SET firstname=?,lastname=?,rankUser=?,login=?,email=?,passwd=?,isVisible=?,avatar=?,allow=?  WHERE id=?', [
                 user.firstname,
                 user.lastname,
@@ -177,6 +176,11 @@ const deleteModelStock = async (id) => {
     return dbResult;
 }
 
+const updateAvatar=async(filename, id)=>{
+    const dbResult=await dbquery('update','UPDATE user SET avatar=? WHERE id=?',[filename,id]);
+    return dbResult;
+}
+
 module.exports = {
     addUser, //OK
     findAll, //OK
@@ -194,4 +198,5 @@ module.exports = {
     getModelStockById, //OK
     deleteModelStock, //OK
     getModelStockInfoById, //OK
+    updateAvatar,
 }
