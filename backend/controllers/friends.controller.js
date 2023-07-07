@@ -1,4 +1,5 @@
 const friendsModel=require('../models/friend.model');
+const {friendState}=require('../utils/common');
 
 const getAllVisible = async (req, res) => {
     const idUser=req.user.user_id;
@@ -6,13 +7,11 @@ const getAllVisible = async (req, res) => {
     if (typeof result === 'object'){
         //Get friend list
         friendsList=await friendsModel.getFriendList(idUser);
-        console.log(friendsList);
         if(friendsList.error===0){
             const listCompleted=result.map((user)=>{
                 const isFriend=friendsList.result.find((item)=>
                     item.id_friend1===user.id || item.id_friend2===user.id
                 )
-                console.log('trouvé :',user.id, isFriend);
                 if(isFriend)
                     return {...user, is_ok:isFriend.is_ok}
                 else
@@ -28,7 +27,13 @@ const getAllVisible = async (req, res) => {
     }
 }
 
+const unlinkUser=async(req,res)=>{
+    console.log(req.friendId,req.user.user_id)
+    //Remove link between users
+    res.sendStatus(200);
+}
+
 module.exports={
     getAllVisible,
-
+    unlinkUser,
 }
