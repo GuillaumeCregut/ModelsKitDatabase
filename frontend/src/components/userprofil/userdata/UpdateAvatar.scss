@@ -1,0 +1,31 @@
+.avatar-update-container {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+    .avatar-file-container {
+        position: relative;
+        width: 50px;
+        height: 50px;
+    }
+
+    .avatar-update-display {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+
+    .file-upload-avatar {
+        opacity: 0;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        display: block;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        cursor: pointer;
+    }
+}

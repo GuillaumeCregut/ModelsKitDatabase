@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import UpdateData from './UpdateData';
 import AvatarUser from '../social/avatar/AvatarUser';
 
+
 import './UserData.scss';
 
 const UserData = () => {
@@ -25,7 +26,6 @@ const UserData = () => {
                 .get(url)
                 .then((resp) => {
                     if (resp?.data) {
-                        console.log(resp.data)
                         setUser(resp.data);
                         setIsLoaded(true)
                     }
