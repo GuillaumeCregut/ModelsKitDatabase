@@ -9,6 +9,7 @@ const ProfilMenu = () => {
                 <li className="link-profil-item"><NavLink to='commandes' className={({isActive})=>isActive ? 'nav-item active' : 'nav-item'}>Mes commandes</NavLink></li>
                 <li className="link-profil-item"><NavLink to='statistiques' className={({isActive})=>isActive ? 'nav-item active' : 'nav-item'}>Statistiques</NavLink></li>
                 <li className="link-profil-item"><NavLink to='pdf' className={({isActive})=>isActive ? 'nav-item active' : 'nav-item'}>Statistiques en pdf</NavLink></li>
+                <li className="link-profil-item"><NavLink to='amis' className={({isActive})=>isActive ? 'nav-item active' : 'nav-item'}>Réseau social</NavLink></li>
             </ul>
         </nav>
     )
