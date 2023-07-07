@@ -1,0 +1,41 @@
+.all-users-table-container {
+    margin-top: 20px;
+
+    .all-users-title{
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .action-user {
+        height: 30px;
+        width: 30px;
+        cursor: pointer;
+    }
+
+    .action-user:active {
+        transform: scale(70%);
+    }
+
+    .action-user-unknown {
+        color: gray;
+    }
+
+    .action-user-waiting {
+        color: rgb(247, 247, 51);
+    }
+
+    .action-user-friend {
+        color: rgb(19, 202, 19);
+    }
+
+    .action-user-refused {
+        color: red;
+    }
+
+    @media screen and (max-width: 768px) {
+        .avatar-users-social {
+            width: 30px;
+            height: 30px;
+        }
+    }
+}
