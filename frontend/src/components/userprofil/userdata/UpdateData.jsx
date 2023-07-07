@@ -1,13 +1,15 @@
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import Button from '@mui/material/Button';
 import { IconButton, Input, InputAdornment } from '@mui/material';
-import {MdVisibilityOff,MdVisibility} from "react-icons/md";
-
+import { MdVisibilityOff, MdVisibility } from "react-icons/md";
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import './UpdateData.scss';
+import UpdateAvatar from './UpdateAvatar';
 
-const UpdateData = ({ user, cancelAction,updateUser }) => {
+const UpdateData = ({ user, cancelAction, updateUser }) => {
     const [firstname, setFirstname] = useState(user.firstname);
     const [lastname, setLastname] = useState(user.lastname);
     const [login, setLogin] = useState(user.login);
@@ -21,8 +23,9 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
     const [errMsg, setErrMsg] = useState('');
     const [pwd1Focus, setPwd1Focus] = useState(false);
     const [loginFocus, setLoginFocus] = useState(false);
-    const [showPassword, setShowPassword]=useState(false);
-
+    const [showPassword, setShowPassword] = useState(false);
+    const [visible, setVisible] = useState(user.isVisible === 1);
+    const [allow, setAllow] = useState(user.allow === 1);
     const errRef = useRef();
 
     const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -42,34 +45,34 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [login, pass1, pass2,isPwdChecked])
+    }, [login, pass1, pass2, isPwdChecked])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(validLogin )
-        {
-            let shouldSend=true;
-            const newUser={
+        if (validLogin) {
+            let shouldSend = true;
+            const newUser = {
                 login,
                 firstname,
                 lastname,
-                email
+                email,
+                isVisible: visible,
+                allow
             }
-            if(isPwdChecked)
-            {
-                if(pass1===pass2 &&validPwd&&pass1!==""){
-                    newUser.password=pass1;
+            if (isPwdChecked) {
+                if (pass1 === pass2 && validPwd && pass1 !== "") {
+                    newUser.password = pass1;
                 }
-                else{
-                    shouldSend=false;
+                else {
+                    shouldSend = false;
                     setErrMsg("les mots de passes ne sont pas valides");
                 }
             }
-            if(shouldSend){
+            if (shouldSend) {
                 updateUser(newUser)
             }
         }
-        else{
+        else {
             setErrMsg("Le login n'est pas bon");
         }
     }
@@ -123,13 +126,17 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                         className='input-user'
                     />
                 </label>
+                <div className="user-options">
+                    <FormControlLabel control={<Checkbox checked={visible} onChange={() => setVisible(!visible)} />} label="Les autres utilisateurs peuvent me contacter" />
+                    <FormControlLabel control={<Checkbox checked={allow} onChange={() => setAllow(!allow)} />} label="Autoriser la visibilité des commentaires" />
+                </div>
                 <label htmlFor='change-password'>Modifier le mot de passe ? <input type="checkbox" id="change-password" checked={isPwdChecked} onChange={e => setIsPwdChecked(!isPwdChecked)} /> </label>
                 {isPwdChecked
                     ? <><label htmlFor='pass1'><span>Nouveau Mot de passe :
                         <FaCheck className={validPwd ? "signup-valid" : "signup-hide"} />
                         <FaTimes className={validPwd || !pass1 ? "signup-hide" : "signup-invalid"} /></span>
                         <Input
-                            type={showPassword ?"text":"password"}
+                            type={showPassword ? "text" : "password"}
                             id="pass1"
                             value={pass1}
                             onChange={(e) => setPass1(e.target.value)}
@@ -137,14 +144,14 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                             onBlur={() => setPwd1Focus(false)}
                             className='input-user'
                             endAdornment={<InputAdornment position="end">
-                                <IconButton aria-label='toggle pawword visibility' onClick={()=>setShowPassword(!showPassword)}>
+                                <IconButton aria-label='toggle pawword visibility' onClick={() => setShowPassword(!showPassword)}>
                                     {
-                                        !showPassword?<MdVisibility />:<MdVisibilityOff />
+                                        !showPassword ? <MdVisibility /> : <MdVisibilityOff />
                                     }
                                 </IconButton>
                             </InputAdornment>}
                         />
-                        </label>
+                    </label>
                         <p id="pwdnote" className={pwd1Focus && pass1 && !validPwd ? "signup-instruction" : "signup-err-off"}>
                             Doit être de 8 à 24 caractères, Doit inclure une majuscule, un chiffre et un caractère spécial.<br />
                             Sont autorisés : <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span><span aria-label="percent">%</span>
@@ -165,7 +172,11 @@ const UpdateData = ({ user, cancelAction,updateUser }) => {
                 }
                 <Button className='update-user-data user-btn' variant="contained" onClick={handleSubmit}>Valider</Button>
             </form>
-            <Button  variant="contained" className='user-btn' onClick={() => cancelAction(false)}> Annuler</Button>
+            <div className="change-avatar">
+                <h3>Changer mon avatar </h3>
+                <UpdateAvatar user={user} />
+            </div>
+            <Button variant="contained" className='user-btn' onClick={() => cancelAction(false)}> Annuler</Button>
         </div>
     )
 }
