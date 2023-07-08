@@ -2,33 +2,35 @@
 
     .social-container {
         display: grid;
+        padding: 10px;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
-        gap: 0px 0px;
+        gap: 10px 10px;
         grid-template-areas:
             "new-social list"
             "my-friends my-friends";
     }
 
     .social-block {
-        margin: 5px;
+        padding: 10px;
+    }
+    
+    .container-boxes{
+        border: 1px solid black;
+        border-radius: 20px;
         padding: 10px;
     }
 
     .new-social {
         grid-area: new-social;
-        border: 1px solid black;
     }
 
     .list {
         grid-area: list;
-        border: 1px solid black;
     }
 
     .my-friends {
         grid-area: my-friends;
-        border: 1px solid black;
-     
     }
 
     .list-users-container {

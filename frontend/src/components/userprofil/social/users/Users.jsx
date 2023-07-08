@@ -12,16 +12,16 @@ const Users = () => {
     return (
         <div className="social-page">
             <div className='social-container'>
-                <div className="new-social social-block">
+                <div className="new-social social-block  container-boxes">
                    <FriendDemandContainer setReload={setReload} />
                 </div>
-                <div className="list social-block">
+                <div className="list social-block container-boxes">
                     <div className="list-users-container social-block">
                         <AllUsers reload={reload}/>
                     </div>
                 </div>
 
-                <div className="my-friends">
+                <div className="my-friends container-boxes">
                     <FriendsContainer setReload={setReload}/>
                 </div>
             </div>

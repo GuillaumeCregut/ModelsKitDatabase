@@ -1,11 +1,15 @@
 .demand-container {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 3px;
     border: 1px solid black;
     border-radius: 7px;
     padding: 5px;
-    width: 250px;
+    width: 200px;
+
+    .name-user-demand{
+        font-size: 15px;
+    }
 
     .avatar-demand-container {
         display: flex;
@@ -17,6 +21,7 @@
     .demand-choice {
         display: flex;
         flex-direction: row;
+        justify-content: center;
     }
 
     .label-radio {
