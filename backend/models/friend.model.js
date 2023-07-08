@@ -1,5 +1,6 @@
 const { dbquery } = require('../utils/dbutils');
 
+
 const findVisible = async (id) => {
     const dbResult = await dbquery('get', 'SELECT firstname,id,lastname,avatar FROM user WHERE isVisible=true and id!=?',[id]);
     if (dbResult.error === 0) {
@@ -24,10 +25,14 @@ const isFriend=async(id1, id2)=>{
     return dbResult;
 }
 
-
+const getUserStatusWithMe=async(id,status)=>{
+    const dbResult=await dbquery('get','SELECT f.id_friend1 as id,u.firstname, u.lastname, u.avatar FROM friend f INNER JOIN user u ON f.id_friend1=u.id WHERE is_ok=? AND id_friend2=?;',[status,id]);
+    return dbResult;
+}
 
 module.exports={
     findVisible,
     getFriendList,
     isFriend,
+    getUserStatusWithMe,
 }

@@ -33,7 +33,17 @@ const unlinkUser=async(req,res)=>{
     res.sendStatus(200);
 }
 
+const getDemand=async(req,res)=>{
+    const demandResult=await friendsModel.getUserStatusWithMe(req.user.user_id,friendState.waiting);
+    if(demandResult.error===0){
+        return res.json(demandResult.result);
+    }
+    else
+        return res.sendStatus(500);
+}
+
 module.exports={
     getAllVisible,
     unlinkUser,
+    getDemand,
 }
