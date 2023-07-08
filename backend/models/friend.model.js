@@ -30,9 +30,15 @@ const getUserStatusWithMe=async(id,status)=>{
     return dbResult;
 }
 
+const updateFriendship=async(id1,id2,newStatus)=>{
+    const dbResult=await dbquery('update','UPDATE friend SET is_ok=? WHERE (id_friend1=? AND id_friend2=?) OR (id_friend1=? AND id_friend2=?)',[newStatus, id1, id2,id2,id1]);
+    return dbResult;
+}   
+
 module.exports={
     findVisible,
     getFriendList,
     isFriend,
     getUserStatusWithMe,
+    updateFriendship,
 }
