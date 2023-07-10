@@ -34,7 +34,6 @@ const FriendDemand = ({ user, setReload }) => {
                 setReload((prev) => !prev);
             })   
             .catch((err)=>{
-                console.log(err);
                 toast.error('Une erreur est survenue');
             })
     }
