@@ -7,7 +7,6 @@ import './Users.scss';
 
 const Users = () => {
     const [reload, setReload] = useState(false);
-    console.log('toto')
     return (
         <div className="social-page">
             <div className='social-container'>
