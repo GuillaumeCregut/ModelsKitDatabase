@@ -87,10 +87,20 @@ const addFriendShip=async(req,res)=>{
 
 }
 
+const getFriends=async(req,res)=>{
+    const allFriends=await friendsModel.getFriends(req.user.user_id,friendState.friend);
+    if(allFriends.error===0){
+        return res.json(allFriends.result);
+    }
+    else
+        return res.sendStatus(500);
+}
+
 module.exports = {
     getAllVisible,
     unlinkUser,
     getDemand,
     changeDemand,
     addFriendShip,
+    getFriends,
 }

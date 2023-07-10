@@ -40,6 +40,11 @@ const addFriendShip=async(idUser,idFriend,status)=>{
     return dbResult;
 }
 
+const getFriends=async(id,status)=>{
+    const dbResult=await dbquery('get','SELECT u.firstname, u.lastname,u.avatar, u.id FROM user u INNER JOIN (SELECT `id_friend1` as friendId FROM `friend` WHERE id_friend2=? and is_ok=? UNION SELECT `id_friend2` FROM `friend` WHERE id_friend1=? and is_ok=?) as friends ON u.id=friends.friendId;',[id,status,id,status]);
+    return dbResult;
+}
+
 module.exports={
     findVisible,
     getFriendList,
@@ -47,4 +52,5 @@ module.exports={
     getUserStatusWithMe,
     updateFriendship,
     addFriendShip,
+    getFriends,
 }
