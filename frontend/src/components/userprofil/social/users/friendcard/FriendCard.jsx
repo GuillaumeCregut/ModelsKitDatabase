@@ -48,9 +48,11 @@ const FriendCard = ({ user,setReload }) => {
                 </Tooltip>
                 <Tooltip title='Voir les messages'>
                     <Link to={`messages/${user.id}`}>
-                        <Badge badgeContent={4} color='primary'>
-                            <MdOutlineEmail className='friend-icon' />
-                        </Badge>
+                        {user.nbMessage>0
+                            ?<Badge badgeContent={user.nbMessage} color='primary'>
+                                <MdOutlineEmail className='friend-icon' />
+                            </Badge>
+                            :<MdOutlineEmail className='friend-icon' />}
                     </Link>
                 </Tooltip>
             </div>
