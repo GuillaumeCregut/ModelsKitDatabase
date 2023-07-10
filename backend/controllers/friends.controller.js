@@ -36,9 +36,11 @@ const getAllVisible = async (req, res) => {
 }
 
 const unlinkUser = async (req, res) => {
-    console.log(req.friendId, req.user.user_id)
-    //Remove link between users
-    res.sendStatus(200);
+    const deleteLink=await friendsModel.updateFriendship(req.friendId, req.user.user_id,friendState.unknonwn);
+    if(deleteLink.error===0){
+        return res.sendStatus(204);
+    }
+    return res.sendStatus(500);
 }
 
 const getDemand = async (req, res) => {
