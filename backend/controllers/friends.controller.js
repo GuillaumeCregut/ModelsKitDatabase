@@ -72,6 +72,9 @@ const changeDemand = async (req, res) => {
 
 const addFriendShip=async(req,res)=>{
     const {friendId}=req.body;
+    if(!friendId)
+        return res.sendStatus(422);
+    
     const addRelation=await friendsModel.addFriendShip( req.user.user_id,friendId,friendState.waiting);
     if(addRelation.error===0){
         return res.sendStatus(201);
