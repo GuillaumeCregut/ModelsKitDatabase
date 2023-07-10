@@ -18,7 +18,6 @@ const AllUserRow = ({user}) => {
 
     const setUserStatus=()=>{
         let className='';
-        console.log(user.firstname,userState, user.is_ok);
         switch (userState){
             case friendStatus.unknonwn: className='action-user action-user-unknown';
                     break;

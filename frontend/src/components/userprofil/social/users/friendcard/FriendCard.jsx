@@ -8,13 +8,7 @@ import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
 
 import './FriendCard.scss';
     
-const FriendCard = ({ setReload }) => {
-    const user = {
-        avatar: null,
-        firstname: 'test',
-        lastname: 'test lastname',
-        id: 1
-    };
+const FriendCard = ({ user,setReload }) => {
     const axiosPrivate=useAxiosPrivate();
 
     const handleClick = () => {

@@ -21,7 +21,7 @@ const Users = () => {
                 </div>
 
                 <div className="my-friends container-boxes">
-                    <FriendsContainer setReload={setReload}/>
+                    <FriendsContainer setReload={setReload} reload={reload}/>
                 </div>
             </div>
         </div>
