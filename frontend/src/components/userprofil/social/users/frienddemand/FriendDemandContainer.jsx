@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import FriendDemand from './FriendDemand';
 import useAxiosPrivate from '../../../../../hooks/useAxiosPrivate';
-
-import './FriendDemandContainer.scss';
 import { toast } from 'react-toastify';
 import { AwaitLoad } from '../../../../awaitload/AwaitLoad';
 
-const FriendDemandContainer = ({ setReload }) => {
+import './FriendDemandContainer.scss';
+
+const FriendDemandContainer = ({ setReload, reload }) => {
     const axiosPrivate = useAxiosPrivate();
     const [demandList, setDemandList] = useState([]);
     const [loaded, setLoaded] = useState(false);
@@ -25,7 +25,7 @@ const FriendDemandContainer = ({ setReload }) => {
                 })
         }
         getDemands();
-    }, []);
+    }, [reload]);
 
     return (
         <div className='friend-demand-container'>

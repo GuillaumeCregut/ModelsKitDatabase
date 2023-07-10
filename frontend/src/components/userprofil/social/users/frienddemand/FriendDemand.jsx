@@ -4,25 +4,39 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Button } from '@mui/material';
+import useAxiosPrivate from '../../../../../hooks/useAxiosPrivate';
+import friendStatus from '../../../../../feature/friendState';
+import { toast } from 'react-toastify';
 
 import './FriendDemand.scss';
-import { Button } from '@mui/material';
 
-const FriendDemand = ({ user1, setReload }) => {
-    const user = {
-        firstname: 'toto',
-        lastname: 'toto',
-        avatar: null
-    }
+const FriendDemand = ({ user, setReload }) => {
+   
     const [choice, setChoice] = useState('0');
+    const axiosPrivate=useAxiosPrivate();
 
     const handleClick = () => {
         const theChoice = parseInt(choice, 10);
+        const url = `${import.meta.env.VITE_APP_API_URL}friends/demands`;
+        let newStatus=0;
         if (theChoice)
-            console.log("c'est bon")
+            newStatus=friendStatus.friend;
         else
-            console.log("C'est pas bon")
-        setReload((prev) => !prev);
+           newStatus=friendStatus.refused;
+        const newState={
+            statusFriend:newStatus,
+            friendId:user.id
+        }
+        axiosPrivate
+            .put(url,newState)
+            .then((resp)=>{
+                setReload((prev) => !prev);
+            })   
+            .catch((err)=>{
+                console.log(err);
+                toast.error('Une erreur est survenue');
+            })
     }
 
     const theme = createTheme({

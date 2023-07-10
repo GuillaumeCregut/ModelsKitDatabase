@@ -1,10 +1,9 @@
 import { useState,useEffect } from 'react';
 import AllUsers from './allusers/AllUsers';
-import FriendCard from './friendcard/FriendCard';
-
-import './Users.scss';
 import FriendDemandContainer from './frienddemand/FriendDemandContainer';
 import FriendsContainer from './friendscontainer/FriendsContainer';
+
+import './Users.scss';
 
 const Users = () => {
     const [reload, setReload] = useState(false);
@@ -13,7 +12,7 @@ const Users = () => {
         <div className="social-page">
             <div className='social-container'>
                 <div className="new-social social-block  container-boxes">
-                   <FriendDemandContainer setReload={setReload} />
+                   <FriendDemandContainer setReload={setReload} reload={reload}/>
                 </div>
                 <div className="list social-block container-boxes">
                     <div className="list-users-container social-block">
