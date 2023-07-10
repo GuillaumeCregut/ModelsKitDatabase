@@ -106,7 +106,7 @@ const SignUp = () => {
         <>
             {success ? (
                 <section>
-                    OK
+                    Votre compte à bien été créé, vous pouvez dorénavant vous connecter.
                 </section>
             ) : (
                 <section className='signup-container'>
