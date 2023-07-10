@@ -1,0 +1,36 @@
+.demand-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    border: 1px solid black;
+    border-radius: 7px;
+    padding: 5px;
+    width: 200px;
+
+    .name-user-demand{
+        font-size: 15px;
+    }
+
+    .avatar-demand-container {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .demand-choice {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .label-radio {
+        width: 20%;
+        font-size: 0.8rem;
+    }
+
+    .button-demand-container {
+        display: flex;
+        justify-content: center;
+    }
+}

@@ -5,16 +5,11 @@ import { FcBinoculars } from "react-icons/fc";
 import { Link } from 'react-router-dom';
 import AvatarUser from '../../avatar/AvatarUser';
 import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import { toast } from "react-toastify";
 
 import './FriendCard.scss';
     
-const FriendCard = ({ setReload }) => {
-    const user = {
-        avatar: null,
-        firstname: 'test',
-        lastname: 'test lastname',
-        id: 1
-    };
+const FriendCard = ({ user,setReload }) => {
     const axiosPrivate=useAxiosPrivate();
 
     const handleClick = () => {
@@ -25,7 +20,7 @@ const FriendCard = ({ setReload }) => {
                 setReload((prev)=>!prev);
             })
             .catch((err)=>{
-
+                toast.error("Une erreur est survenue.")
             });
     }
     return (
