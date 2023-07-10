@@ -35,10 +35,16 @@ const updateFriendship=async(id1,id2,newStatus)=>{
     return dbResult;
 }   
 
+const addFriendShip=async(idUser,idFriend,status)=>{
+    const dbResult=await dbquery('add','INSERT INTO friend (id_friend1,id_friend2,is_ok) VALUES(?,?,?)',[idUser,idFriend,status]);
+    return dbResult;
+}
+
 module.exports={
     findVisible,
     getFriendList,
     isFriend,
     getUserStatusWithMe,
     updateFriendship,
+    addFriendShip,
 }

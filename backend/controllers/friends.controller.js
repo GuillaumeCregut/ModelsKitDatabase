@@ -70,9 +70,24 @@ const changeDemand = async (req, res) => {
     return res.sendStatus(500);
 }
 
+const addFriendShip=async(req,res)=>{
+    const {friendId}=req.body;
+    const addRelation=await friendsModel.addFriendShip( req.user.user_id,friendId,friendState.waiting);
+    if(addRelation.error===0){
+        return res.sendStatus(201);
+    }
+    switch(addRelation.result){
+        case 1062 : return res.sendStatus(409);
+        case 1452 : return res.sendStatus(404);
+        default : return res.sendStatus(500);
+    }
+
+}
+
 module.exports = {
     getAllVisible,
     unlinkUser,
     getDemand,
     changeDemand,
+    addFriendShip,
 }
