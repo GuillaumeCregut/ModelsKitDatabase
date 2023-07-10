@@ -38,7 +38,7 @@ import Orders from './components/userprofil/orders/Orders';
 import Statistics from './components/userprofil/statistics/Statistics';
 import PdfStats from './components/userprofil/pdfstats/PdfStats';
 import Users from './components/userprofil/social/users/Users';
-import Message from './components/userprofil/messages/Message';
+import Messages from './components/userprofil/messages/Messages';
 /*User stock */
 import KitsHome from './components/kits/home/KitsHome';
 import KitManagement from './components/kits/kitmgmt/KitManagement';
@@ -147,7 +147,7 @@ function App() {
             <Route path='statistiques' element={<Statistics />} />
             <Route path="pdf" element={<PdfStats />} />
             <Route path="amis" element={<Users />} />
-            <Route path='amis/messages/:id' element={<Message />} />
+            <Route path='amis/messages/:id' element={<Messages />} />
             <Route path='*' element={<NotFound />} />
           </Route>
           <Route path='kits' element={<Kits />} >
