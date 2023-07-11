@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `private_message` (
   `exp` int NOT NULL,
   `dest` int NOT NULL,
   `date_m` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_read` tinyint(1) NOT NULL,
+  `is_read` tinyint(1) NOT NULL  DEFAULT '0',
   `message` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `c_exp_message` (`exp`),
