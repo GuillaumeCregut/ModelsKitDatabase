@@ -98,6 +98,7 @@ function App() {
               lastname: decoded.lastname,
               rank: decoded.rank,
               id:decoded.user_id,
+              avatar:decoded.avatar,
               token: {accessToken : token}
             }
             const toto=setAuth(user);
