@@ -39,8 +39,8 @@ const authCheck = async (req, res) => {
         res.sendStatus(401);
     }
     else {
-        const accessToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname, 'auth');
-        const refreshToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname, 'refresh');
+        const accessToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname,user.avatar, 'auth');
+        const refreshToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname, user.avatar,'refresh');
         const tokenSetup = await setToken(refreshToken, user.id);
         if (tokenSetup.error === 1) {
             return res.sendStatus(500);

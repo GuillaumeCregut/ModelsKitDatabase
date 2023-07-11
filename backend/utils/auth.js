@@ -7,7 +7,7 @@ const refreshKey=process.env.REFRESH_TOKEN;
 const maxAge = 1000 * 60 * 60 //1 hour
 const  maxAgeRefresh=3*1000*60*60; //Should be longer
 
-const calculatetoken=(id,rank,firstname,lastname,key)=>{
+const calculatetoken=(id,rank,firstname,lastname,avatar,key)=>{
     let keyUsed='';
     let ageToken=0;
     switch(key){
@@ -20,7 +20,7 @@ const calculatetoken=(id,rank,firstname,lastname,key)=>{
         default: keyUsed='';
 
     }
-    const jwtoken= jwt.sign({user_id:id, rank: rank, firstname,lastname},keyUsed,{expiresIn:ageToken});
+    const jwtoken= jwt.sign({user_id:id, rank: rank, firstname,lastname,avatar},keyUsed,{expiresIn:ageToken});
     return jwtoken;
 }
 

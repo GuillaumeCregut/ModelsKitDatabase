@@ -47,7 +47,8 @@ const Login = () => {
                             lastname: decoded.lastname,
                             id: decoded.user_id,
                             rank: decoded.rank,
-                            token: { accessToken: token }
+                            token: { accessToken: token },
+                            avatar:decoded.avatar
                         }
                         setAuth(user);
                         const userToStorage = {
