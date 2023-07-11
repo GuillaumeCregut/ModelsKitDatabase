@@ -10,7 +10,13 @@ const setRead=async(exp,dest)=>{
     return dbResult;
 }
 
+const addMessagePrivate=async(exp,dest,message)=>{
+    const dbResult=dbquery('add','INSERT INTO private_message (exp,dest,message) VALUES (?,?,?)',[exp,dest,message]);
+    return dbResult;
+}
+
 module.exports={
     getMessages,
     setRead,
+    addMessagePrivate,
 }

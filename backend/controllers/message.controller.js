@@ -1,5 +1,14 @@
 const messageModel=require('../models/message.model');
 const userModel=require('../models/users.model');
+const Joi=require('joi');
+
+const validate = (data) => {
+    const presence ='required';
+    return Joi.object({
+        dest: Joi.number().integer().presence(presence),
+        message: Joi.string().presence(presence),
+    }).validate(data, { abortEarly: false }).error;
+}
 
 const getMessages=async(req, res)=>{
     const idFriend=req.params.id;
@@ -27,6 +36,21 @@ const getMessages=async(req, res)=>{
     
 }
 
+const addPrivateMessage=async(req,res)=>{
+    const exp=req.user.user_id;
+    const errors=validate(req.body);
+    if(errors){
+        return res.sendStatus(422);
+    }
+    const {message,dest}=req.body;
+    const addMessage=await messageModel.addMessagePrivate(exp,dest,message);
+    if(addMessage.error===0){
+        return res.sendStatus(201);
+    }
+    return res.sendStatus(500);
+}
+
 module.exports={
     getMessages,
+    addPrivateMessage,
 }
