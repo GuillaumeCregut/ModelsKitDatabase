@@ -11,12 +11,12 @@ import AvatarUser from '../social/avatar/AvatarUser';
 
 const Messages = () => {
     const params = useParams();
-    
-   
+
+
     const friendId = params.id;
     const axiosPrivate = useAxiosPrivate();
     const [allInfos, setAllInfos] = useState();
-    const [loaded, setLoaded]=useState(false);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         const getDatas = () => {
@@ -37,20 +37,28 @@ const Messages = () => {
 
     return (
         loaded
-           ?(
-            <div className="messageContainer">
-                <div className="identity-friend">
-                    <AvatarUser user={{id:allInfos.id,avatar:allInfos.avatar,firstname:allInfos.firstname,lastname:allInfos.lastname}} />
-                    {allInfos.firstname} {allInfos.lastname}
+            ? (
+                <div className="messageContainer">
+                    <div className="header-messenger">
+                        <p>
+                            Mes communications avec :
+                        </p>
+                        <div className="identity-friend">
+                            <AvatarUser user={{ id: allInfos.id, avatar: allInfos.avatar, firstname: allInfos.firstname, lastname: allInfos.lastname }} />
+                            <p>{allInfos.firstname} {allInfos.lastname}</p>
+                        </div>
+                    </div>
+                    <div className="all-messages">
+                        {allInfos.messages.length > 0
+                            ? allInfos.messages.map((message) => (
+                                <Message key={message.id} message={message} user={{ id: allInfos.id, avatar: allInfos.avatar, firstname: allInfos.firstname, lastname: allInfos.lastname }} />
+                            ))
+                            : <p>Il n'y a pas encore de messages</p>
+                        }
+                    </div>
                 </div>
-                <div className="all-messages">
-                    {allInfos.messages.map((message)=>(
-                        <Message key={message.id} message={message}/>
-                    ))}
-                </div>
-            </div>
-           )
-           : <AwaitLoad />
+            )
+            : <AwaitLoad />
     )
 }
 

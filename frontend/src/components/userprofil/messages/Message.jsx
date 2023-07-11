@@ -1,26 +1,39 @@
 import useAuth from '../../../hooks/useAuth';
+import AvatarUser from '../social/avatar/AvatarUser';
 
-import './Messages.scss';
+import './Message.scss';
 
-const Message = ({message}) => {
-    const {auth}=useAuth();
-    const idUser=auth?.id;
+const Message = ({ message, user }) => {
+    const { auth } = useAuth();
+    const localUser = {
+        firstname: auth.firstname,
+        lastname: auth.lastname,
+        id: auth.id,
+        avatar: auth.avatar
+    }
+    const idUser = auth?.id;
     console.log(message);
-    //Conversion de la date, attention au décalage horaire... A vérifier
-    const displayClass=message.exp===idUser?'moi':'lui';
-    const formatMessage=()=>{
-        const formatted=message.message.replace(/(\r\n|\r|\n)/g, '<br>').split('<br>');
-        return(
-            formatted.map((part,id)=>(
+    const dateMessage = new Date(message.date_m);
+    const month = new Intl.DateTimeFormat('fr-FR', { month: 'long' }).format(dateMessage);
+    console.log(month)
+    const displayDate = `${dateMessage.getUTCDate()} ${month} ${dateMessage.getFullYear()} à ${dateMessage.getUTCHours()}h${dateMessage.getUTCMinutes()}`;
+    const displayClass = message.exp === idUser ? 'moi' : 'lui';
+    const formatMessage = () => {
+        const formatted = message.message.replace(/(\r\n|\r|\n)/g, '<br>').split('<br>');
+        return (
+            formatted.map((part, id) => (
                 <p key={id}>{part}</p>
             ))
         )
     }
     return (
         <div className={`${displayClass} message`}>
-            <p>le : {message.date_m}</p>
-            <p>{displayClass}</p>
-            <p>{formatMessage()}</p>
+            <div className="message-header">
+                <AvatarUser user={message.exp === idUser ? localUser : user} />
+                <p className='message-header-text'>le : {displayDate}</p>
+            </div>
+
+            <article className='message-text'>{formatMessage()}</article>
         </div>
     )
 }

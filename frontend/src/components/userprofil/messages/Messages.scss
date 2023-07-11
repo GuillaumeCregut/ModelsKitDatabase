@@ -1,0 +1,27 @@
+.messageContainer {
+    .header-messenger {
+        display: flex;
+        gap: 30px;
+        margin: 20px 0;
+        align-items: center;
+    }
+
+    .identity-friend {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .all-messages {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 350px;
+    }
+
+    @media screen and (max-width: 768px) {
+        grid-area: 1/1/2/2;
+        width: 100vw;
+    }
+}

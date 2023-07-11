@@ -1,0 +1,33 @@
+.message {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+
+   .message-header{
+    display: flex;
+    gap : 10px;
+    align-items: center;
+   }
+
+   .message-header-text{
+    color: rgb(80, 79, 79);
+   }
+
+   .message-text{
+    margin-left: 35px;
+   }
+
+    @media screen and (max-width: 768px) {
+        font-size: 0.8rem;
+    }
+}
+.moi{
+    align-self: flex-end;
+}
+
+.lui{
+    align-self: flex-start;
+}
