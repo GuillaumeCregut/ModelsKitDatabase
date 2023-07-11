@@ -12,10 +12,8 @@ const Message = ({ message, user }) => {
         avatar: auth.avatar
     }
     const idUser = auth?.id;
-    console.log(message);
     const dateMessage = new Date(message.date_m);
     const month = new Intl.DateTimeFormat('fr-FR', { month: 'long' }).format(dateMessage);
-    console.log(month)
     const displayDate = `${dateMessage.getUTCDate()} ${month} ${dateMessage.getFullYear()} à ${dateMessage.getUTCHours()}h${dateMessage.getUTCMinutes()}`;
     const displayClass = message.exp === idUser ? 'moi' : 'lui';
     const formatMessage = () => {
