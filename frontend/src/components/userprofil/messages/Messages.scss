@@ -13,15 +13,43 @@
         gap: 10px;
     }
 
+    .write-private-message{
+        display: flex;
+        flex-direction: column;
+        width: 350px;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .send-message-button{
+        width: 90px;
+        margin: 10px auto;
+    }
+
+    .new-message-text{
+        font-size: 1rem;
+        padding : 5px;
+    }
+
     .all-messages {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        width: 350px;
+        width: 450px;
+        max-height: 450px;
+        overflow: scroll;
+        padding: 10px;
     }
 
     @media screen and (max-width: 768px) {
         grid-area: 1/1/2/2;
         width: 100vw;
+
+        .all-messages {
+            width: 340px;
+        }
+        .write-private-message{
+            margin: 10px auto;
+        }
     }
 }
