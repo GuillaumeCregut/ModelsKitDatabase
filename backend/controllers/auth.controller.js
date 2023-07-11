@@ -39,8 +39,8 @@ const authCheck = async (req, res) => {
         res.sendStatus(401);
     }
     else {
-        const accessToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname, 'auth');
-        const refreshToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname, 'refresh');
+        const accessToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname,user.avatar, 'auth');
+        const refreshToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname, user.avatar,'refresh');
         const tokenSetup = await setToken(refreshToken, user.id);
         if (tokenSetup.error === 1) {
             return res.sendStatus(500);
@@ -120,14 +120,15 @@ const reloadUser = async (req, res) => {
         else {
             const tokenOk = verifyToken(token, 'refresh');
             if (tokenOk) {
-                const { id, firstname, lastname, rankUser } = result;
+                const { id, firstname, lastname, rankUser,avatar } = result;
                 const user = {
                     id,
                     firstname,
                     lastname,
-                    rank: rankUser
+                    rank: rankUser,
+                    avatar:avatar
                 }
-                const accessToken = calculatetoken(user.id, user.rank, user.firstname, user.lastname, 'auth');
+                const accessToken = calculatetoken(user.id, user.rank, user.firstname, user.lastname, user.avatar,'auth');
                 return res.json({ accessToken });
             }
             else

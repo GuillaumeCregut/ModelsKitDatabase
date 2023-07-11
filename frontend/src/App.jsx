@@ -7,6 +7,7 @@ import { Header } from './components/header/Header';
 import { NotFound } from './components/notfournd/NotFound';
 import Login from './components/login/Login';
 import SignUp from './components/signup/SignUp';
+import { ToastContainer, toast } from 'react-toastify';
 /* Pages principales*/
 import { Home } from './pages/home/Home';
 import { Params } from './pages/params/Params';
@@ -34,24 +35,30 @@ import kitState from './feature/kitState';
 import UserData from './components/userprofil/userdata/UserData';
 import UserSupplier from './components/userprofil/usersupplier/UserSupplier';
 import Orders from './components/userprofil/orders/Orders';
+import Statistics from './components/userprofil/statistics/Statistics';
+import PdfStats from './components/userprofil/pdfstats/PdfStats';
+import Users from './components/userprofil/social/users/Users';
+import Messages from './components/userprofil/messages/Messages';
+/*User stock */
 import KitsHome from './components/kits/home/KitsHome';
 import KitManagement from './components/kits/kitmgmt/KitManagement';
 import FinishedModel from './components/kits/finishedmodel/FinishedModel';
 import KitDetails from './components/kits/kitdetails/KitDetails';
 import KitInStock from './components/kits/kitinstock/KitInStock';
-import Statistics from './components/userprofil/statistics/Statistics';
-import PdfStats from './components/userprofil/pdfstats/PdfStats';
-//Admiin Menu
+import Random from './components/kits/random/Random';
+import KitDetailsPage from './components/kits/kitmgmt/kitcard/kitdetailspage/KitDetailsPage';
+//Admin Menu
 import Logs from './components/admin/logs/Logs';
 import UserMgmt from './components/admin/usersmgmt/UserMgmt';
-import { ToastContainer, toast } from 'react-toastify';
+
+
+
+
 
 import './App.scss';
 import './LeftMenu.scss';
 import "react-toastify/dist/ReactToastify.css";
-import Random from './components/kits/random/Random';
-import KitDetailsPage from './components/kits/kitmgmt/kitcard/kitdetailspage/KitDetailsPage';
-import Users from './components/userprofil/social/users/Users';
+
 
 //Version of front end 
 const LocalVersion="1.2";
@@ -91,6 +98,7 @@ function App() {
               lastname: decoded.lastname,
               rank: decoded.rank,
               id:decoded.user_id,
+              avatar:decoded.avatar,
               token: {accessToken : token}
             }
             const toto=setAuth(user);
@@ -140,6 +148,7 @@ function App() {
             <Route path='statistiques' element={<Statistics />} />
             <Route path="pdf" element={<PdfStats />} />
             <Route path="amis" element={<Users />} />
+            <Route path='amis/messages/:id' element={<Messages />} />
             <Route path='*' element={<NotFound />} />
           </Route>
           <Route path='kits' element={<Kits />} >

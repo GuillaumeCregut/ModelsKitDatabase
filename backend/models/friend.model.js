@@ -45,6 +45,11 @@ const getFriends=async(id,status)=>{
     return dbResult;
 }
 
+const getMessageCount=async (idUser)=>{
+    const dbResult=await dbquery('get','SELECT count(*) as nb, exp FROM `private_message` WHERE is_read=0 and dest=? GROUP BY exp;',[idUser]);
+    return dbResult;
+}
+
 module.exports={
     findVisible,
     getFriendList,
@@ -53,4 +58,5 @@ module.exports={
     updateFriendship,
     addFriendShip,
     getFriends,
+    getMessageCount,
 }

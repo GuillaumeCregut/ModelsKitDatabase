@@ -92,7 +92,20 @@ const addFriendShip=async(req,res)=>{
 const getFriends=async(req,res)=>{
     const allFriends=await friendsModel.getFriends(req.user.user_id,friendState.friend);
     if(allFriends.error===0){
-        return res.json(allFriends.result);
+        //Get messages count
+        const getMessages=await friendsModel.getMessageCount(req.user.user_id);
+        if (getMessages.error===0){
+            const listMessage=getMessages.result;
+            const fullList=allFriends.result.map((friend)=>{
+                const messages=listMessage.find(elt=>elt.exp===friend.id);
+                let nbMessage=0
+                if(messages)
+                    nbMessage=messages.nb;
+                return {...friend,nbMessage}
+            })
+            return res.json(fullList);
+        }
+        return res.sendStatus(500);
     }
     else
         return res.sendStatus(500);

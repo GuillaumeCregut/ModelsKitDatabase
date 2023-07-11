@@ -142,7 +142,7 @@ const findUserByToken = async (token) => {
 }
 
 const findCredentialsByUser = async (firsname, lastname, token) => {
-    const dbResult = await dbquery('get', 'SELECT firstname, lastname, rankUser, id  FROM user WHERE (firstname=? and lastname=? and refreshToken=?)', [firsname, lastname, token]);
+    const dbResult = await dbquery('get', 'SELECT firstname, lastname, rankUser, id,avatar  FROM user WHERE (firstname=? and lastname=? and refreshToken=?)', [firsname, lastname, token]);
     if (dbResult.error === 0)
         return dbResult.result[0];
     return dbResult.result;
