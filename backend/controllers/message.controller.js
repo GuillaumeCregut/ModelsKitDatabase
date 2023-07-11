@@ -21,6 +21,10 @@ const getMessages=async(req, res)=>{
     const messages=await messageModel.getMessages(idFriend,dest);
     if(messages.error===0){
         //Set messages to red
+        const clearCount=await messageModel.setRead(idFriend,dest);
+        if(clearCount.error===1){
+            return res.sendStatus(500);
+        }
         //Make data
         const friend=friendRequest[0];
         const data={
