@@ -39,6 +39,8 @@ import Statistics from './components/userprofil/statistics/Statistics';
 import PdfStats from './components/userprofil/pdfstats/PdfStats';
 import Users from './components/userprofil/social/users/Users';
 import Messages from './components/userprofil/messages/Messages';
+import FriendBuildContainer from './components/userprofil/social/friendbuild/FriendBuildContainer';
+import FriendModelDetails from './components/userprofil/social/friendbuild/friendmodeldetails/FriendModelDetails';
 /*User stock */
 import KitsHome from './components/kits/home/KitsHome';
 import KitManagement from './components/kits/kitmgmt/KitManagement';
@@ -51,15 +53,9 @@ import KitDetailsPage from './components/kits/kitmgmt/kitcard/kitdetailspage/Kit
 import Logs from './components/admin/logs/Logs';
 import UserMgmt from './components/admin/usersmgmt/UserMgmt';
 
-
-
-
-
 import './App.scss';
 import './LeftMenu.scss';
 import "react-toastify/dist/ReactToastify.css";
-import FriendBuildContainer from './components/userprofil/social/friendbuild/FriendBuildContainer';
-
 
 //Version of front end 
 const LocalVersion="1.2";
@@ -149,6 +145,7 @@ function App() {
             <Route path='statistiques' element={<Statistics />} />
             <Route path="pdf" element={<PdfStats />} />
             <Route path="amis" element={<Users />} />
+            <Route path='friend-kit-details' element={<FriendModelDetails />} />
             <Route path='amis/messages/:id' element={<Messages />} />
             <Route path='amis/montages-amis/:id' element={<FriendBuildContainer />} />
             <Route path='*' element={<NotFound />} />
