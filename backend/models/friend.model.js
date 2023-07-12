@@ -51,7 +51,12 @@ const getMessageCount=async (idUser)=>{
 }
 
 const getFriendModels =async(id)=>{
-    const dbResult=dbquery('get','SELECT id,pictures,modelname, reference,boxPicture,builderName,scaleName,brandName FROM mymodels WHERE owner=? AND state=3',[id]);
+    const dbResult=dbquery('get','SELECT id,modelname,pictures, reference,boxPicture,builderName,scaleName,brandName FROM mymodels WHERE owner=? AND state=3',[id]);
+    return dbResult;
+}
+
+const getFriendModelDetails=async(id, idFriend)=>{
+    const dbResult=dbquery('get','SELECT id,modelname,pictures, reference,boxPicture,builderName,scaleName,brandName FROM mymodels WHERE id=? and owner=?',[id,idFriend]);
     return dbResult;
 }
 
@@ -65,4 +70,5 @@ module.exports={
     getFriends,
     getMessageCount,
     getFriendModels,
+    getFriendModelDetails,
 }
