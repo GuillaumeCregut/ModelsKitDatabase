@@ -50,6 +50,11 @@ const getMessageCount=async (idUser)=>{
     return dbResult;
 }
 
+const getFriendModels =async(id)=>{
+    const dbResult=dbquery('get','SELECT id,pictures,modelname, reference,boxPicture,builderName,scaleName,brandName FROM mymodels WHERE owner=? AND state=3',[id]);
+    return dbResult;
+}
+
 module.exports={
     findVisible,
     getFriendList,
@@ -59,4 +64,5 @@ module.exports={
     addFriendShip,
     getFriends,
     getMessageCount,
+    getFriendModels,
 }

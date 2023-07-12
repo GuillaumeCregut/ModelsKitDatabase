@@ -111,6 +111,16 @@ const getFriends=async(req,res)=>{
         return res.sendStatus(500);
 }
 
+const getFriendModels=async(req,res)=>{
+    const friendId=req.params.id;
+    const friendsModels=await friendsModel.getFriendModels(friendId);
+    if(friendsModels.error===0){
+        return res.json(friendsModels.result);
+    }
+    return res.sendStatus(500);
+    
+}
+
 module.exports = {
     getAllVisible,
     unlinkUser,
@@ -118,4 +128,5 @@ module.exports = {
     changeDemand,
     addFriendShip,
     getFriends,
+    getFriendModels,
 }
