@@ -58,6 +58,7 @@ import UserMgmt from './components/admin/usersmgmt/UserMgmt';
 import './App.scss';
 import './LeftMenu.scss';
 import "react-toastify/dist/ReactToastify.css";
+import FriendBuildContainer from './components/userprofil/social/friendbuild/FriendBuildContainer';
 
 
 //Version of front end 
@@ -149,6 +150,7 @@ function App() {
             <Route path="pdf" element={<PdfStats />} />
             <Route path="amis" element={<Users />} />
             <Route path='amis/messages/:id' element={<Messages />} />
+            <Route path='amis/montages-amis/:id' element={<FriendBuildContainer />} />
             <Route path='*' element={<NotFound />} />
           </Route>
           <Route path='kits' element={<Kits />} >
