@@ -1,0 +1,30 @@
+.friend-model-details-container{
+
+    .title-friend-kit-detail{
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .details-friend-kit{
+        margin: 20px;
+    }
+
+    .img-box-detail{
+        width: 250px;
+    }
+
+    .picture-model-container{
+        display: flex;
+    }
+
+    .img-built-model{
+        width: 350px;
+    }
+
+
+
+    @media screen and (max-width: 768px) {
+        grid-area: 1/1/2/2;
+        width: 100vw;
+    }
+}
