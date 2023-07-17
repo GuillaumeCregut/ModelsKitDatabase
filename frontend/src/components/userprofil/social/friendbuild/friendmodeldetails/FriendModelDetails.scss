@@ -13,8 +13,15 @@
         width: 250px;
     }
 
+    .title-friend-pictures{
+        margin: 10px 0;
+    }
+
     .picture-model-container{
         display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap : 10px;
     }
 
     .img-built-model{
@@ -26,5 +33,11 @@
     @media screen and (max-width: 768px) {
         grid-area: 1/1/2/2;
         width: 100vw;
+
+        .picture-model-container{
+            flex-direction: column;
+            align-items: center;
+        }
     }
+
 }

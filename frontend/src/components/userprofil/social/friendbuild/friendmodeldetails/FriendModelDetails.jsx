@@ -26,7 +26,6 @@ const FriendModelDetails = () => {
                     setError(false);
                 })
                 .catch((err) => {
-                    console.log(err);
                     toast.error('Une erreur est survenue');
                     setLoaded(true);
                     if (err.response.status === 404)
@@ -35,7 +34,7 @@ const FriendModelDetails = () => {
         }
         getModelDetails();
     }, []);
-    console.log(details)
+    
     return (
         loaded
             ? (
@@ -47,7 +46,7 @@ const FriendModelDetails = () => {
                             <p>{details.builderName} {details.modelName}</p>
                             <p>{details.brandName} {details.reference} {details.scaleName}</p>
                         </div>
-                        <p>Photos du montage</p>
+                        <p className='title-friend-pictures'>Photos du montage</p>
                         <div >
                             <ul className="picture-model-container">
                                 {details.fileArray.map((file) => (
