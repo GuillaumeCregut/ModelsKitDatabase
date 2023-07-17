@@ -24,7 +24,6 @@ const FriendBuildContainer = () => {
                     setLoaded(true);
                 })
                 .catch((err)=>{
-                    console.log(err);
                     toast.error('Une erreur est survenue.')
                 })
         }

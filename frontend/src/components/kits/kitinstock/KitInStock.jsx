@@ -74,7 +74,6 @@ const KitInStock = ({ keySearch, title }) => {
                 setRefresh(!refresh);
             })
             .catch((err) => {
-                console.log(err)
                 toast.error('Une erreur est survenue');
             })
         setOpenModal(false);

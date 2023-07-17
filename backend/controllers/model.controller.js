@@ -374,7 +374,6 @@ const deleteUserPicture = async (req, res) => {
         }
         catch(err){
             logError(`ModelController.deleteUserPicture :${err}`);
-            console.log(err)
         }
         return res.sendStatus(204);
     }
