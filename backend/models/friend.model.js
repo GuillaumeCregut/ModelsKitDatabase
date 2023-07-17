@@ -60,6 +60,11 @@ const getFriendModelDetails=async(id, idFriend)=>{
     return dbResult;
 }
 
+const getModelMessage=async(id)=>{
+    const dbResult=await dbquery('get','SELECT mm.id,mm.date_message as dateMessage, mm.message,u.firstname,u.lastname,u.id as userId,u.avatar FROM model_message mm INNER JOIN user u ON mm.fk_author=u.id WHERE fk_model=?',[id]);
+    return dbResult;
+}
+
 module.exports={
     findVisible,
     getFriendList,
@@ -71,4 +76,5 @@ module.exports={
     getMessageCount,
     getFriendModels,
     getFriendModelDetails,
+    getModelMessage,
 }

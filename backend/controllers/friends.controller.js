@@ -151,8 +151,13 @@ const getFriendModelDetails=async(req, res)=>{
                     await logError(`ModelController.getAllInfoKit : ${err}`);
                 })
         }
-        const details={...detailsModel.result[0],fileArray};
-        return res.json(details);    
+        //Get messages and add them to object
+        const messages=await friendsModel.getModelMessage(idModel);
+        if(messages.error===0){
+            const details={...detailsModel.result[0],fileArray,messages:messages.result};
+            return res.json(details);    
+        }
+        return res.sendStatus(500);
     }
     return res.sendStatus(500);
 
