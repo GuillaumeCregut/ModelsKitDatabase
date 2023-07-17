@@ -68,14 +68,6 @@ const FinishedModel = () => {
                                 </Table>
                             </TableContainer>
                         )
-                        /* <ul className='list-finished-model'>
-                            {isLoaded
-                            ?listModel.filter(item => item.state === 3).map((item) => (
-                                <Link to={`details/${item.id}`} key={item.id}> <li className='list-finished-item'>{item.modelName}</li></Link>
-                            
-                                ))
-                            :<AwaitLoad />}
-                        </ul> */
                         : <AwaitLoad />}
                 </div>
             </div>

@@ -120,7 +120,6 @@ const findOne=async(id)=>{
             }
             const newOrder = new Order(order.provider,  order.owner, order.reference,dateLine);
             newOrder.setProviderName(order.name);
-            console.log(newOrder)
             return newOrder;
         })
         //Get All items from orders.

@@ -12,7 +12,7 @@ import { BsCurrencyEuro } from "react-icons/bs";
 
 import './KitDetailsPage.scss';
 
-const KitDetailsPage = (props) => {
+const KitDetailsPage = () => {
     const location = useLocation();
     const [model, setModel] = useState();
     const [loaded, SetLoaded] = useState(false);

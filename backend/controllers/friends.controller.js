@@ -1,6 +1,9 @@
 const friendsModel = require('../models/friend.model');
 const { friendState } = require('../utils/common');
 const Joi = require('joi');
+const path = require('path');
+const fs = require('fs');
+
 
 const validate = (data) => {
     return Joi.object({
@@ -111,6 +114,50 @@ const getFriends=async(req,res)=>{
         return res.sendStatus(500);
 }
 
+const getFriendModels=async(req,res)=>{
+    const friendId=req.params.id;
+    const friendsModels=await friendsModel.getFriendModels(friendId);
+    if(friendsModels.error===0){
+        return res.json(friendsModels.result);
+    }
+    return res.sendStatus(500);
+    
+}
+
+const getFriendModelDetails=async(req, res)=>{
+    if(isNaN(req.params.idModel))
+        return res.sendStatus(422);
+    const idModel=parseInt(req.params.idModel, 10);
+    const friendId=req.params.id;
+    const detailsModel=await friendsModel.getFriendModelDetails(idModel,friendId);
+    const fileArray = [];
+    if(detailsModel.error===0){
+        if(detailsModel.result.length===0)
+            return res.sendStatus(404);
+        
+        if(detailsModel.result[0].pictures!==null){
+            
+         const basePath = detailsModel.result[0].pictures;
+         
+         const pathModel = path.join(__dirname, '..', basePath);
+        await fs.promises.readdir(pathModel)
+                .then(filenames => {
+                    for (let filename of filenames) {
+                        fileArray.push(filename)
+                    }
+                })
+                .catch(async (err) => {
+                    console.error(err)
+                    await logError(`ModelController.getAllInfoKit : ${err}`);
+                })
+        }
+        const details={...detailsModel.result[0],fileArray};
+        return res.json(details);    
+    }
+    return res.sendStatus(500);
+
+}
+
 module.exports = {
     getAllVisible,
     unlinkUser,
@@ -118,4 +165,6 @@ module.exports = {
     changeDemand,
     addFriendShip,
     getFriends,
+    getFriendModels,
+    getFriendModelDetails,
 }

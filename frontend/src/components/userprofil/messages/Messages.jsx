@@ -31,14 +31,12 @@ const Messages = () => {
                 })
                 .catch((err) => {
                     toast.error('Une erreur est survenue');
-                    console.log(err);
                 })
         }
         getDatas();
     }, [friendId, refresh]);
 
     const handleClick=()=>{
-        console.log(textRef.current.value)
         const url = `${import.meta.env.VITE_APP_API_URL}messages/private/${friendId}`;
         axiosPrivate
             .post(url,{dest:friendId, message:textRef.current.value})
@@ -47,7 +45,6 @@ const Messages = () => {
                 setRefresh(!refresh);
             })
             .catch((err)=>{
-                console.log(err);
                 toast.error('Une erreur est survenue');
             })
     }
