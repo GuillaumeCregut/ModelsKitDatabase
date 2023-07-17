@@ -56,7 +56,7 @@ const getFriendModels =async(id)=>{
 }
 
 const getFriendModelDetails=async(id, idFriend)=>{
-    const dbResult=dbquery('get','SELECT id,modelname,pictures, reference,boxPicture,builderName,scaleName,brandName FROM mymodels WHERE id=? and owner=?',[id,idFriend]);
+    const dbResult=dbquery('get','SELECT m.id,m.modelname,m.pictures, m.reference,m.boxPicture,m.builderName,m.scaleName,m.brandName,u.allow FROM mymodels m INNER JOIN user u ON m.owner=u.id WHERE m.id=? and m.owner=?',[id,idFriend]);
     return dbResult;
 }
 
