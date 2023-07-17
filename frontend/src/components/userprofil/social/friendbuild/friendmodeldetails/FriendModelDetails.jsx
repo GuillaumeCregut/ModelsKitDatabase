@@ -6,6 +6,7 @@ import { AwaitLoad } from '../../../../awaitload/AwaitLoad';
 import Zoom from 'react-medium-image-zoom';
 
 import './FriendModelDetails.scss';
+import FriendBuildMessage from './FriendBuildMessage';
 
 const FriendModelDetails = () => {
     const [loaded, setLoaded] = useState(false);
@@ -22,19 +23,19 @@ const FriendModelDetails = () => {
                 .get(url)
                 .then((resp) => {
                     setDetails(resp.data);
+                    console.log(resp.data)
                     setLoaded(true);
                     setError(false);
                 })
                 .catch((err) => {
                     toast.error('Une erreur est survenue');
                     setLoaded(true);
-                    if (err.response.status === 404)
-                        setError(true);
+                    setError(true);
                 })
         }
         getModelDetails();
     }, []);
-    
+
     return (
         loaded
             ? (
@@ -59,6 +60,16 @@ const FriendModelDetails = () => {
                                 }
                             </ul>
                         </div>
+                       { details.allow
+                       ?<div className="message-zone-model">
+                           messages :
+                           <div className="message-model-container">
+                            {details.messages.map((message)=>(
+                                <FriendBuildMessage key={message.id} message={message} />
+                            ))}
+                           </div>
+                        </div>
+                        :null}
                     </div>)
                     : <p>Le modèle n'existe pas</p>
             )
