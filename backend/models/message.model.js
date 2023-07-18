@@ -15,8 +15,20 @@ const addMessagePrivate=async(exp,dest,message)=>{
     return dbResult;
 }
 
+const getAllowed=async(id)=>{
+    const dbResult=await dbquery('get','SELECT allow FROM user WHERE id=?',[id]);
+    return  dbResult;
+}
+
+const addMessage=async(exp,message,idModel)=>{
+    const dbResult=await dbquery('add','INSERT INTO model_message (fk_model, fk_author, date_message, message) VALUES(?,?,now(),?);',[idModel,exp,message]);
+    return dbResult;
+}
+
 module.exports={
     getMessages,
     setRead,
     addMessagePrivate,
+    getAllowed,
+    addMessage
 }
