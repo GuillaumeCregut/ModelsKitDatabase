@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom';
 import useAxiosPrivate from '../../../../../hooks/useAxiosPrivate';
 import { toast } from 'react-toastify';
 import { AwaitLoad } from '../../../../awaitload/AwaitLoad';
 import Zoom from 'react-medium-image-zoom';
+import FriendBuildMessage from './FriendBuildMessage';
+import { TextareaAutosize } from '@mui/base';
+import { Button } from '@mui/material';
+import useAuth from '../../../../../hooks/useAuth';
 
 import './FriendModelDetails.scss';
-import FriendBuildMessage from './FriendBuildMessage';
 
 const FriendModelDetails = () => {
     const [loaded, setLoaded] = useState(false);
@@ -14,8 +17,11 @@ const FriendModelDetails = () => {
     const [error, setError] = useState(false);
     const { state } = useLocation();
     const axiosPrivate = useAxiosPrivate();
-    const urlDetail = `${import.meta.env.VITE_APP_URL}`;
+    const textRef = useRef();
+    const {auth}=useAuth();
 
+    const urlDetail = `${import.meta.env.VITE_APP_URL}`;
+    console.log(state)
     useEffect(() => {
         const getModelDetails = () => {
             const url = `${import.meta.env.VITE_APP_API_URL}friends/${state.friendId}/models/${state.modelId}`;
@@ -36,11 +42,15 @@ const FriendModelDetails = () => {
         getModelDetails();
     }, []);
 
+    const handleClick = () => {
+
+    }
+
     return (
-        loaded
+        <div className='friend-model-details-container'>{loaded
             ? (
                 !error
-                    ? (<div className='friend-model-details-container'>
+                    ? (<div>
                         <h2 className='title-friend-kit-detail'>Détails du montage</h2>
                         <div className="details-friend-kit">
                             <img src={`${urlDetail}${details.boxPicture}`} alt={details.modelName} className='img-box-detail' />
@@ -60,21 +70,29 @@ const FriendModelDetails = () => {
                                 }
                             </ul>
                         </div>
-                       { details.allow
-                       ?<div className="message-zone-model">
-                           messages :
-                           <div className="message-model-container">
-                            {details.messages.map((message)=>(
-                                <FriendBuildMessage key={message.id} message={message} />
-                            ))}
-                           </div>
-                        </div>
-                        :null}
+                        {details.allow
+                            ? <div className="message-zone-model">
+                                <section className="new-model-message">
+                                    <p>Laisser un message :</p>
+                                    <TextareaAutosize ref={textRef} className='new-message-text' minRows={3} placeholder='Saisissez votre message' />
+                                    <Button variant='contained' className='btn-send-model-message' onClick={handleClick}>Envoyer</Button>
+                                </section>
+                                messages :
+                                <section className="message-model-container">
+                                    {details.messages.map((message) => (
+                                        <FriendBuildMessage key={message.id} message={message} />
+                                    ))}
+                                </section>
+
+                            </div>
+                            : null}
                     </div>)
                     : <p>Le modèle n'existe pas</p>
             )
             : <AwaitLoad />
-    )
+        }
+            <p><Link to={`../amis/montages-amis/${state.friendId}`}>Retour</Link></p>
+        </div>)
 }
 
 export default FriendModelDetails

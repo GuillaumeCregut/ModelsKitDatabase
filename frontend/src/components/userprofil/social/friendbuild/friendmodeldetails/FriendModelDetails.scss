@@ -28,11 +28,30 @@
         width: 350px;
     }
 
+    .new-model-message{
+        display: flex;
+        flex-direction: column;
+        width: 60vw;
+        margin: 0 auto;
+        gap : 10px;
+    }
+
+    .btn-send-model-message{
+        width: 90px;
+        margin: 0 auto;
+    }
 
 
     @media screen and (max-width: 768px) {
         grid-area: 1/1/2/2;
         width: 100vw;
+
+        .details-friend-kit{
+            margin : 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .picture-model-container{
             flex-direction: column;
