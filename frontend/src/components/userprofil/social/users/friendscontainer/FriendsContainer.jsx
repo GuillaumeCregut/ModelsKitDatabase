@@ -6,39 +6,42 @@ import { AwaitLoad } from '../../../../awaitload/AwaitLoad';
 import './FriendsContainer.scss';
 import { toast } from 'react-toastify';
 
-const FriendsContainer = ({setReload,reload}) => {
-    const [friendList, setFriendlist]=useState([]);
-    const [loaded,setLoaded]=useState(false);
-    const axiosPrivate=useAxiosPrivate();
+const FriendsContainer = ({ setReload, reload }) => {
+    const [friendList, setFriendlist] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+    const axiosPrivate = useAxiosPrivate();
 
-    useEffect(()=>{
-        const getFriends=()=>{
-            const url= `${import.meta.env.VITE_APP_API_URL}friends`;
+    useEffect(() => {
+        const getFriends = () => {
+            const url = `${import.meta.env.VITE_APP_API_URL}friends`;
             axiosPrivate
                 .get(url)
-                .then((resp)=>{
+                .then((resp) => {
                     setFriendlist(resp.data);
                     setLoaded(true);
                 })
-                .catch((err)=>{
+                .catch((err) => {
                     toast.error("Une erreur est survenue");
                 })
         }
         getFriends();
-    },[reload])
+    }, [reload])
 
-    
+
     return (
-        <div className='my-friends-container'>
-            {
-                loaded
-                ?(
-                    friendList.map((friend)=>(
-                        <FriendCard user={friend} key={friend.id} setReload={setReload} />
-                    ))
-                )
-                : <AwaitLoad />
-            }
+        <div>
+            <h3>Liste de mes amis</h3>
+            <div className='my-friends-container'>
+                {
+                    loaded
+                        ? (
+                            friendList.map((friend) => (
+                                <FriendCard user={friend} key={friend.id} setReload={setReload} />
+                            ))
+                        )
+                        : <AwaitLoad />
+                }
+            </div>
         </div>
     )
 }

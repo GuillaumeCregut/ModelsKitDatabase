@@ -33,7 +33,7 @@ const FriendBuildContainer = () => {
     return (
         <div className='friend-models-page'>
             <h2>Kits terminés</h2>
-            <p>Vous trouverez ci dessous les kits terminé par votre ami.</p>
+            <p>Vous trouverez ci dessous les kits terminés par votre ami.</p>
             <div className="friend-models-container">
                 {
                     loaded
