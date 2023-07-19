@@ -6,6 +6,26 @@ This repo is the front end part of ModelKit database. It is built with React (Vi
 
 Counter to V1.0, this version is mono repo, including front and back end.
 
+### V1.2
+
+News
+==
+
+Social network : you can see others users (if they allow to be seen), use messages to talk with them and see they're finished models. You can also let a message on their builds, and see the messages they let on your own.
+
+Orders : Now, you can add a date to the order.
+
+Bugs Fixed
+==
+
+Delete a kit was not accessible. Corrected
+
+Minors display details in mobile resolution are fixed
+
+Backend : fix delete user's folder when no images kits
+
+Orders : fix bug in display orders
+
 ### The used ports are :
 
 - `back end server` : 8000
