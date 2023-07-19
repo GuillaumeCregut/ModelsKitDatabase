@@ -65,6 +65,10 @@ const getModelMessage=async(id)=>{
     return dbResult;
 }
 
+const findFriendVisibility=async(id)=>{
+    const dbResult=await dbquery('get','SELECT isVisible FROM user WHERE id=?',[id]);
+    return dbResult;
+}
 module.exports={
     findVisible,
     getFriendList,
@@ -77,4 +81,5 @@ module.exports={
     getFriendModels,
     getFriendModelDetails,
     getModelMessage,
+    findFriendVisibility,
 }
