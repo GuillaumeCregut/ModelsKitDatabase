@@ -72,7 +72,7 @@ const refreshToken = async (req, res) => {
     if (!tokenOk || (tokenOk.firstname !== user.firstname || tokenOk.lastname !== user.lastname)) {
         return res.sendStatus(403);
     }
-    const accessToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname, 'auth');
+    const accessToken = await calculatetoken(user.id, user.rank, user.firstname, user.lastname,user.avatar ,'auth');
     return res.json({ accessToken });
 }
 
