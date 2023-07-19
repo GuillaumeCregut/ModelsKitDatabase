@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import 'react-medium-image-zoom/dist/styles.css';
 
 import './KitDetails.scss';
+import FriendBuildMessage from '../../friendbuildmessage/FriendBuildMessage';
 
 
 const MAX_FILE_UPLOAD = 4;
@@ -40,13 +41,14 @@ const KitDetails = () => {
                 .get(url)
                 .then((resp) => {
                     setModelDetail(resp.data);
-                    let count = resp.data.pictures?.files.length;
+                    let count = resp.data.pictures?.files?.length;
                     if (count) {
                         setMaxCount(count);
                     }
                     setIsLoaded(true);
                 })
                 .catch((err) => {
+                    console.log(err)
                     setIsError(true);
                 })
         }
@@ -84,10 +86,10 @@ const KitDetails = () => {
     }
 
     return (
-        <div>
+        <div className="detail-container">
             {
                 isLoaded
-                    ? (<div className="detail-container">
+                    ? (<div>
                         <div className='detail-zone'>
                             <div className='details-zone-flex'>
                                 <div className="detailk-kit">
@@ -99,7 +101,7 @@ const KitDetails = () => {
                                 </div>
                                 <div>
                                     {modelDetail.picture ? <p><img src={`${urlDetail}${modelDetail.picture}`} alt={modelDetail.modelName} className="detail-img" /></p> : null}
-                                    {modelDetail.scalemates ? <a href={modelDetail.scalemates} no-referrer no-opener target='_blank'>Lien scalemates</a> : null}
+                                    {modelDetail.scalemates ? <a href={modelDetail.scalemates} no-referrer no-opener='true' target='_blank'>Lien scalemates</a> : null}
                                     {modelDetail.providerName
                                         ? (<div className="detail-order">
                                             <p>Fournisseur  : {modelDetail.providerName}</p>
@@ -111,12 +113,12 @@ const KitDetails = () => {
                             </div>
                             <div className="picturebox">
                                 {
-                                    (modelDetail.pictures&&(modelDetail.pictures.files.length>0))
+                                    (modelDetail.pictures && (modelDetail.pictures.files.length > 0))
                                         ? <ul className='picture-container'>
                                             {modelDetail.pictures.files.map((file) => (
                                                 <li key={file} className='picture-item'>
                                                     <div>
-                                                        
+
                                                         <Zoom>
                                                             <img
                                                                 src={`${urlDetail}${modelDetail.pictures.baseFolder}/${file}`}
@@ -143,6 +145,17 @@ const KitDetails = () => {
                                     files={files}
                                     setFiles={setFiles}
                                 />
+                                : null}
+                            {modelDetail.messages.length > 0
+                                ? (<section>
+                                    <h3 className="kit-detail-message">Messages</h3>
+                                    <div className="kit-details-messages-container">
+                                        {modelDetail.messages.map((message) => (
+                                             <FriendBuildMessage key={message.id} message={message} />
+                                        ))
+                                        }
+                                    </div>
+                                </section>)
                                 : null}
                         </div>
                     </div>)

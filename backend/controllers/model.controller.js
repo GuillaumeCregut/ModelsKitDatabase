@@ -1,5 +1,6 @@
 const { logError, logInfo, logWarning } = require('../utils/logEvent');
 const Model = require('../classes/model.class');
+const friendModel=require('../models/friend.model');
 const modelModel = require('../models/model.model');
 const Joi = require('joi');
 const fs = require('fs');
@@ -238,8 +239,21 @@ const getStock = async (req, res) => {
     }
     const userId = parseInt(id);
     const result = await modelModel.getAllKitsUser(userId);
-    if (result.error === 0)
-        return res.json(result.result)
+    if (result.error === 0){
+        //Mix datas
+        const messagesModels=await modelModel.getMessageCountUserModels(userId);
+        if(messagesModels.error===1)
+            return res.sendStatus(500);
+        const completeResult=result.result.map((model)=>{
+            const idModel=model.id;
+            const areMessages=messagesModels.result.find((message=>message.fk_model===idModel))
+            if(areMessages){
+                return {...model, nbMessages:areMessages.numberMessages}
+            }
+            return {...model, nbMessages:0}
+        })
+        return res.json(completeResult);
+    }
     else {
         await logInfo(`ModelController.getStock : ${result.result}`);
         return res.sendStatus(500);
@@ -307,7 +321,11 @@ const getAllInfoKit = async (req, res) => {
             }
             result.pictures = pictures;
         }
-        return res.json(result);
+        const messagesKit=await friendModel.getModelMessage(idKit);
+        if(messagesKit.error!==0){
+            return res.sendStatus(500);
+        }
+        return res.json({...result, messages:messagesKit.result});
     }
     else {
         await logInfo(`ModelController.getAllInfoKit : ${result}`);

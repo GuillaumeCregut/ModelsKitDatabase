@@ -56,7 +56,12 @@ const getFriendModels =async(id)=>{
 }
 
 const getFriendModelDetails=async(id, idFriend)=>{
-    const dbResult=dbquery('get','SELECT id,modelname,pictures, reference,boxPicture,builderName,scaleName,brandName FROM mymodels WHERE id=? and owner=?',[id,idFriend]);
+    const dbResult=dbquery('get','SELECT m.id,m.modelname,m.pictures, m.reference,m.boxPicture,m.builderName,m.scaleName,m.brandName,u.allow FROM mymodels m INNER JOIN user u ON m.owner=u.id WHERE m.id=? and m.owner=?',[id,idFriend]);
+    return dbResult;
+}
+
+const getModelMessage=async(id)=>{
+    const dbResult=await dbquery('get','SELECT mm.id,mm.date_message as dateMessage, mm.message,u.firstname,u.lastname,u.id as userId,u.avatar FROM model_message mm INNER JOIN user u ON mm.fk_author=u.id WHERE fk_model=? ORDER BY mm.date_message DESC, id DESC',[id]);
     return dbResult;
 }
 
@@ -71,4 +76,5 @@ module.exports={
     getMessageCount,
     getFriendModels,
     getFriendModelDetails,
+    getModelMessage,
 }

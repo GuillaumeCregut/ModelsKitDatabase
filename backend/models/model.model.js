@@ -192,6 +192,11 @@ const getRandomKit=async(userId)=>{
     return dbResult;
 }
 
+const getMessageCountUserModels=async(userId)=>{
+    const dbResult=await dbquery('get','SELECT count(*) as numberMessages, mm.id, mm.fk_model, mu.owner FROM model_message mm INNER JOIN model_user mu ON mm.fk_model=mu.id WHERE mu.owner=? GROUP BY mm.fk_model;',[userId]);
+    return dbResult;
+}
+
 module.exports = {
     findAll, //OK
     findOne, //OK
@@ -215,4 +220,5 @@ module.exports = {
     getLikedElementByIdKit, //OK
     getCountLikedIdUser, //OK
     getRandomKit, //OK
+    getMessageCountUserModels,
 }

@@ -16,6 +16,16 @@
         width: 100%;
     }
 
+    .icon-photo-finished{
+        width: 30px;
+        height: 30px;
+    }
+
+    .message-in-build{
+        width: 30px;
+        height: 30px;
+    }
+
     @media screen and (max-width: 768px) {
         grid-area: 1 / 2 / 1/ 1;
 
