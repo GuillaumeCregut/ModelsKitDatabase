@@ -41,13 +41,14 @@ const KitDetails = () => {
                 .get(url)
                 .then((resp) => {
                     setModelDetail(resp.data);
-                    let count = resp.data.pictures?.files.length;
+                    let count = resp.data.pictures?.files?.length;
                     if (count) {
                         setMaxCount(count);
                     }
                     setIsLoaded(true);
                 })
                 .catch((err) => {
+                    console.log(err)
                     setIsError(true);
                 })
         }
@@ -100,7 +101,7 @@ const KitDetails = () => {
                                 </div>
                                 <div>
                                     {modelDetail.picture ? <p><img src={`${urlDetail}${modelDetail.picture}`} alt={modelDetail.modelName} className="detail-img" /></p> : null}
-                                    {modelDetail.scalemates ? <a href={modelDetail.scalemates} no-referrer no-opener target='_blank'>Lien scalemates</a> : null}
+                                    {modelDetail.scalemates ? <a href={modelDetail.scalemates} no-referrer no-opener='true' target='_blank'>Lien scalemates</a> : null}
                                     {modelDetail.providerName
                                         ? (<div className="detail-order">
                                             <p>Fournisseur  : {modelDetail.providerName}</p>
