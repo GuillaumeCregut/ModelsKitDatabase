@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import 'react-medium-image-zoom/dist/styles.css';
 
 import './KitDetails.scss';
+import FriendBuildMessage from '../../friendbuildmessage/FriendBuildMessage';
 
 
 const MAX_FILE_UPLOAD = 4;
@@ -84,10 +85,10 @@ const KitDetails = () => {
     }
 
     return (
-        <div>
+        <div className="detail-container">
             {
                 isLoaded
-                    ? (<div className="detail-container">
+                    ? (<div>
                         <div className='detail-zone'>
                             <div className='details-zone-flex'>
                                 <div className="detailk-kit">
@@ -111,12 +112,12 @@ const KitDetails = () => {
                             </div>
                             <div className="picturebox">
                                 {
-                                    (modelDetail.pictures&&(modelDetail.pictures.files.length>0))
+                                    (modelDetail.pictures && (modelDetail.pictures.files.length > 0))
                                         ? <ul className='picture-container'>
                                             {modelDetail.pictures.files.map((file) => (
                                                 <li key={file} className='picture-item'>
                                                     <div>
-                                                        
+
                                                         <Zoom>
                                                             <img
                                                                 src={`${urlDetail}${modelDetail.pictures.baseFolder}/${file}`}
@@ -143,6 +144,17 @@ const KitDetails = () => {
                                     files={files}
                                     setFiles={setFiles}
                                 />
+                                : null}
+                            {modelDetail.messages.length > 0
+                                ? (<section>
+                                    <h3 className="kit-detail-message">Messages</h3>
+                                    <div className="kit-details-messages-container">
+                                        {modelDetail.messages.map((message) => (
+                                             <FriendBuildMessage key={message.id} message={message} />
+                                        ))
+                                        }
+                                    </div>
+                                </section>)
                                 : null}
                         </div>
                     </div>)
