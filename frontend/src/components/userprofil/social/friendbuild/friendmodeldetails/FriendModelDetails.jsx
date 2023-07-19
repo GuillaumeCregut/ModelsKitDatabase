@@ -20,7 +20,6 @@ const FriendModelDetails = () => {
     const [reload, setReload]=useState(false);
 
     const urlDetail = `${import.meta.env.VITE_APP_URL}`;
-    console.log(state)
     useEffect(() => {
         const getModelDetails = () => {
             const url = `${import.meta.env.VITE_APP_API_URL}friends/${state.friendId}/models/${state.modelId}`;
@@ -28,7 +27,6 @@ const FriendModelDetails = () => {
                 .get(url)
                 .then((resp) => {
                     setDetails(resp.data);
-                    console.log(resp.data)
                     setLoaded(true);
                     setError(false);
                 })
