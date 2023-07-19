@@ -1,5 +1,6 @@
 const { logError, logInfo, logWarning } = require('../utils/logEvent');
 const Model = require('../classes/model.class');
+const friendModel=require('../models/friend.model');
 const modelModel = require('../models/model.model');
 const Joi = require('joi');
 const fs = require('fs');
@@ -320,7 +321,11 @@ const getAllInfoKit = async (req, res) => {
             }
             result.pictures = pictures;
         }
-        return res.json(result);
+        const messagesKit=await friendModel.getModelMessage(idKit);
+        if(messagesKit.error!==0){
+            return res.sendStatus(500);
+        }
+        return res.json({...result, messages:messagesKit.result});
     }
     else {
         await logInfo(`ModelController.getAllInfoKit : ${result}`);
