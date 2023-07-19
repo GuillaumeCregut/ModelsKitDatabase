@@ -4,8 +4,8 @@ import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { Link } from 'react-router-dom';
 import { AwaitLoad } from '../../awaitload/AwaitLoad';
 import { toast } from 'react-toastify';
-import {MdPhotoCamera} from "react-icons/md";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { MdPhotoCamera, MdMessage } from "react-icons/md";
+import { Badge, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 import './FinishedModel.scss';
 
@@ -50,6 +50,7 @@ const FinishedModel = () => {
                                             <TableCell>Marque</TableCell>
                                             <TableCell>Echelle</TableCell>
                                             <TableCell>Photos</TableCell>
+                                            <TableCell>Messages</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -59,7 +60,14 @@ const FinishedModel = () => {
                                                     <TableCell><Link to={`details/${item.id}`}><span className="finished-item-name">{item.builderName} {item.modelName}</span></Link></TableCell>
                                                     <TableCell>{item.brandName}</TableCell>
                                                     <TableCell>{item.scaleName}</TableCell>
-                                                    <TableCell>{item.pictures?<MdPhotoCamera className='icon-photo-finished' />:''}</TableCell>
+                                                    <TableCell>{item.pictures ? <MdPhotoCamera className='icon-photo-finished' /> : ''}</TableCell>
+                                                    <TableCell>
+                                                        {item.nbMessages > 0 && (
+                                                            <Badge badgeContent={item.nbMessages} color="primary">
+                                                                <MdMessage className='message-in-build'/>
+                                                            </Badge>
+                                                        )}
+                                                    </TableCell>
                                                 </TableRow>
 
                                             ))
