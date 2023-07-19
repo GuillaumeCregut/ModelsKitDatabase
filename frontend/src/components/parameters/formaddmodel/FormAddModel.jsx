@@ -30,7 +30,7 @@ const FormAddModel = ({setReload}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const url = `${import.meta.env.VITE_APP_API_URL}model`;
+        const url = `${import.meta.env.VITE_APP_API_URL}models`;
         if ((parseInt(selectedBrand) !== 0) && (parseInt(selectedBuilder) !== 0) && (parseInt(selectedScale) !== 0) && (parseInt(selectedCategory) !== 0) && (parseInt(selectedPeriod) !== 0) && (nameRef.current.value !== '') && (refRef.current.value !== '')) {
             const formData = new FormData();
             formData.append('file', fileUpload);

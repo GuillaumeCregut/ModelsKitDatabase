@@ -3,11 +3,13 @@ class Orders{
     providerName;
     ownerId;
     reference;
+    dateOrder;
     models=[];
-    constructor(provider,owner,reference){
+    constructor(provider,owner,reference,dateOrder){
         this.reference=reference;
         this.ownerId=owner;
         this.providerId=provider;
+        this.dateOrder=dateOrder;
     }
 
     setProviderName (name){

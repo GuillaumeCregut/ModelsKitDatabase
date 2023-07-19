@@ -4,30 +4,33 @@
         text-align: center;
     }
 
-    .list-finished-model-container{
-        padding: 5px;
-        width: 200px;
-        border: 1px solid black;
-        max-height: 350px;
-        overflow-y: auto;
+    .finished-item-name{
+        color: black;
+    }
+
+    .finished-item-name:hover{
+        cursor: zoom-in;
     }
 
     .list-finished-model{
         width: 100%;
     }
 
-    .list-finished-item{
-        cursor: pointer;
-        padding: 5px;
-        margin: 3px 0;
+    .icon-photo-finished{
+        width: 30px;
+        height: 30px;
     }
 
-    .list-finished-item:hover{
-        background-color: blue;
-        color : white;
+    .message-in-build{
+        width: 30px;
+        height: 30px;
     }
 
-    .list-finished-item:hover>a{
-        color: white;
+    @media screen and (max-width: 768px) {
+        grid-area: 1 / 2 / 1/ 1;
+
+        .list-finished-model-container{
+            width: 100vw;
+        }
     }
 }

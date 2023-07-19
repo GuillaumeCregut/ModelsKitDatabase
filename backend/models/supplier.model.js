@@ -1,92 +1,81 @@
-const Supplier =require('../classes/Supplier.class');
+const Supplier = require('../classes/Supplier.class');
 const { dbquery } = require('../utils/dbutils');
 
-const findAll=async()=>{
+const findAll = async () => {
     const dbResult = await dbquery('get', 'SELECT * FROM provider ORDER BY owner,name');
-    if (dbResult && dbResult !== -1) {
-        const resultat = dbResult.map(element => {
-            const item = new Supplier(element.id, element.name,element.owner);
+    if (dbResult.error === 0) {
+        const resultat = dbResult.result.map(element => {
+            const item = new Supplier(element.id, element.name, element.owner);
             return item;
         });
         return resultat;
     }
-    else if(dbResult===-1)
-    {
-        return undefined;
-    }
     else
-        return -1;
+        return dbResult.result;
 }
 
-const findOne=async(id)=>{
-    const dbResult = await dbquery('get', 'SELECT * FROM provider WHERE id=?',id);
-    if (dbResult.length>0 && dbResult !== -1) {
-        const item=dbResult[0];
-        const supplier=new Supplier(item.id,item.name,item.owner)    
+const findOne = async (id) => {
+    const dbResult = await dbquery('get', 'SELECT * FROM provider WHERE id=?', id);
+    if (dbResult.error === 0) {
+        if (dbResult.result.length === 0)
+            return [];
+        const item = dbResult.result[0];
+        const supplier = new Supplier(item.id, item.name, item.owner)
         return supplier;
     }
-    else if(dbResult===-1)
-    {
-        return undefined;
-    }
     else
-        return -1;
+        return dbResult.result;
 }
 
-const findAllUser=async(idUser)=>{
-    const dbResult = await dbquery('get', 'SELECT * FROM provider WHERE owner=? ORDER BY name',[idUser]);
-    if (dbResult && dbResult !== -1) {
-        const resultat = dbResult.map(element => {
-            const item = new Supplier(element.id, element.name,element.owner);
+const findAllUser = async (idUser) => {
+    const dbResult = await dbquery('get', 'SELECT * FROM provider WHERE owner=? ORDER BY name', [idUser]);
+    if (dbResult.error === 0) {
+        const resultat = dbResult.result.map(element => {
+            const item = new Supplier(element.id, element.name, element.owner);
             return item;
         });
         return resultat;
     }
-    else if(dbResult===-1)
-    {
-        return undefined;
-    }
     else
-        return -1;
+        return dbResult.result;
 }
 
-const findOneUser=async(idUser,idSupplier)=>{
-    const dbResult = await dbquery('get', 'SELECT * FROM provider WHERE id=? AND owner=?',[idSupplier, idUser]);
-    if (dbResult.length>0 && dbResult !== -1) {
-        const item=dbResult[0];
-        const supplier=new Supplier(item.id,item.name,item.owner)    
-        return supplier;
-    }
-    else if(dbResult===-1)
-    {
-        return undefined;
+const findOneUser = async (idUser, idSupplier) => {
+    const dbResult = await dbquery('get', 'SELECT * FROM provider WHERE id=? AND owner=?', [idSupplier, idUser]);
+    if (dbResult.error===0) {
+        if (dbResult.result.length > 0) {
+            const item = dbResult.result[0];
+            const supplier = new Supplier(item.id, item.name, item.owner)
+            return supplier;
+        }
+        else return []
     }
     else
-        return -1;
+        return dbResult.result;
 }
 
-const addOne=async(supplier)=>{
-    const dbResult = await dbquery('add', 'INSERT INTO provider (name,owner) VALUES(?,?)', [supplier.name,supplier.owner]);
-    if (dbResult != -1) {
-       supplier.setId(dbResult);
+const addOne = async (supplier) => {
+    const dbResult = await dbquery('add', 'INSERT INTO provider (name,owner) VALUES(?,?)', [supplier.name, supplier.owner]);
+    if (dbResult.error===0) {
+        supplier.setId(dbResult.result);
         return supplier;
     }
     else {
-        return undefined;
+        return dbResult.result;
     }
 }
 
-const updateOne=async(supplier)=>{
-    const dbResult = await dbquery('update', 'UPDATE provider SET name=?, owner=? WHERE id=?', [supplier.name,supplier.owner ,supplier.id]);
+const updateOne = async (supplier) => {
+    const dbResult = await dbquery('update', 'UPDATE provider SET name=?, owner=? WHERE id=?', [supplier.name, supplier.owner, supplier.id]);
     return dbResult;
 }
 
-const deleteOne=async(id)=>{
+const deleteOne = async (id) => {
     const dbResult = await dbquery('delete', 'DELETE FROM provider WHERE id=?', [id]);
     return dbResult;
 }
 
-module.exports={
+module.exports = {
     findAll,
     findAllUser,
     findOne,

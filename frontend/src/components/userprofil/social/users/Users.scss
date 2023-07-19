@@ -1,0 +1,60 @@
+.social-page {
+
+    .social-container {
+        display: grid;
+        padding: 10px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 10px 10px;
+        grid-template-areas:
+            "new-social list"
+            "my-friends my-friends";
+    }
+
+    .social-block {
+        padding: 10px;
+    }
+    
+    .container-boxes{
+        border: 1px solid black;
+        border-radius: 20px;
+        padding: 10px;
+    }
+
+    .new-social {
+        grid-area: new-social;
+    }
+
+    .list {
+        grid-area: list;
+    }
+
+    .my-friends {
+        grid-area: my-friends;
+    }
+
+    .list-users-container {
+        width: 50vw;
+        margin: 0 auto;
+        max-height: 350px;
+        overflow-y: scroll;
+    }
+
+    @media screen and (max-width: 768px) {
+        grid-area: 1/1/2/2;
+        width: 100vw;
+        
+        .social-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-users-container{
+            width: 100%;
+        }
+        
+        .social-block{
+            margin: 10px 0;
+        }
+    }
+}

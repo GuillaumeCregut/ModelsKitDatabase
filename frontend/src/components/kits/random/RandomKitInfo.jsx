@@ -24,7 +24,7 @@ const RandomKitInfo = ({ kit }) => {
             owner:userId,
             newState: kitState.wip
         }
-        const url = `${import.meta.env.VITE_APP_API_URL}model/stock/`;
+        const url = `${import.meta.env.VITE_APP_API_URL}models/stock/`;
         axiosPrivate
             .put(url, data)
             .then(() => {

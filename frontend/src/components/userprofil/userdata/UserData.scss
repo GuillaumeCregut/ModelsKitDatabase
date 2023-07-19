@@ -4,7 +4,22 @@
         text-align: center;
     }
 
+    .user-info-avatar-container{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+        width: 30vw;
+    }
+
     .user-modif-btn{
         margin: 7px;
+    }
+    @media screen and (max-width: 768px) {
+        grid-area: 1/1/2/2;
+
+        .user-info-avatar-container{
+            flex-direction: column;
+        }
     }
 }

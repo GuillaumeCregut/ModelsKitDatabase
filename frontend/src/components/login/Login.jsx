@@ -47,7 +47,8 @@ const Login = () => {
                             lastname: decoded.lastname,
                             id: decoded.user_id,
                             rank: decoded.rank,
-                            token: { accessToken: token }
+                            token: { accessToken: token },
+                            avatar:decoded.avatar
                         }
                         setAuth(user);
                         const userToStorage = {
@@ -60,7 +61,7 @@ const Login = () => {
                 })
                 .catch((err) => {
                     let errorMessage = '';
-                    switch (err.response.status) {
+                    switch (err?.response?.status) {
                         case 401: errorMessage = "Login ou mot de passe invalide";
                             break;
                         case 404: errorMessage = "Utilisateur inexistant";

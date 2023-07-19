@@ -26,7 +26,7 @@ const InnerMgmt = ({ orderedModels, likedModels, workbenchModels, finishedModels
         stocked: stockModels,
     });
     const sendData = useCallback(async (data) => {
-        const url = `${import.meta.env.VITE_APP_API_URL}model/stock/`;
+        const url = `${import.meta.env.VITE_APP_API_URL}models/stock/`;
         const result = await axiosPrivate
             .put(url, data)
             .then((resp) => {

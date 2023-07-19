@@ -1,0 +1,19 @@
+.friend-demand-container {
+
+    .friend-demand-card-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .demand-title {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    @media screen and (max-width: 768px) {
+        .friend-demand-card-container {
+            justify-content: center;  
+        }
+    }
+}

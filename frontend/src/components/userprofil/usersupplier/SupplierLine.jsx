@@ -22,14 +22,17 @@ const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
     /* */
     const handleDelete = () => {
         const id = supplier.id;
-        const url = `${import.meta.env.VITE_APP_API_URL}supplier/${supplier.id}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}suppliers/${supplier.id}`;
         axiosPrivate
             .delete(url)
             .then((resp) => {
                 setSuppliers(suppliers.filter((item) => item.id !== id))
             })
             .catch((err) => {
-                toast.error('Une erreur est survenue');
+                if (err?.response?.status === 423)
+                    toast.warn('La suppression de ce fournisseur est impossible.');
+                else
+                    toast.error('Une erreur est survenue');
             })
     }
 
@@ -39,7 +42,7 @@ const SupplierLine = ({ supplier, suppliers, setSuppliers }) => {
             name: newName,
             owner: supplier.owner
         }
-        const url = `${import.meta.env.VITE_APP_API_URL}supplier/${supplier.id}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}suppliers/${supplier.id}`;
         axiosPrivate
             .put(url, newSupplier)
             .then((resp) => {

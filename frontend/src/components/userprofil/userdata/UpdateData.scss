@@ -57,4 +57,14 @@
     .input-user{
         margin-left: 7px;
     }
+
+    .user-options{
+        display: flex;
+        flex-direction: column;
+        margin : 10px 0;
+    }
+
+    .change-avatar{
+        margin : 10px 0;
+    }
 }

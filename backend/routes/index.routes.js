@@ -10,6 +10,8 @@ const brand=require('./brand.routes');
 const builder=require('./builder.route');
 const category=require('./category.route');
 const country=require('./country.routes');
+const friends=require('./friends.routes');
+const message=require('./message.routes');
 const model=require('./model.route');
 const order=require('./order.route');
 const period=require('./period.routes');
@@ -26,17 +28,19 @@ router.use('/refresh',refresAuth);
 
 /* Routes*/
 router.use('/admin',userCheck,checkLevel,admin);
-router.use('/brand',brand);
-router.use('/builder',builder);
-router.use('/country',country);
-router.use('/category',category);
-router.use('/model',model);
-router.use('/order',order);
-router.use('/period',period);
-router.use('/scale',scale);
-router.use('/state',state);
+router.use('/brands',brand);
+router.use('/builders',builder);
+router.use('/categories',category);
+router.use('/countries',country);
+router.use('/friends',friends);
+router.use('/models',model);
+router.use('/messages',message);
+router.use('/orders',order);
+router.use('/periods',period);
+router.use('/scales',scale);
+router.use('/states',state);
 router.use('/stats',stats);
-router.use('/supplier',supplier);
+router.use('/suppliers',supplier);
 router.use('/users',users);
 
 /* Default routes */

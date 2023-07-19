@@ -70,7 +70,7 @@ DROP TABLE IF EXISTS `friend`;
 CREATE TABLE IF NOT EXISTS `friend` (
   `id_friend1` int NOT NULL,
   `id_friend2` int NOT NULL,
-  `is_ok` tinyint(1) NOT NULL DEFAULT '0',
+  `is_ok` SMALLINT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_friend1`,`id_friend2`),
   KEY `id2_friend` (`id_friend2`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `owner` int NOT NULL,
   `provider` int NOT NULL,
   `reference` varchar(50) NOT NULL,
+  `dateOrder` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`reference`),
   KEY `c_order_owner` (`owner`),
   KEY `c_order_provider` (`provider`)
@@ -233,11 +234,28 @@ CREATE TABLE IF NOT EXISTS `user` (
   `login` varchar(200) NOT NULL,
   `email` varchar(255) NOT NULL,
   `refreshToken` varchar(255) DEFAULT NULL,
+  `isVisible` BOOLEAN NOT NULL DEFAULT FALSE,
+  `pwdtoken` VARCHAR(255) NULL,
+  `avatar` VARCHAR(255) NULL,
+  `allow` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
+DROP TABLE IF EXISTS `private_message`;
+CREATE TABLE IF NOT EXISTS `private_message` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `exp` int NOT NULL,
+  `dest` int NOT NULL,
+  `date_m` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_read` tinyint(1) NOT NULL  DEFAULT '0',
+  `message` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `c_exp_message` (`exp`),
+  KEY `c_dest_message` (`dest`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
 -- Structure de la vue `all_info_model`
 --
@@ -274,8 +292,16 @@ CREATE  VIEW `model_full`  AS SELECT `m`.`id` AS `id`, `m`.`name` AS `name`, `m`
 DROP TABLE IF EXISTS `mymodels`;
 
 DROP VIEW IF EXISTS `mymodels`;
-CREATE  VIEW `mymodels`  AS SELECT `mu`.`id` AS `id`, `mu`.`model` AS `idModel`, `mu`.`state` AS `state`, `mu`.`pictures` AS `pictures`, `mu`.`owner` AS `owner`, `s`.`name` AS `stateName`, `m`.`name` AS `modelName`, `m`.`reference` AS `reference`, `m`.`picture` AS `boxPicture`, `bu`.`name` AS `builderName`, `st`.`name` AS `scaleName`, `br`.`name` AS `brandName` FROM (((((`model_user` `mu` join `state` `s` on((`mu`.`state` = `s`.`id`))) join `model` `m` on((`mu`.`model` = `m`.`id`))) join `builders` `bu` on((`m`.`builder` = `bu`.`id`))) join `scale` `st` on((`m`.`scale` = `st`.`id`))) join `brand` `br` on((`m`.`brand` = `br`.`id`)))  ;
-
+DROP VIEW IF EXISTS `mymodels`;
+CREATE  VIEW mymodels  AS 
+SELECT mu.id AS id, mu.model AS idModel, mu.state AS state, mu.pictures AS pictures,mu.price ,mu.owner AS owner, s.name AS stateName, m.name AS modelName, m.reference AS reference, m.picture AS boxPicture, bu.name AS builderName, st.name AS scaleName, br.name AS brandName,p.name as providerName 
+FROM
+model_user mu inner join state s on mu.state = s.id
+ inner join model m on mu.model = m.id 
+ inner join builders bu on m.builder = bu.id 
+ inner join scale st on m.scale = st.id 
+ inner join brand br on m.brand = br.id
+ left join provider p ON mu.provider=p.id;
 
 ALTER TABLE `builders`
   ADD CONSTRAINT `c_country_family` FOREIGN KEY (`country`) REFERENCES `country` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
@@ -324,3 +350,17 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `provider`
   ADD CONSTRAINT `c_user_provider` FOREIGN KEY (`owner`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+CREATE TABLE model_message (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `fk_model` INT NOT NULL ,
+  `fk_author` INT NOT NULL , 
+  `date_message` DATE NOT NULL , 
+  `message` TEXT NOT NULL ,
+   PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `model_message` ADD CONSTRAINT `c_model_com` FOREIGN KEY (`fk_model`) REFERENCES `model_user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `model_message` ADD CONSTRAINT `c_author_com` FOREIGN KEY (`fk_author`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `private_message`
+  ADD CONSTRAINT `c_dest_message` FOREIGN KEY (`dest`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `c_exp_message` FOREIGN KEY (`exp`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;

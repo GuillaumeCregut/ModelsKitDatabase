@@ -13,7 +13,7 @@ const ScaleContainer = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const dispatch = useDispatch();
     const scalesData = useSelector((state) => state.scales.scale);
-    const url = `${import.meta.env.VITE_APP_API_URL}scale`;
+    const url = `${import.meta.env.VITE_APP_API_URL}scales`;
     const axiosPrivate = useAxiosPrivate();
 
     const addAction = (newData) => {

@@ -12,7 +12,7 @@ const Random = () => {
     const [model, setModel] = useState(null);
 
     const handleClick = () => {
-        const url = `${import.meta.env.VITE_APP_API_URL}model/user/random`;
+        const url = `${import.meta.env.VITE_APP_API_URL}models/user/random`;
         axiosPrivate
             .get(url)
             .then((resp)=>{
@@ -25,7 +25,7 @@ const Random = () => {
     return (
         <div className='random-kit-container'>
             <h2 className="random-title">Selection aléatoire</h2>
-            <p className="random-desc">Vous ne savez pas quel kit de votre stock vous souahitez mettre sur l'établi ?<br />
+            <p className="random-desc">Vous ne savez pas quel kit de votre stock vous souhaitez mettre sur l'établi ?<br />
                 Laisser le hasard vous proposer un kit</p>
             <p className='random-btn'>
                 <Button variant="contained" startIcon={<MdOutlineManageSearch />} onClick={handleClick}>

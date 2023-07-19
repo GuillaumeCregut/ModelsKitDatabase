@@ -10,9 +10,13 @@ import screenGenerator from '../../assets/pictures/screens/generateur.png';
 import screenManagement from '../../assets/pictures/screens/gestion.png';
 import screenPdf from '../../assets/pictures/screens/pdf.png';
 import screenStats from '../../assets/pictures/screens/statistiques.png';
-import screenStock from '../../assets/pictures/screens/stock.png';
-import screenFinished from '../../assets/pictures/screens/termines.png';
+import screenSocial from '../../assets/pictures/screens/social.png';
+import screenFinished from '../../assets/pictures/screens/message-finished.png';
 import heroImage from '../../assets/pictures/home-hero.png';
+import screenFriendFinishedDetails from '../../assets/pictures/screens/friend-finished-details.png';
+import screenFriendFinished from '../../assets/pictures/screens/friend-finished.png';
+import screenMessages from '../../assets/pictures/screens/messages.png';
+
 import './Home.scss';
 
 export const Home = () => {
@@ -32,13 +36,6 @@ export const Home = () => {
       </main>
       <section className="screen-container">
           <article className="sreen-app">
-            {/* <section className="step-item">
-              <div className="text-item">
-              </div>
-              <div className="picture-item">
-                <img src={} alt="" className="screen-picture" />
-              </div>
-            </section> */}
             <section className="step-item">
               <div className="text-item">
                 Notre système vous propose de gérer une liste de kits partagée, à partir de laquelle vous pouvez gérer votre propre stock.<br />
@@ -96,6 +93,39 @@ export const Home = () => {
                 <img src={screenPdf} alt="pdf" className="screen-picture" />
               </div>
             </section>
+
+            <section className="step-item">
+              <div className="text-item">
+                Nouveauté 1.2 : Les relations utilisateurs. Retrouver vos amis afin de pouvoir echanger des messages, consulter leurs montages...
+              </div>
+              <div className="picture-item">
+                <img src={screenSocial} alt="social" className="screen-picture" />
+              </div>
+            </section>
+            <section className="step-item">
+              <div className="text-item">
+                Nouveauté 1.2 : Les relations utilisateurs. Maintenant, vous pouvez échanger des messages avec vos amis.
+              </div>
+              <div className="picture-item">
+                <img src={screenMessages} alt="messages" className="screen-picture" />
+              </div>
+            </section>
+            <section className="step-item">
+              <div className="text-item">
+                Vous pouvez admirer les réalisations de vos amis.
+              </div>
+              <div className="picture-item">
+                <img src={screenFriendFinished} alt="kits mais" className="screen-picture" />
+              </div>
+            </section>
+            <section className="step-item">
+              <div className="text-item">
+                Et leur laisser un message si leur montage vous plait.
+              </div>
+              <div className="picture-item">
+                <img src={screenFriendFinishedDetails} alt="kits mais" className="screen-picture" />
+              </div>
+            </section>
             <section className="step-item">
               <div className="text-item">
                 Enfin, sur la page de gestion de kit, vous pouvez gérer votre stock, simplement en faisant glisser vos kits dans la case qui correspond.
@@ -106,7 +136,7 @@ export const Home = () => {
             </section>
             <section className="step-item">
               <div className="text-item">
-                Lorsqu'un kit est terminé, vous pouvez rajouter jusqu'à 4 photos du kit fini.
+                Lorsqu'un kit est terminé, vous pouvez rajouter jusqu'à 4 photos du kit fini. Vous pouvez aussi voir les messages laisser par vos amis.
               </div>
               <div className="picture-item">
                 <img src={screenFinished} alt="modèles terminés" className="screen-picture" />

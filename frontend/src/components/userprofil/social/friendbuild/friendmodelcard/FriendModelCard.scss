@@ -1,0 +1,24 @@
+.friend-model-card{
+    cursor: pointer;
+    -webkit-box-shadow: 12px 11px 24px -3px #8A8A8A; 
+    box-shadow: 12px 11px 24px -3px #8A8A8A;
+    border-radius: 30px;
+    border: 1px solid rgb(163, 161, 161);
+    padding: 20px;
+
+    .friend-model-box{
+        width: 300px;
+    }
+
+    .icon-photo-finished{
+        height: 30px;
+        width: 30px;
+        margin-top: 5px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .friend-model-box{
+            width: 200px;
+        }
+    }
+}

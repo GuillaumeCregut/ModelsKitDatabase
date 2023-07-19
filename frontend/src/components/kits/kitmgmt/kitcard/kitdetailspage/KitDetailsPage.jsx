@@ -8,10 +8,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import kitState from '../../../../../feature/kitState';
 import { MdFlag, MdBuild, MdOutlineAccessTime, MdOutlineTimeToLeave, MdOutlineBrandingWatermark, MdScale } from "react-icons/md";
+import { BsCurrencyEuro } from "react-icons/bs";
 
 import './KitDetailsPage.scss';
 
-const KitDetailsPage = (props) => {
+const KitDetailsPage = () => {
     const location = useLocation();
     const [model, setModel] = useState();
     const [loaded, SetLoaded] = useState(false);
@@ -22,7 +23,7 @@ const KitDetailsPage = (props) => {
 
     useEffect(() => {
         const getModel = () => {
-            const url = `${import.meta.env.VITE_APP_API_URL}model/${params.id}`;
+            const url = `${import.meta.env.VITE_APP_API_URL}models/${params.id}`;
             axiosPrivate
                 .get(url)
                 .then((resp) => {
@@ -85,6 +86,19 @@ const KitDetailsPage = (props) => {
                     <ListItem>
                         <ListItemText>Statut : {stockModel.stateName}</ListItemText>
                     </ListItem>
+                    {stockModel.providerName
+                        ? (<ListItem>
+                            <ListItemText>Fournisseur : {stockModel.providerName}</ListItemText>
+                        </ListItem>)
+                        : null}
+                    {stockModel.price
+                        ? (<ListItem>
+                            <ListItemIcon>
+                                <BsCurrencyEuro />
+                            </ListItemIcon>
+                            <ListItemText>Prix : {stockModel.price} euros</ListItemText>
+                        </ListItem>)
+                        : null}
                 </List>)
                 : null}
             {stockModel.state === kitState.finished

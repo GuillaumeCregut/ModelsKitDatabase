@@ -6,7 +6,7 @@ import useAuth from '../../../hooks/useAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCountry } from '../../../feature/Country.slice';
 import { deleteBuilder, updateBuilder } from '../../../feature/Builder.slice';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import IconButton from '@mui/material/IconButton';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -25,7 +25,7 @@ const BuilderTable = ({ builder }) => {
 
     useEffect(() => {
         const getCountries = () => {
-            const urlCountry = `${import.meta.env.VITE_APP_API_URL}country`;
+            const urlCountry = `${import.meta.env.VITE_APP_API_URL}countries`;
             axiosPrivate.get(urlCountry)
                 .then((res) => {
                     dispatch(setCountry(res.data))
@@ -39,13 +39,13 @@ const BuilderTable = ({ builder }) => {
             setCountryLoaded(true);
     }, [])
 
-    const updateData = async (newRow, countryId, countryName,old) => {
+    const updateData = async (newRow, countryId, countryName, old) => {
         const newItem = { name: newRow.name, country: countryId };
-        const urlApi = `${import.meta.env.VITE_APP_API_URL}builder/${newRow.id}`;
+        const urlApi = `${import.meta.env.VITE_APP_API_URL}builders/${newRow.id}`;
         return axiosPrivate
             .put(urlApi, newItem)
             .then(() => {
-                dispatch(updateBuilder([{name:newRow.name,countryId,countryName}, newRow.id]))
+                dispatch(updateBuilder([{ name: newRow.name, countryId, countryName }, newRow.id]))
                 return ({ ...newRow, isNew: false })
             })
             .catch((err) => {
@@ -71,26 +71,29 @@ const BuilderTable = ({ builder }) => {
         async (newRow) => {
             const id = newRow.id;
             const BuilderCountry = apiRef.current.getCellValue(id, 'countryId');
-            const countryName=apiRef.current.getRow(id).countryName;
+            const countryName = apiRef.current.getRow(id).countryName;
             //countryName
             const oldName = apiRef.current.getCellValue(id, 'name');
             const updatedRow = { ...newRow, isNew: false };
-            return await updateData(updatedRow, BuilderCountry,countryName,oldName);
+            return await updateData(updatedRow, BuilderCountry, countryName, oldName);
         }, []);
 
     const handleProcessRowUpdateError = useCallback((error) => {
-       
+
     }, []);
 
     const handleDelete = (rowData) => {
-        const url = `${import.meta.env.VITE_APP_API_URL}builder/${rowData.id}`;
+        const url = `${import.meta.env.VITE_APP_API_URL}builders/${rowData.id}`;
         axiosPrivate
             .delete(url)
             .then((resp) => {
                 dispatch(deleteBuilder(rowData.id));
             })
             .catch((err) => {
-                toast.error("Vous n'êtes pas autorisé à supprimer cet élément.");
+                if (err?.response?.status === 423)
+                    toast.warn("La suppression de ce constructeur est impossible.");
+                else
+                    toast.error("Vous n'êtes pas autorisé à supprimer cet élément.");
             })
     }
 
@@ -99,11 +102,11 @@ const BuilderTable = ({ builder }) => {
             name: paramsRow.name,
             country: newValue
         }
-        const urlApi = `${import.meta.env.VITE_APP_API_URL}builder/${paramsRow.id}`;
+        const urlApi = `${import.meta.env.VITE_APP_API_URL}builders/${paramsRow.id}`;
         axiosPrivate
             .put(urlApi, newItem)
             .then((res) => {
-                dispatch(updateBuilder([{name:paramsRow.name,countryId:parseInt(newValue,10),countryName:res.data.name},paramsRow.id]))
+                dispatch(updateBuilder([{ name: paramsRow.name, countryId: parseInt(newValue, 10), countryName: res.data.name }, paramsRow.id]))
             })
             .catch((err) => {
                 switch (err?.response?.status) {
@@ -139,7 +142,7 @@ const BuilderTable = ({ builder }) => {
                         id="country-select"
                         defaultValue={params.value}
                         onChange={(e) => updateCountry(params.row, e.target.value)}
-                         className='builder-add-select'
+                        className='builder-add-select'
                     >
                         {countryLoaded
                             ? countryData.map((item) => (
@@ -158,28 +161,28 @@ const BuilderTable = ({ builder }) => {
             headerName: 'Action',
             width: 130,
             renderCell: (params) => {
-                return (rankUser === ranks.admin ? <IconButton onClick={() => handleDelete(params)}><FaTrash className='builder-delete'/> </IconButton> : null);
+                return (rankUser === ranks.admin ? <IconButton onClick={() => handleDelete(params)}><FaTrash className='builder-delete' /> </IconButton> : null);
             },
         },
     ]
 
 
     return (
-            <DataGrid
-                isRowSelectable={() => false}
-                processRowUpdate={handleProcess}
-                onProcessRowUpdateError={handleProcessRowUpdateError}
-                rows={builder}
-                apiRef={apiRef}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10]}
-                checkboxSelection
-            />
+        <DataGrid
+            isRowSelectable={() => false}
+            processRowUpdate={handleProcess}
+            onProcessRowUpdateError={handleProcessRowUpdateError}
+            rows={builder}
+            apiRef={apiRef}
+            columns={columns}
+            initialState={{
+                pagination: {
+                    paginationModel: { page: 0, pageSize: 5 },
+                },
+            }}
+            pageSizeOptions={[5, 10]}
+            checkboxSelection
+        />
     )
 }
 

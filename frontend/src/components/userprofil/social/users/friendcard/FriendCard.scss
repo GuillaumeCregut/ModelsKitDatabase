@@ -1,0 +1,65 @@
+.friend-card {
+    border: 1px solid black;
+    width: 250px;
+    height: 100px;
+    border-radius: 10px;
+    display: grid;
+    padding: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+    "avatar name-user"
+    "buttons buttons";
+    -webkit-box-shadow: 14px 16px 12px -3px rgba(71,71,71,0.29); 
+    box-shadow: 14px 16px 12px -3px rgba(71,71,71,0.29);
+
+    .friend-avatar-container{
+        grid-area: avatar;
+    }
+
+    .friend-name-container{
+        grid-area: name-user;
+    }
+
+    .friend-social-container{
+        grid-area: buttons;
+        display: flex;
+        justify-content: space-between;
+       margin: 7px;
+    }
+
+    .friend-icon{
+        width: 30px;
+        height: 30px;
+    }
+
+    .heart-container{
+        position: relative;
+        background-color: transparent;
+        width:32px;
+        height: 32px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .heart-container:active{
+        transform: scale(80%);
+    }
+
+    .is-ok{
+        position : absolute;
+        color: rgb(19, 202, 19);
+        top: 0;
+        left :0;
+    }
+
+    .stop{
+        position: absolute;
+        color: red;
+        z-index: 2;
+        top: 0;
+        left :0;
+        transform:scale(70%);
+    }
+}

@@ -1,0 +1,82 @@
+.friend-model-details-container{
+
+    .history-back{
+        margin: 20px 0;
+    }
+
+    .title-friend-kit-detail{
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .details-friend-kit{
+        margin: 20px;
+    }
+
+    .img-box-detail{
+        width: 250px;
+    }
+
+    .title-friend-pictures{
+        margin: 10px 0;
+    }
+
+    .picture-model-container{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap : 10px;
+    }
+
+    .img-built-model{
+        width: 350px;
+    }
+
+    .new-message-text{
+        padding : 5px;
+    }
+
+    .new-model-message{
+        display: flex;
+        flex-direction: column;
+        width: 60vw;
+        margin: 0 auto;
+        gap : 10px;
+    }
+
+    .btn-send-model-message{
+        width: 90px;
+        margin: 0 auto;
+    }
+
+    .message-model-container{
+        width: 60vw;
+        display: flex;
+        flex-direction: column;
+        max-height: 350px ;
+        overflow-y: scroll;
+    }
+
+    @media screen and (max-width: 768px) {
+        grid-area: 1/1/2/2;
+        width: 100vw;
+
+        .details-friend-kit{
+            margin : 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .picture-model-container{
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .message-model-container{
+            width: 90vw;
+            margin: 10px auto;
+        }
+    }
+
+}

@@ -15,10 +15,10 @@ class MyError extends Error {
 //get all model for users where
 getModelWishes = async (idUser) => {
     const result = await dbquery('get', 'SELECT id,model FROM model_user WHERE state=4 AND owner=?', [idUser])
-    if (result && result !== -1) {
-        return result;
+    if (result.error===0) {
+        return result.result;
     }
-    else return -1;
+    else return result.result;
 }
 
 const changWishes = async (wish, model, order) => {
@@ -40,9 +40,13 @@ const changWishes = async (wish, model, order) => {
 
 const findAll=async()=>{
     const dbOrders = await dbquery('get', 'SELECT o.provider, o.owner,o.reference, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id');
-    if (dbOrders.length > 0 && dbOrders !== -1) {
-        const orderList = dbOrders.map((order) => {
-            const newOrder = new Order(order.provider,  order.owner, order.reference);
+    if (dbOrders.error===0) {
+        const orderList = dbOrders.result.map((order) => {
+            let dateLine=null;
+            if(order.dateOrder){
+                dateLine=`${order.dateOrder.getDate()}/${order.dateOrder.getMonth()+1}/${order.dateOrder.getFullYear()}`;
+            }
+            const newOrder = new Order(order.provider,  order.owner, order.reference,dateLine);
             newOrder.setProviderName(order.name);
             return newOrder;
         })
@@ -50,8 +54,8 @@ const findAll=async()=>{
         for(let i=0;i<orderList.length;i++){
             const order=orderList[i];
             const dbItems = await dbquery('get', 'SELECT mo.id, mo.model_id,mo.qtte,mo.price,m.name FROM model_order mo INNER JOIN model m ON mo.model_id=m.id  WHERE mo.order_id=?', [order.reference]);
-            if (dbItems && dbItems !== -1) {
-                dbItems.forEach((model) => {
+            if (dbItems.error===0) {
+                dbItems.result.forEach((model) => {
                     const newModel = {
                         id: model.model_id,
                         qtty: model.qtte,
@@ -64,18 +68,21 @@ const findAll=async()=>{
         }
         return orderList;
     }
-    else if (dbOrders === -1) {
-        return dbOrders;
-    }
-    else return undefined;
+    else return dbOrders.result;
 }
 
 const findAllUser = async (id) => {
     //Get all orders
-    const dbOrders = await dbquery('get', 'SELECT o.provider,o.reference, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.owner=?', [id]);
-    if (dbOrders.length > 0 && dbOrders !== -1) {
-        const orderList = dbOrders.map((order) => {
-            const newOrder = new Order(order.provider, id, order.reference);
+    const dbOrders = await dbquery('get', 'SELECT o.provider,o.reference,o.dateOrder, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.owner=?', [id]);
+    if (dbOrders.error===0) {
+        if (dbOrders.result.length===0)
+            return [];
+        const orderList = dbOrders.result.map((order) => {
+            let dateLine=null;
+            if(order.dateOrder){
+                dateLine=`${order.dateOrder.getDate()}/${order.dateOrder.getMonth()+1}/${order.dateOrder.getFullYear()}`;
+            }
+            const newOrder = new Order(order.provider, id, order.reference,dateLine);
             newOrder.setProviderName(order.name);
             return newOrder;
         })
@@ -83,8 +90,8 @@ const findAllUser = async (id) => {
         for(let i=0;i<orderList.length;i++){
             const order=orderList[i];
             const dbItems = await dbquery('get', 'SELECT mo.id, mo.model_id,mo.qtte,mo.price,m.name FROM model_order mo INNER JOIN model m ON mo.model_id=m.id WHERE mo.order_id=?', [order.reference]);
-            if (dbItems && dbItems !== -1) {
-                dbItems.forEach((model) => {
+            if (dbItems.error===0) {
+                dbItems.result.forEach((model) => {
                     const newModel = {
                         id: model.model_id,
                         qtty: model.qtte,
@@ -104,10 +111,14 @@ const findAllUser = async (id) => {
 }
 
 const findOne=async(id)=>{
-    const dbOrders = await dbquery('get', 'SELECT o.provider, o.owner,o.reference, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.reference=?',[id]);
-    if (dbOrders.length > 0 && dbOrders !== -1) {
-        const orderList = dbOrders.map((order) => {
-            const newOrder = new Order(order.provider,  order.owner, order.reference);
+    const dbOrders = await dbquery('get', 'SELECT o.provider, o.owner,o.reference,od.dateOrder, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.reference=?',[id]);
+    if (dbOrders.error===0) {
+        const orderList = dbOrders.result.map((order) => {
+            let dateLine=null;
+            if(order.dateOrder){
+                dateLine=`${order.dateOrder.getDate()}/${order.dateOrder.getMonth()+1}/${order.dateOrder.getFullYear()}`;
+            }
+            const newOrder = new Order(order.provider,  order.owner, order.reference,dateLine);
             newOrder.setProviderName(order.name);
             return newOrder;
         })
@@ -115,8 +126,8 @@ const findOne=async(id)=>{
         for(let i=0;i<orderList.length;i++){
             const order=orderList[i];
             const dbItems = await dbquery('get', 'SELECT mo.id, mo.model_id,mo.qtte,mo.price,m.name FROM model_order mo INNER JOIN model m ON mo.model_id=m.id  WHERE mo.order_id=?', [order.reference]);
-            if (dbItems && dbItems !== -1) {
-                dbItems.forEach((model) => {
+            if (dbItems.error===0) {
+                dbItems.result.forEach((model) => {
                     const newModel = {
                         id: model.model_id,
                         qtty: model.qtte,
@@ -127,12 +138,9 @@ const findOne=async(id)=>{
                 })
             }
         }
-        return orderList[0];
+        return orderList[0]||[];
     }
-    else if (dbOrders === -1) {
-        return dbOrders;
-    }
-    else return undefined;
+    else return dbOrders.result;
 }
 
 
@@ -144,7 +152,7 @@ const addOne = async (order) => {
     await connectionPromise.query('START TRANSACTION');
     try {
         //Create Order in DB
-        await connectionPromise.execute("INSERT INTO orders (owner,provider,reference) VALUES(?,?,?)", [order.ownerId, order.providerId, order.reference])
+        await connectionPromise.execute("INSERT INTO orders (owner,provider,reference,dateOrder) VALUES(?,?,?,?)", [order.ownerId, order.providerId, order.reference,order.dateOrder])
         //check models
         const { models } = order;
         try {
@@ -203,14 +211,11 @@ const addOne = async (order) => {
 const deleteOne=async(id)=>{
     //delete all model_order
     const removeResult=await dbquery('delete','DELETE FROM model_order WHERE order_id=?',[id])
-    if(removeResult && removeResult!==-1){
+    if(removeResult.error===0){
         const removeOrder=await dbquery('delete', 'DELETE FROM orders WHERE reference=?',[id]);
-        return removeOrder
+        return removeOrder;
     }
-    else if (removeResult===-1){
-        return -1;
-    }
-    else return false;
+    else return removeResult.result;
 }
 
 module.exports = {

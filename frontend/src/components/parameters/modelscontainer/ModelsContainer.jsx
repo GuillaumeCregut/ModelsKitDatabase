@@ -19,7 +19,7 @@ const ModelsContainer = () => {
     const [reload, setReload]=useState(false);
     const [modelsFiltered, setModelsFiltered] = useState([]);
     const modelData = useSelector((state) => state.models.model)
-    const url = `${import.meta.env.VITE_APP_API_URL}model`;
+    const url = `${import.meta.env.VITE_APP_API_URL}models`;
     const axiosPrivate=useAxiosPrivate();
     const dispatch = useDispatch();
     const { auth } = useAuth();

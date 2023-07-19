@@ -6,6 +6,7 @@ const { encrypt } = require('../utils/crypto');
 const fs = require('fs');
 const path = require('path');
 const { createSubUpload } = require('../utils/fs');
+const { type } = require('os');
 
 const validate = (data, forCreation = true) => {
     const presence = forCreation ? 'required' : 'optional';
@@ -15,7 +16,9 @@ const validate = (data, forCreation = true) => {
         password: Joi.string().max(200).presence(presence),
         login: Joi.string().max(200).presence(presence),
         email: Joi.string().email().presence(presence),
-        rank: Joi.number().integer().presence('optional')
+        rank: Joi.number().integer().presence('optional'),
+        isVisible:Joi.boolean().presence('optional'),
+        allow:Joi.boolean().presence('optional'),
     }).validate(data, { abortEarly: false }).error;
 }
 
@@ -29,26 +32,34 @@ const validateModel = (data, forCreation = true) => {
 
 const getAll = async (req, res) => {
     const result = await userModel.findAll();
-    if (result && result !== -1)
+    if (typeof result === 'object')
         res.json(result);
-    else if (result === -1) {
+    else {
         res.sendStatus(500)
     }
+}
+
+const getAllVisible = async (req, res) => {
+    const result = await userModel.findVisible();
+    if (typeof result === 'object')
+        res.json(result);
     else {
-        res.sendStatus(404)
+        res.sendStatus(500)
     }
 }
 
 const getOne = async (req, res) => {
     const id = req.params.id;
     const result = await userModel.findOne(id);
-    if (result && result !== -1)
-        res.json(result[0]);
-    else if (result === -1) {
-        res.sendStatus(500)
+    if (typeof result === 'object') {
+        if (result.length > 0)
+            res.json(result[0]);
+        else
+            res.sendStatus(404)
     }
+
     else {
-        res.sendStatus(404)
+        res.sendStatus(500)
     }
 }
 
@@ -76,20 +87,21 @@ const addOne = async (req, res) => {
         email
     )
     const result = await userModel.addUser(payload);
-    if (result) {
+    if (typeof result !== 'object') {
         if (result === -2) {
             return res.sendStatus(409);
         }
-        //Create userfolder
-        createSubUpload(`users/${result.id}`);
-        res.status(201).json(result);
+        else
+            return res.sendStatus(500);
     }
     else {
-        res.sendStatus(500)
+        createSubUpload(`users/${result.id}`);
+        res.status(201).json(result);
     }
 }
 
 const updateUser = async (req, res) => {
+    const avatar=null; //will come from multer
     const errors = validate(req.body, false);
     if (errors) {
         const error = errors.details[0].message;
@@ -99,7 +111,7 @@ const updateUser = async (req, res) => {
     if (id === 0 || isNaN(id)) {
         return res.status(422).send('bad Id');
     }
-    const { password, firstname, lastname, email, login, rank } = req.body;
+    const { password, firstname, lastname, email, login, rank,isVisible,allow } = req.body;
     let encryptedPassword = '';
     if (password) {
         encryptedPassword = await encrypt(password);
@@ -107,6 +119,8 @@ const updateUser = async (req, res) => {
     else {
         encryptedPassword = undefined;
     }
+    const userVisible=(typeof isVisible==='undefined'?null:isVisible);
+    const userAllow=(typeof allow==='undefined'?null:allow);
     const payload = new User(
         firstname,
         lastname,
@@ -114,18 +128,20 @@ const updateUser = async (req, res) => {
         encryptedPassword,
         rank,
         email,
+        userVisible,
+        avatar,
+        userAllow,
         id
     )
     const result = await userModel.updateUser(payload);
-    if (result && result !== -1) {
-        res.sendStatus(204);
+    if (typeof result === 'object') {
+        if (result.result)
+            res.sendStatus(204);
+        else
+            return res.sendStatus(404)
     }
-    else if (result === -1) {
+    else
         res.sendStatus(500);
-    }
-    else {
-        res.sendStatus(404)
-    }
 }
 
 const deleteUser = async (req, res) => {
@@ -134,7 +150,10 @@ const deleteUser = async (req, res) => {
         return res.status(422).send('bad Id');
     }
     const result = await userModel.deleteUser(id);
-    if (result && result !== -1) {
+    if (result.error===0) {
+        if (!result.result){
+            return res.sendStatus(404);
+        }
         //unlink userfolder  
         try {
             const dirPath = path.join(__dirname, '..', 'assets', 'uploads', 'users', id.toString());
@@ -148,12 +167,8 @@ const deleteUser = async (req, res) => {
         }
         res.sendStatus(204);
     }
-    else if (result === -1) {
+    else 
         res.sendStatus(500);
-    }
-    else {
-        res.sendStatus(404)
-    }
 }
 
 const addModelStock = async (req, res) => {
@@ -165,15 +180,13 @@ const addModelStock = async (req, res) => {
     }
     const { user, model } = req.body;
     const result = await userModel.addModelInStock(user, model);
-    if (result && result !== -1) {
-        const modelResult=await userModel.getModelStockInfoById(result);
+
+    if (result.error===0) {
+        const modelResult = await userModel.getModelStockInfoById(result.result);
         return res.status(201).json(modelResult);
     }
-    else if (result === -1)
-        return res.sendStatus(500);
     else
-        return res.sendStatus(404);
-
+        return res.sendStatus(500);
 }
 
 const updateRank = async (req, res) => {
@@ -189,13 +202,14 @@ const updateRank = async (req, res) => {
         return res.sendStatus(422);
     const id = parseInt(req.params.id, 10);
     const result = await userModel.updateRank(id, req.body.rank);
-    if (result && result !== -1) {
-        return res.sendStatus(204);
+    if (result.error===0) {
+        if(result.result)
+            return res.sendStatus(204);
+        else   
+            return res.sendStatus(404);
     }
-    else if (result === -1)
-        return res.sendStatus(500);
     else
-        return res.sendStatus(404);
+        return res.sendStatus(500);
 }
 
 const deleteModel = async (req, res) => {
@@ -224,8 +238,11 @@ const deleteModel = async (req, res) => {
         }
     }
     const resultDelete = await userModel.deleteModelStock(modelId);
-    if (resultDelete && resultDelete !== -1) {
-        return res.sendStatus(204);
+    if (resultDelete.error===0) {
+        if(resultDelete.result)
+            return res.sendStatus(204);
+        else
+            return satisfies.sendStatus(404);
     }
     else if (result === -1) {
         res.sendStatus(500);
@@ -235,13 +252,26 @@ const deleteModel = async (req, res) => {
     }
 }
 
+const uploadAvatar=async(req,res)=>{
+    const setAvatar=await userModel.updateAvatar(req.fileName,req.user.user_id);
+    if(setAvatar.error===0){
+        if(setAvatar.result)
+            return res.sendStatus(204);
+        else
+            return res.sendStatus(404);
+    }
+    return res.sendStatus(500);
+}
+
 module.exports = {
-    getAll,
-    getOne,
-    addOne,
-    updateUser,
-    deleteUser,
-    addModelStock,
-    updateRank,
-    deleteModel,
+    getAll,  //OK
+    getAllVisible,
+    getOne, //OK
+    addOne, //OK
+    updateUser, //OK
+    deleteUser, //OK
+    addModelStock, //OK
+    updateRank, //OK
+    deleteModel, //A tester
+    uploadAvatar,
 }
