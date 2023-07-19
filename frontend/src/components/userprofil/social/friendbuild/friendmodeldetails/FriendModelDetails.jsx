@@ -57,7 +57,6 @@ const FriendModelDetails = () => {
             })
             .catch((err)=>{
                 toast.error('Une erreur est survenue');
-                console.log(err);
             })
     }
 
