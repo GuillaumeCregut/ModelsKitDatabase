@@ -61,7 +61,7 @@ const getFriendModelDetails=async(id, idFriend)=>{
 }
 
 const getModelMessage=async(id)=>{
-    const dbResult=await dbquery('get','SELECT mm.id,mm.date_message as dateMessage, mm.message,u.firstname,u.lastname,u.id as userId,u.avatar FROM model_message mm INNER JOIN user u ON mm.fk_author=u.id WHERE fk_model=?',[id]);
+    const dbResult=await dbquery('get','SELECT mm.id,mm.date_message as dateMessage, mm.message,u.firstname,u.lastname,u.id as userId,u.avatar FROM model_message mm INNER JOIN user u ON mm.fk_author=u.id WHERE fk_model=? ORDER BY mm.date_message DESC, id DESC',[id]);
     return dbResult;
 }
 
