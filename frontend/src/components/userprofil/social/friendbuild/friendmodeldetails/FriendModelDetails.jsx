@@ -4,10 +4,9 @@ import useAxiosPrivate from '../../../../../hooks/useAxiosPrivate';
 import { toast } from 'react-toastify';
 import { AwaitLoad } from '../../../../awaitload/AwaitLoad';
 import Zoom from 'react-medium-image-zoom';
-import FriendBuildMessage from './FriendBuildMessage';
+import FriendBuildMessage from '../../../../friendbuildmessage/FriendBuildMessage';
 import { TextareaAutosize } from '@mui/base';
 import { Button } from '@mui/material';
-import useAuth from '../../../../../hooks/useAuth';
 
 import './FriendModelDetails.scss';
 
@@ -18,7 +17,7 @@ const FriendModelDetails = () => {
     const { state } = useLocation();
     const axiosPrivate = useAxiosPrivate();
     const textRef = useRef();
-    const {auth}=useAuth();
+    const [reload, setReload]=useState(false);
 
     const urlDetail = `${import.meta.env.VITE_APP_URL}`;
     console.log(state)
@@ -40,14 +39,34 @@ const FriendModelDetails = () => {
                 })
         }
         getModelDetails();
-    }, []);
+    }, [reload]);
 
     const handleClick = () => {
-
+        const message = textRef.current.value;
+        if (message === '') {
+            toast.warning('Veuillez saisir votre message');
+            return
+        }
+        const payload={
+            message,
+            idModel:details.id
+        }
+        axiosPrivate
+            .post(`${import.meta.env.VITE_APP_API_URL}messages/models/${state.friendId}`,payload)
+            .then((resp)=>{
+                textRef.current.value='';
+                setReload(!reload);
+            })
+            .catch((err)=>{
+                toast.error('Une erreur est survenue');
+                console.log(err);
+            })
     }
 
     return (
-        <div className='friend-model-details-container'>{loaded
+        <div className='friend-model-details-container'>
+            <p className='history-back'><Link to={`../amis/montages-amis/${state.friendId}`}>Retour</Link></p>
+            {loaded
             ? (
                 !error
                     ? (<div>
@@ -91,7 +110,6 @@ const FriendModelDetails = () => {
             )
             : <AwaitLoad />
         }
-            <p><Link to={`../amis/montages-amis/${state.friendId}`}>Retour</Link></p>
         </div>)
 }
 
