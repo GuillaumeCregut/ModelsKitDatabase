@@ -15,3 +15,5 @@ join  country  co on bu.country=co.id
 join state st on mu.state=st.id
 join category c on m.category = c.id
 left join provider pr on mu.provider = pr.id;
+
+ALTER TABLE `user` ADD `pwdTokenDate` DATETIME NULL AFTER `pwdtoken`;
