@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { toast } from 'react-toastify';
 import { IconButton } from '@mui/material';
 import { MdVisibilityOff, MdVisibility, MdLogin } from "react-icons/md";
@@ -41,7 +41,7 @@ const Login = () => {
                 .then((resp) => {
                     if (resp?.data) {
                         const token = resp.data?.accessToken;
-                        var decoded = jwt_decode(token);
+                        var decoded = jwtDecode(token);
                         const user = {
                             firstname: decoded.firstname,
                             lastname: decoded.lastname,
