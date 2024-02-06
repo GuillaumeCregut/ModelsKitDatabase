@@ -31,7 +31,7 @@ const ScaleSelector = ({ id, selectedScale, setSelectedScale }) => {
     return (
         <Select
             id={id}
-            value={selectedScale}MenuItem
+            value={selectedScale}
             onChange={(e) => setSelectedScale(e.target.value)}
             className='scale-selector'
         >

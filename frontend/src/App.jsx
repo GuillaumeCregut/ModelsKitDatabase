@@ -29,7 +29,7 @@ import RequireAuth from './components/requireauth/RequireAuth';
 import ranks from './feature/ranks';
 import useAuth from './hooks/useAuth';
 import axios from 'axios';
-import jwt_decode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import kitState from './feature/kitState';
 /*User profil components */
 import UserData from './components/userprofil/userdata/UserData';
@@ -89,7 +89,7 @@ function App() {
         .then((resp) => {
           const token = resp.data?.accessToken;
           if (token) {
-            var decoded = jwt_decode(token);
+            var decoded = jwtDecode(token);
             const user = {
               firstname: decoded.firstname,
               lastname: decoded.lastname,

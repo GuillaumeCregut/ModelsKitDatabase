@@ -111,7 +111,7 @@ const findAllUser = async (id) => {
 }
 
 const findOne=async(id)=>{
-    const dbOrders = await dbquery('get', 'SELECT o.provider, o.owner,o.reference,od.dateOrder, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.reference=?',[id]);
+    const dbOrders = await dbquery('get', 'SELECT o.provider, o.owner,o.reference,o.dateOrder, p.name FROM orders o INNER JOIN provider p ON o.provider=p.id WHERE o.reference=?',[id]);
     if (dbOrders.error===0) {
         const orderList = dbOrders.result.map((order) => {
             let dateLine=null;

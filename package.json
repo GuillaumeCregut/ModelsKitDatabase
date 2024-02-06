@@ -18,11 +18,13 @@
   "author": "G. Cregut",
   "license": "MIT",
   "devDependencies": {
-    "commitizen": "^4.3.0",
-    "concurrently": "^8.0.1",
+    "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "inquirer": "^9.2.5",
+    "inquirer": "^9.2.14",
     "standard-version": "^9.5.0"
+  },
+  "dependencies": {
+    "commitizen": "^4.3.0"
   }
 }
